@@ -1,0 +1,90 @@
+<!-- <view class="body-head" bindtap="checkAll">
+  <image class="head-xuan" src="{{resources}}/images/{{checkAllStatus?'2':'1'}}.png" ></image>
+  <text class="tab-bottom-text">全选</text>
+</view> -->
+<view class="toast_content_box" wx:if="{{isShowToast}}">
+  <view class="toast_content">
+    <view class="toast_content_text">
+      {{tip}}
+    </view>
+  </view>
+</view>
+<form bindsubmit="formBindsubmit" bindreset="formReset">
+  <input type="text" hidden="false" name="appid" value="{{appid}}" />
+  <input type="text" hidden="false" name="openid" value="{{openid}}" />
+  <view class="body-tab">
+    <checkbox-group bindchange="checkboxChange" name="cartvalues">
+      <block wx:for="{{carts}}" wx:for-index="idx" wx:key="key">
+        <view class="tab-body">
+          <view class="tab-body-1">
+            <view class="tab-xuan">
+              <label class="checkbox">
+                <checkbox value="{{item.id}}" checked="{{item.checked}}" hidden="false" />
+                <image style="height: 40rpx;width: 40rpx;" src="{{resources}}/images/{{item.checked?'2':'1'}}.png"></image>
+              </label>
+            </view>
+            <view class="tab-img">
+              <image style="height: 220rpx;width: 220rpx;" src="{{item.img}}"></image>
+              <image class="nei-img1" wx:if="{{item.buzu==1}}" src="{{resources}}/images/库存不足.png"></image>
+            </view>
+            <view class="tab-title">
+              <view class="tab-title-1">
+                <view class="tab-title-1-1">
+                  {{item.title}}
+                </view>
+                <view class="tab-title-1-2" data-index="{{idx}}" data-id="{{item.id}}" bindtap="dialogDelete">
+
+                  <image class="delete-img" src="{{resources+'/images/dishanchu.png'}}"></image>
+                  <view class="delete-view">删除</view>
+                </view>
+              </view>
+              <view style="font-size:10pt;color:#989898">
+                规格：{{item.guigename}}
+              </view>
+              <view style='display:flex;align-items: center; justify-content: space-between;margin:20rpx 0 0 0;padding:0 20rpx 0 0 '>
+                <view style=" ">
+                  <text style="font-size: 17px;color: #9a8c65">￥{{item.price2}}</text>
+                  <!-- <text style="font-size: 17px;color: #9a8c65" wx:if="{{item.baoshuiqu==1&&item.baoshui==1}}">￥{{item.shuihoujia}}</text>
+                <block wx:if="{{item.baoshuiqu==1}}">
+                  <text style="float: right;font-size: 22rpx;color:#989898;margin-top:2%;margin-right: 20rpx;" wx:if="{{item.baoshui==1}}">包税</text>
+                  <text style="float: right;font-size: 22rpx;color:#989898;margin-top:2%;margin-right: 20rpx;" wx:else="{{item.baoshui==0}}">税金：￥{{item.shuijia}}</text>
+                </block> -->
+                </view>
+                <view class="tab-title-2">
+                  <view class="guige-num">
+                    <view class="guige-num-kong1" id="{{item.id}}" bindtap="{{item.num<=1?'least':'subNum'}}">-</view>
+                    <view class="guige-num-kong2">{{item.num}}</view>
+                    <view class="guige-num-kong1" id="{{item.id}}" bindtap="{{item.num<item.kucun?'addNum':'most'}}">+</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </checkbox-group>
+  </view>
+
+  <view class="page__bd">
+    <modal title="确认" confirm-text="确定" data-id="{{cartid}}" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirmDelete" bindcancel="cancelDelete">
+      确认删除吗？
+    </modal>
+  </view>
+
+  <view class="clear-body"></view>
+  <view class="body-bottom">
+    <view class="body-head" bindtap="checkAll">
+      <image class="head-xuan" src="{{resources}}/images/{{checkAllStatus?'2':'1'}}.png"></image>
+      <text class="tab-bottom-text">全选</text>
+    </view>
+    <view class="body-bottom-1">
+      <view class='total-price'>
+        <text class="bottom-text1">合计：</text>
+        <text class="bottom-text2">￥{{allprice}}</text>
+      </view>
+      <text class="bottom-text3">含税金</text>
+    </view>
+
+    <button class="body-bottom-2" form-type="submit">结算</button>
+  </view>
+</form>

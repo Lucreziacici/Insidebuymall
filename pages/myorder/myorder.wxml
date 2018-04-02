@@ -1,0 +1,229 @@
+<!--现206行  -->
+<view class="head-nav">
+  <view class="nav-1">
+    <view class="nav-{{currentTab==0?'hover':'sty'}}" data-current="0" bindtap="allorder">全部订单</view>
+  </view>
+  <view class="nav-2">
+    <view class="nav-{{currentTab==1?'hover':'sty'}}" data-current="1" bindtap="myorder1">待付款</view>
+  </view>
+  <view class="nav-2">
+    <view class="nav-{{currentTab==2?'hover':'sty'}}" data-current="2" data-key="待发货" bindtap="myorder2">待发货</view>
+  </view>
+  <view class="nav-2">
+    <view class="nav-{{currentTab==3?'hover':'sty'}}" data-current="3" data-key="已发货" bindtap="myorder2">已发货</view>
+  </view>
+  <view class="nav-2">
+    <view class="nav-{{currentTab==4?'hover':'sty'}}" data-current="4" data-key="已完成" bindtap="myorder2">已完成</view>
+  </view>
+  <view class="nav-2">
+    <view class="nav-{{currentTab==5?'hover':'sty'}}" data-current="5" data-key="退款" bindtap="myorder3">退款</view>
+  </view>
+</view>
+ <view class="toast_content_box" wx:if="{{isShowToast}}">
+    <view class="toast_content">
+      <view class="toast_content_text">
+        {{tip}}
+      </view>
+    </view>
+  </view>
+<block wx:for="{{orders}}" wx:if="{{orders.length>0}}" wx:key="id">
+ 
+  <view class="nei">
+  <navigator  url="../order/order?oid={{item.oid}}">
+    <view class="nei-head">
+      <view class="nei-head-1">
+        <text>订单号:</text>
+        <text>{{item.oid}}</text>
+        <image class="nei-img" src="{{url1+'/images/8.png'}}"></image>
+      </view>
+      <view class="nei-head-2">
+        <text wx:if="{{item.status=='已下架'}}">已下架</text>
+        <text wx:if="{{item.status=='待付款'}}">待付款</text>
+        <text wx:if="{{item.status=='已付款'&&item.tuikuan==0}}">{{item.fhstatus}}</text>
+         <text wx:if="{{item.status=='已付款'&&item.tuikuan==1}}">{{item.tkstatus}}</text>
+      </view>
+    </view>
+    </navigator>
+    <view class="body" wx:if="{{item.bufenfahuo==0}}">
+      <view class="body-sp" wx:for="{{item.order1s}}" wx:key="id" wx:for-index="i">
+     
+        <view class="body-sp1">
+         <navigator url="../product/product?id={{item.pid}}">
+          <image style="height: 200rpx;width: 200rpx;" src="{{item.img}}"></image>
+           </navigator>
+           <image class="nei-img1" wx:if="{{item.status==100}}" src="{{url1}}/images/已下架.png"></image>
+          
+        </view>
+        
+        <view class="body-sp2">
+          <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
+          <view class="sp1-2">
+            <text style="font-size: 17px;color:#9a8c65; text-align:left;" >￥{{item.price2}}</text>
+           <!--<text style="font-size: 17px;color:#ff0000" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
+            <block wx:if="{{item.baoshui==1}}">
+              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
+              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
+            </block>-->
+          </view>
+          <view class="sp1-3" style="color:#5b5a5a;">规格：{{item.guigename}}</view>
+          <view class="sp1-4" style="color:#5b5a5a;">x{{item.num}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="body" wx:if="{{item.bufenfahuo==1}}">
+      <block wx:for="{{item.order3s}}" wx:key="key">
+        <view class="body-sp" wx:for="{{item.order1s}}" wx:key="id" wx:for-index="i">
+          
+          <view class="body-sp1">
+          <navigator url="../product/product?id={{item.pid}}">
+            <image style="height: 200rpx;width: 200rpx;" src="{{item.img}}"> </image>
+          </navigator>
+          </view>
+          
+          <view class="body-sp1">
+            <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
+            <view class="sp1-2">
+              <text style="font-size: 17px;color: #9a8c65; text-align:lift;" >￥{{item.price2}}</text>
+               <!--<text style="font-size: 17px;color:#fe0606" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
+              <block wx:if="{{item.baoshui==1}}">
+                <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
+                <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
+              </block>-->
+            </view>
+            <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
+            <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>
+          </view>
+        </view>
+        <view class="body-jiage">
+          <view class="body-button" wx:if="{{item.fhstatus=='已发货'}}" data-id='{{item.id}}' data-class='发货3'  bindtap='queren'>
+            <text class="button-text">确认收货</text>
+          </view>
+          <navigator url="../wuliu/wuliu?id={{item.id}}&key=1">
+           <view class="body-button" wx:if="{{item.fhstatus=='已完成'}}">
+            <text class="button-text">查看物流</text>
+          </view>
+          </navigator>
+          <navigator url="../wuliu/wuliu?id={{item.id}}&key=1">
+          <view class="body-button" wx:if="{{item.fhstatus=='已发货'}}">
+            <text class="button-text">查看物流</text>
+          </view>
+          </navigator>
+        </view>
+      </block>
+
+      <view class="body-sp" wx:for="{{item.order1s}}" wx:key="id" wx:for-index="i">
+        
+        <view class="body-sp1">
+         <navigator url="../product/product?id={{item.pid}}"> 
+          <image style="height: 200rpx;width: 200rpx;" src="{{item.img}}"> </image>
+          </navigator>
+        </view>
+         
+        <view class="body-sp1">
+          <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
+          <view class="sp1-2">
+            <text style="font-size: 17px;color:#fe0606; text-align:lift;">￥{{item.price2}}</text>
+            <!-- <text style="font-size: 17px;color:#fe0606" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
+            <block wx:if="{{item.baoshui==1}}">
+              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
+              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
+            </block> -->
+          </view>
+          <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
+          <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>
+        </view>
+      </view>
+
+    </view>
+<view class="body">
+    <view class="body-bz">
+      <view class="bady-bz-1">
+        邮费
+      </view>
+      <view class="bady-bz-3" wx:if="{{item.baoyou==0}}">
+        ￥{{item.postfee}}
+      </view>
+      <view class="bady-bz-3" wx:if="{{item.baoyou!=0}}">
+        包邮
+      </view>
+    </view>
+    <view class="body-bz">
+      <view class="bady-bz-1">
+        优惠
+      </view>
+      <view class="bady-bz-3" >
+        ￥{{item.youhui}}
+      </view>
+    </view>
+    <view class="body-bz">
+      <view class="bady-bz-1">
+        税金
+      </view>
+      <view class="bady-bz-3" >
+        ￥{{item.allshui}}
+      </view>
+    </view>
+     <view class="body-bz">
+      <view class="bady-bz-1">
+        
+      </view>
+      <view class="bady-bz-3" >
+      <text style='color:#9a8c65; float: right'>￥{{item.shifu}}</text>共计：
+      </view>
+    </view>
+</view>
+    <view class="body-jiage">
+      <view class="body-button" wx:if="{{item.status=='已付款'&&item.fhstatus=='待发货'&&item.tuikuan==0}}" data-class='退款' data-id='{{item.oid}}' bindtap='queren'>
+        <text class="button-text">退款</text>
+      </view>
+      <view class="body-button" wx:if="{{item.fhstatus=='已发货'&&item.bufenfahuo==0}}" data-id="{{item.oid}}" data-class='发货' bindtap='queren'>
+        <text class="button-text">确认收货</text>
+      </view>
+      <navigator url="../wuliu/wuliu?id={{item.id}}&key=0">
+      <view class="body-button" wx:if="{{item.fhstatus=='已发货'&&item.bufenfahuo==0}}">
+        <text class="button-text">查看物流</text>
+      </view>
+      </navigator>
+      <navigator url="../wuliu/wuliu?id={{item.id}}&key=0">
+      <view class="body-button" wx:if="{{item.fhstatus=='已完成'&&item.bufenfahuo==0}}">
+        <text class="button-text">查看物流</text>
+      </view>
+      </navigator>
+      <view class="body-button" wx:if="{{item.status=='待付款'||item.status=='已下架'}}" data-id='{{item.oid}}' data-class='删除'  bindtap='queren'>
+        <text class="button-text">删除订单</text>
+      </view>
+     
+        <view class="body-button" wx:if="{{item.status=='待付款'}}" id='{{item.oid}}' bindtap='fukuan' >
+          <text class="button-text">付款</text>
+        </view>
+      
+    </view>
+  </view>
+</block>
+<block wx:if="{{orders.length==0}}" >
+<image class="img-1" src="{{url1}}/images/无订单.png"></image>
+<view class='view_mo'>
+<text class='text_mo'>你还没有相关订单</text>
+</view>
+</block>
+<view class="page__bd">
+    <modal title="确认" confirm-text="确定" data-id="{{cartid}}" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirm_one" bindcancel="cancel_one">
+      {{tip}}
+    </modal>
+</view>
+<!--快捷导航栏  -->
+<view>
+  <view wx:if="{{isShowModal}}" class='modalbg' bindtap="plus">
+  </view>
+  <image src="/images/plus.png" wx:if="{{!isShowModal}}" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/images/close.png" wx:else class="img-plus-style img-plus-style-active" animation="{{animPlus}}" bindtap="plus"></image>
+  <view class="img-style" animation="{{animTranspond}}" bindtap="collect">
+  <image src="/images/collect.png" ></image>
+  </view>
+   <view class="img-style" animation="{{animCollect}}" bindtap="transpond">
+  <image src="/images/transpond.png" ></image>
+  </view>
+  <view class="img-style" animation="{{animInput}}" bindtap="input">
+  <image src="/images/input.png" ></image>
+  </view>
+</view>

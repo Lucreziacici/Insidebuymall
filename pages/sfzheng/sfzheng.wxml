@@ -1,0 +1,33 @@
+<view class='top'>
+身份证信息
+</view>
+<view>
+<form bindsubmit="formBindsubmit" bindreset="formReset">
+<view class='page_1'>
+  <view class="flex-wrp"  style="flex-direction:row;">
+    <view class="flex-item-1">
+      姓名：
+    </view>
+    <view class="flex-item-2 ">
+     <input type="text" class="body-dizhi-input1" name="name" auto-focus="true" placeholder="请填写真实姓名" />
+    </view>
+  </view>
+  <view class="flex-wrp2"  style="flex-direction:row;">
+    <view class="flex-item-1">
+      身份证号：
+    </view>
+    <view class="flex-item-2 ">
+      <input type="text" class="body-dizhi-input1" maxlength='18' name="shen"  placeholder="请填写身份证号" />
+    </view>
+  </view>
+</view>
+<button class="body-submit" formType="submit">确认</button>
+</form>
+</view>
+ <view class="toast_content_box" wx:if="{{isShowToast}}">
+    <view class="toast_content">
+      <view class="toast_content_text">
+        {{tip}}
+      </view>
+    </view>
+  </view>

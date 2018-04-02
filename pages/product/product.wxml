@@ -1,0 +1,151 @@
+<!--product.wxml
+    删减四十行 by xixi
+-->
+<import src="../../wxParse/wxParse.wxml" />
+<view class='commodity-box' style='height: {{srollHeight}}px;'>
+  <!--轮播图  -->
+  <swiper class="commodity-swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{swiperImages}}" wx:for-index="index">
+      <swiper-item>
+        <image src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <!--tip  -->
+  <view class="toast_content_box" wx:if="{{isShowToast}}">
+    <view class="toast_content">
+      <view class="toast_content_text">
+        {{tip}}
+      </view>
+    </view>
+  </view>
+  <!--商品信息  -->
+  <view class="commodity-message white">
+    <text class=' commodity-title'>{{product.title}}</text>
+    <text class='commodity-description'>{{product.miaoshu}}</text>
+    <view class='commodity-price'>￥{{product.price2}}</view>
+  </view>
+  <!--商品信息  -->
+  <view class="white commodity-info">
+    <view class='commodity-info-title'>商品信息</view>
+    <view class=" commodity-info-list">
+      <view class=" commodity-info-item">
+        <text>品牌：</text>
+        <text>{{product.pinpai}}</text>
+      </view>
+      <view class=" commodity-info-item">
+        <text>发货时间：</text>
+        <text>1-3个工作日</text>
+      </view>
+      <view class="commodity-info-item">
+        <text>发货地：</text>
+        <text>{{product.fahuodi}}</text>
+      </view>
+      <view class="commodity-info-item" data-type='2' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">
+        <text>选择规格</text>
+        <image src="{{resources+'/images/箭头.png'}}"></image>
+      </view>
+    </view>
+  </view>
+  <!--商品详情  -->
+  <view class="white commodity-info">
+    <view class="commodity-info-title">
+      商品详情
+    </view>
+    <view class='rich-text'>
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+  </view>
+</view>
+<view class='xiajia' wx:if="{{product.shangjia=='已下架'}}">
+  <text>商品已下架</text>
+</view>
+<!--底部按钮 分开判断居然就是为了分身份，很奇怪，写在一个方法里不就好了，删掉删掉 重写吧orz-->
+<view class='commodity-bottom white'>
+  <view class='commodity-navigation-buttons'>
+    <navigator url='/pages/index/index' class='cell' open-type='switchTab'>
+      <image src="{{resources+'/images/home.png'}}"></image>
+      <text>首页</text>
+    </navigator>
+    <navigator url='/pages/cart/cart' class='cell' open-type='switchTab'>
+      <image src="{{resources+'/images/cart.png'}}"></image>
+      <text>购物车</text>
+    </navigator>
+    <view class='cell'>
+      <contact-button type="default-dark" size="23" session-from="weapp"></contact-button>
+      <text class="body-goumai-1-text">客服</text>
+    </view>
+  </view>
+  <view class='buy-button'>
+    <view class='add-to-cart' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='0' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">加入购物车</view>
+    <view class='add-to-cart' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+
+    <view class='buy-now' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='1' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">立即购买</view>
+    <view class='buy-now' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+  </view>
+
+</view>
+<!--快捷导航栏  -->
+<view>
+  <view wx:if="{{isShowModal}}" class='modalbg' bindtap="plus">
+  </view>
+  <image src="/images/plus.png" wx:if="{{!isShowModal}}" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/images/close.png" wx:else class="img-plus-style img-plus-style-active" animation="{{animPlus}}" bindtap="plus"></image>
+  <view class="img-style" animation="{{animTranspond}}" bindtap="collect">
+    <image src="/images/collect.png"></image>
+  </view>
+  <view class="img-style" animation="{{animCollect}}" bindtap="transpond">
+    <image src="/images/transpond.png"></image>
+  </view>
+  <view class="img-style" animation="{{animInput}}" bindtap="input">
+    <image src="/images/input.png"></image>
+  </view>
+</view>
+<!--下单弹框  -->
+<view class="widgets-cover widgets-cover-{{widgets?'hide':'show'}}">
+  <view class="cover-bg" bindtap="onChangeShowState"></view>
+  <view class="cover-content">
+    <view class="cover-header">
+      <image src="{{product.img}}"></image>
+      <view class="main-message">
+        <text class="main-message-price">￥{{product.price2}}</text>
+        <text class="main-message-title">{{product.title}}</text>
+        <text class="main-message-repertory">库存：{{repertory}}件</text>
+      </view>
+    </view>
+    <view class='cover-body'>
+      <view class='message-box'>
+        <view class='message-box-title'>选择规格</view>
+        <view class='message-box-specification'>
+          <view class="guige-body1-rudio" wx:for="{{guiges}}" wx:key="id" wx:for-index="i">
+            <view class="specification-button specification-{{currentTab==item.id ? 'actived' : 'unactivated'}}" data-id="{{item.id}}" data-bianma="{{item.name}}" data-repertory="{{item.kucun}}" data-name="{{item.name}}" catchtap="{{item.kucun>0 ? 'rudioChoose' : ''}}">
+              <text class="rudio-text1">{{item.name}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='message-box message-num'>
+        <view class='message-box-title'>数量</view>
+        <view class='message-box-specification'>
+          <view class="message-num-machine">
+            <view class="message-num-sub" data-num="{{quantity}}" catchtap="{{quantity<='1'?'':'subNum'}}">-</view>
+            <view class="message-num-num">{{quantity}}</view>
+            <view class="message-num-add" data-num="{{quantity}}" catchtap="{{quantity<repertoryMax?'addNum':''}}">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{isAddCart==0||isAddCart==1}}" class="cover-footer" catchtap="{{isAddCart=='0'?'addcart':'addorder'}}">
+      <text>确认</text>
+    </view>
+    <view wx:else class="cover-footer-choose">
+      <view class='buy-button'>
+        <view class='add-to-cart' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='0' bindtap="{{product.shangjia=='已下架'?'':'addcart'}}">加入购物车</view>
+        <view class='add-to-cart' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+
+        <view class='buy-now' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='1' bindtap="{{product.shangjia=='已下架'?'':'addorder'}}">立即购买</view>
+        <view class='buy-now' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+      </view>
+    </view>
+  </view>
+</view>

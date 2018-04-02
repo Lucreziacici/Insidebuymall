@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view>
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{banners}}" wx:for-index="index">
+      <swiper-item>
+        <image src="{{item.img}}"  class="slide-image" mode="aspectFill" bindtap="gourl"/>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+
+
+
+<view class="fenge"></view>
+<!--导航菜单-->
+
+<!--循环-->
+<scroll-view class="scroll-view_H scroll-daohang" scroll-x="true">
+  <view wx:for="{{navbar}}" id="{{item.id}}" data-idx="{{index}}" wx:key="unique" class="scroll-view-item_F" bindtap="navbarTap">
+    <view class="item {{currentTab==index ? 'active' : ''}}">
+      {{item.name}}
+    </view>
+  </view>
+</scroll-view>
+
+<!--分类-->
+
+<view class="clearfix">
+  <block wx:for="{{products}}" wx:key="key">
+   <navigator url="../product/product?id={{item.id}}">
+    <view class="tuijian-bodynei">
+        <image class="tuijian-img" src="{{item.img}}"></image>
+        <view class="tuijian-text">
+          <view class="tuijian-text0">
+            <text class="tuijian-text1">{{item.title}}</text>
+            <text class="tuijian-text2">{{item.miaoshu}}</text>
+            <text class="tuijian-text3">￥{{item.price1}}</text>
+          </view>
+        </view>
+    </view>
+    </navigator>
+  </block>
+</view>
+<view class="buttom_1">
+ <navigator  url="../allproducts/allproducts">
+    <image class="buttom_1_image" src="{{url1+'/images/gd.png'}}"></image>
+  </navigator>
+</view>

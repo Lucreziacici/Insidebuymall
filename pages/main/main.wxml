@@ -1,0 +1,91 @@
+<!--index.wxml-->
+<view class="container">
+  <!--轮播  -->
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-color="#eff5f5" indicator-active-color="#fa4686" interval="{{interval}}" duration="{{duration}}" class='swiper'>
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <navigator url="{{item.link}}">
+          <image src="{{item.src}}" class="slide-image" />
+        </navigator>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!--导航菜单  -->
+  <view class='navigation'>
+    <block wx:for="{{navigation}}">
+      <navigator class='navigation-item' url="{{item.link}}">
+        <image src="{{item.src}}"></image>
+        <text>{{item.title}}</text>
+      </navigator>
+    </block>
+  </view>
+  <!--专题  -->
+  <view class="special">
+    <view class='special-title'>
+      <view class='special-line'></view>
+      <text>新品推荐</text>
+      <view class='special-line'></view>
+    </view>
+    <view class='special-img'>
+      <image src='../../images/recommend-main.jpg'></image>
+    </view>
+    <scroll-view scroll-x class='special-master-item'>
+      <view class='special-box'>
+        <block wx:for="{{special}}">
+          <navigator url="{{item.link}}" class='special-navigation'>
+            <view class='special-master-img'>
+              <image src="{{item.img}}"></image>
+            </view>
+          </navigator>
+        </block>
+      </view>
+    </scroll-view>
+
+  </view>
+  <view class="special">
+    <view class='special-title'>
+      <view class='special-line'></view>
+      <text>护肤推荐</text>
+      <view class='special-line'></view>
+    </view>
+    <view class='special-img'>
+      <image src='../../images/recommend-main.jpg'></image>
+    </view>
+    <scroll-view scroll-x class='special-master-item'>
+      <view class='special-box'>
+        <block wx:for="{{special}}">
+          <navigator url="{{item.link}}" class='special-navigation'>
+            <view class='special-master-img'>
+              <image src="{{item.img}}"></image>
+            </view>
+          </navigator>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <view class="special">
+    <view class='special-title'>
+      <view class='special-line'></view>
+      <text>美妆推荐</text>
+      <view class='special-line'></view>
+    </view>
+    <view class='special-img'>
+      <image src='../../images/recommend-main.jpg'></image>
+    </view>
+    <scroll-view scroll-x class='special-master-item'>
+      <view class='special-box'>
+        <block wx:for="{{special}}">
+          <navigator url="{{item.link}}" class='special-navigation'>
+            <view class='special-master-img'>
+              <image src="{{item.img}}"></image>
+            </view>
+          </navigator>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='logo-font'>
+     <image src='../../images/logo.png'></image>
+  </view>
+
+</view>

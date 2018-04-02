@@ -1,0 +1,140 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.91",
+	"appid": "wx56cdb2dddcd85394",
+	"projectname": "%E5%86%85%E8%B4%AD",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "先加一个首页",
+					"pathName": "pages/main/main",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "注册",
+					"pathName": "pages/login/login",
+					"query": "?openid=oYGDz0Nkaze9KLz7GiWsjUzHm0Rc"
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "pages/team/team",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "购物车",
+					"pathName": "pages/cart/cart",
+					"query": ""
+				},
+				{
+					"id": 4,
+					"name": "我的地址",
+					"pathName": "pages/addressList/addressList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "下单",
+					"pathName": "pages/final/final",
+					"query": "oid=FX0322134843"
+				},
+				{
+					"id": 6,
+					"name": "新增地址",
+					"pathName": "pages/addAddress/addAddress",
+					"query": ""
+				},
+				{
+					"id": 7,
+					"name": "编辑地址",
+					"pathName": "pages/editAddress/editAddress",
+					"query": "id=1074&openid=oYGDz0Nkaze9KLz7GiWsjUzHm0Rc"
+				},
+				{
+					"id": 8,
+					"name": "商品详情",
+					"pathName": "pages/product/product",
+					"query": "id=572"
+				},
+				{
+					"id": 9,
+					"name": "我的资料",
+					"pathName": "pages/memberInformation/memberInformation",
+					"query": "openid=oYGDz0Nkaze9KLz7GiWsjUzHm0Rc"
+				},
+				{
+					"id": -1,
+					"name": "我的订单",
+					"pathName": "pages/myorder/myorder",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品列表",
+					"pathName": "pages/allproducts/allproducts",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品分类列表",
+					"pathName": "pages/allfenlei/allfenlei",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "商品搜索",
+					"pathName": "pages/allsearch/allsearch",
+					"query": "keyword=1'"
+				},
+				{
+					"id": -1,
+					"name": "订单列表",
+					"pathName": "pages/orderList/orderList",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "订单详情",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "id=1"
+				},
+				{
+					"id": -1,
+					"name": "下单",
+					"pathName": "pages/product/product",
+					"query": "id=405"
+				}
+			]
+		}
+	}
+}

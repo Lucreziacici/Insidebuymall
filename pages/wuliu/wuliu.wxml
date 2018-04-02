@@ -1,0 +1,48 @@
+<view class="body-sp" wx:for="{{order.order1s}}" wx:key="id" wx:for-index="i">
+  <view class="body-sp1">
+    <image style="height: 200rpx;width: 200rpx;" src="{{url1+item.img}}"> </image>
+  </view>
+  <view class="body-sp1">
+    <view class="sp1-1" style="color:#4a4a4a;"><text class='tuijian-text1'>{{item.title}}</text></view>
+    <view class="sp1-2">
+      <text style="font-size: 17px;color: #9a8c65; text-align:lift;" wx:if="{{item.bao==0}}">￥{{item.price1}}</text>
+      <text style="font-size: 17px;color: #9a8c65" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
+      <block wx:if="{{item.baoshui==1}}">
+        <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
+        <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
+      </block>
+    </view>
+    <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
+    <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>
+  </view>
+</view>
+<view class="body">
+  <view class="body-head">
+    <view class="body-head-1">
+      <text class="body-head-text">{{order.postcompany}}</text>
+      <text>物流信息</text>
+    </view>
+  </view>
+
+  <view class='xinxi'>
+    <block wx:for="{{kuaidis}}" wx:key="id" wx:for-index="i">
+     
+      <view class='xinxi-1'> 
+        <view class='xinxi-2'>
+        
+        <image class="nei-img" src="{{url1}}/images/{{item.status=='已签收'?'已签收':'物流'}}.png"></image>
+        <view>
+        <text>{{item.wuliu}}</text>
+        </view>
+        </view>
+        <view class='xinxi-3'>
+          <text>{{item.code}}</text>
+        </view>
+      </view>
+
+    </block>
+  </view>
+
+  
+  <view class="bottom"></view>
+</view>

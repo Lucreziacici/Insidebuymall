@@ -1,0 +1,31 @@
+<view class="member-message">
+  <image  src="{{userInfo.avatarUrl}}"></image>
+  <text class="member-nickname">{{userInfo.nickName}}</text>
+  <text class="member-status">{{team.shstatus}}</text>
+</view>
+<view class="member-list">
+  <navigator class='member-item' url="../myorder/myorder">
+    <view class="member-item-box">
+        <text>我的订单</text>
+        <image src="{{resources+'/images/箭头.png'}}"></image>
+    </view>
+  </navigator>
+</view>
+<view class="member-list">
+  <block wx:for='{{list}}'>
+    <navigator class='member-item' url="{{item.link}}?openid={{openid}}">
+      <view class=" member-item-box">
+          <text>{{item.name}}</text>
+          <image src="{{resources+'/images/箭头.png'}}"></image>
+      </view>
+    </navigator>
+  </block>
+</view>
+<view class="member-list">
+  <view class='member-item'>
+    <view class="member-item-box" bindtap='calling'>
+        <text>联系客服</text>
+        <text>{{admin.kfphone}}</text>
+    </view>
+  </view>
+</view>

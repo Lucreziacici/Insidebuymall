@@ -1,0 +1,78 @@
+<!--pages/orderList/orderList.wxml-->
+<view class='header-tab white'>
+  <block wx:for="{{tabList}}" wx:for-index="idx" wx:key="id">
+    <view class="{{activedTab==idx?'tab-active':''}}" data-id="{{idx}}" bindtap='switchTab'>{{item}}</view>
+  </block>
+</view>
+<scroll-view class='order-list' scroll-y lower-threshold="10" bindscrolltolower="loadMore" style='height: {{srollHeight}}px;'>
+  <view class='order-item white'>
+    <view class='order-item-header'>
+      <navigator url="/pages/orderDetail/orderDetail?id=1" hover-class='none'>
+        <view class='order-status'>待付款</view>
+        <view>
+          <text class='order-orderid'>订单号：fx0327133749</text>
+          <image src="{{resource+'/images/8.png'}}"></image>
+        </view>
+      </navigator>
+    </view>
+    <view class='order-item-body'>
+      <view class='order-item-message'>
+        <navigator  hover-class='none'>
+          <view class='order-product-image'>
+            <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
+          </view>
+          <view class='order-product-message'>
+            <view>Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜</view>
+            <view>规格：草莓清洁面膜</view>
+            <view>￥1</view>
+          </view>
+          <view class='order-product-num'>
+            × 1
+          </view>
+        </navigator>
+      </view>
+      <view class='order-price'>
+        共1件商品 合计:￥
+        <text>20.00</text>(含运费￥20.00)</view>
+    </view>
+    <view class='order-item-footer'>
+      <text>付款</text>
+      <text>删除订单</text>
+    </view>
+  </view>
+  <view class='order-item white'>
+    <view class='order-item-header'>
+      <navigator url="/pages/orderDetail/orderDetail?id=1" hover-class='none'>
+        <view class='order-status'>待付款</view>
+        <view>
+          <text class='order-orderid'>订单号：fx0327133749</text>
+          <image src="{{resource+'/images/8.png'}}"></image>
+        </view>
+      </navigator>
+    </view>
+    <view class='order-item-body'>
+      <view class='order-item-message'>
+        <navigator>
+          <view class='order-product-image'>
+            <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
+          </view>
+          <view class='order-product-message'>
+            <view>Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜</view>
+            <view>规格：草莓清洁面膜</view>
+            <view>￥1</view>
+          </view>
+          <view class='order-product-num'>
+            × 1
+          </view>
+        </navigator>
+      </view>
+      <view class='order-price'>
+        共1件商品 合计:￥
+        <text>20.00</text>(含运费￥20.00)</view>
+    </view>
+    <view class='order-item-footer'>
+      <text>付款</text>
+      <text>删除订单</text>
+    </view>
+  </view>
+</scroll-view>

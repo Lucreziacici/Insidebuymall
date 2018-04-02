@@ -1,0 +1,269 @@
+page {
+  background-color: #e7e7e7;
+}
+
+.body-head {
+  height: 100rpx;
+  width: 200rpx;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.head-xuan {
+  position: relative;
+  height: 40rpx;
+  width: 40rpx;
+  margin:0 10rpx 0  0 ;
+}
+
+.body-tab {
+  width: 100%;
+  background-color: white;
+}
+
+.tab-bottom {
+  position: relative;
+  height: 100rpx;
+  bottom: 0;
+  width: 90%;
+  left: 5%;
+}
+
+.tab-bottom-text {
+  position: relative;
+  font-size: 10pt;
+  color: #989898;
+}
+
+.tab-body {
+  width: 100%;
+  height: 280rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 2rpx solid #e7e7e7;
+}
+
+.tab-body-1 {
+  width: 100%;
+  height: 220rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.tab-xuan {
+  width: 8%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3%;
+}
+
+.tab-img {
+  width: 36%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-title {
+  width: 56%;
+  height: 100%;
+}
+
+.tab-title-1 {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.tab-title-2 {
+  position: relative;
+  /* width: 96%; */
+  height: 30%;
+  font-size: 35rpx;
+  color: #989898;
+  text-align: right;
+}
+
+.tab-title-1-2 {
+  width: 30%;
+  font-size: 31rpx;
+  color: #4a4a4a;
+}
+
+.tab-title-1-1 {
+  width: 70%;
+  font-size: 10pt;
+  color: #4a4a4a;
+  overflow:hidden; 
+text-overflow:ellipsis;
+display:-webkit-box; 
+-webkit-box-orient:vertical;
+-webkit-line-clamp:2; 
+}
+
+.delete-img {
+  position: relative;
+  height: 30rpx;
+  width: 23rpx;
+}
+
+.delete-view {
+  width: 80rpx;
+  float: right;
+  padding-left: 20rpx;
+  font-size: 10pt;
+  color: #989898;
+}
+
+.guige-num {
+  float: right;
+  display: flex;
+  width: 205rpx;
+  height: 50rpx;
+  border: solid 1px #e7e7e7;
+}
+
+.guige-num-kong1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60rpx;
+  height: 100%;
+  float: left;
+  color: #989898;
+}
+
+.guige-num-kong2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 100%;
+  float: left;
+  border-left: solid 1px #e7e7e7;
+  border-right: solid 1px #e7e7e7;
+  color: #989898;
+}
+
+.clear-body {
+  clear: both;
+  height: 100rpx;
+}
+
+.body-bottom {
+  position: fixed;
+  bottom: 0;
+  height: 100rpx;
+  width: 750rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.body-bottom-1 {
+  width: 300rpx;
+  height: 100rpx;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.total-price{
+
+  
+}
+
+.body-bottom-2 {
+  border-radius: 0px;
+  width: 250rpx;
+  height: 100%;
+  background-color: #9c855c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-text1 {
+  position: relative;
+  /* left: 50rpx; */
+  font-size: 9pt;
+  color: #4a4a4a;
+}
+
+.bottom-text2 {
+  position: relative;
+  /* left: 50rpx; */
+  font-size: 10pt;
+  color:  #9a8c65;
+}
+
+.bottom-text3 {
+  position: relative;
+  /* left: 60rpx; */
+  font-size: 10pt;
+  color: #989898;
+}
+
+.checkbox1 {
+  border-radius: 10rpx;
+  background-image: url('../../images/1.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+.nei-img1 {
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+}
+
+/*toast*/
+
+.toast_content_box {
+  display: flex;
+  width: 100%;
+  height: 40%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999;
+}
+
+.toast_content {
+  width: 50%;
+  padding: 20rpx;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20rpx;
+}
+
+.toast_content_text {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.butto-1 {
+  height: 60rpx;
+  width: 30%;
+  margin-top: 16%;
+  margin-left: 60%;
+  background-color: #32cd32;
+  display: flex;
+  color: white;
+  font-size: 30rpx;
+  border: none;
+  border-radius: 6prx;
+  line-height: 60rpx;
+}

@@ -1,0 +1,81 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<view class='orderdetail-box white'>
+  <view class='orderdetail-header'>
+    订单编号:fx123124324
+  </view>
+</view>
+<view class='orderdetail-box white'>
+  <view class='orderdetail-header'>
+    收件地址:
+
+  </view>
+  <view class='orderdetail-body'>
+    <view class='orderdetail-message'>
+      <text>平地摔</text>
+      <text>13764991646</text>
+    </view>
+    <view class='orderdetail-message-detail'>收件地址收件地址收件地址收件地址收件地址收件地址收件地址收件地址</view>
+  </view>
+</view>
+<view class='orderdetail-box white'>
+  <view class='orderdetail-header'>
+    已签收
+  </view>
+  <view class='orderdetail-body'>
+    <navigator hover-class='none' class='line'>
+      <view class='order-product-image'>
+        <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
+      </view>
+      <view class='order-product-message'>
+        <view>Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜</view>
+        <view>规格：草莓清洁面膜</view>
+        <view>￥1</view>
+      </view>
+      <view class='order-product-num'>
+        × 1
+      </view>
+    </navigator>
+    <navigator hover-class='none' class='line'>
+      <view class='order-product-image'>
+        <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
+      </view>
+      <view class='order-product-message'>
+        <view>Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜</view>
+        <view>规格：草莓清洁面膜</view>
+        <view>￥1</view>
+      </view>
+      <view class='order-product-num'>
+        × 1
+      </view>
+    </navigator>
+    <!--订单详情  -->
+    <view class='orderdetail-price-detail'>
+      <view class='orderdetail-price-list'>
+        <view class='orderdetail-price-item'>
+          <text>备注</text>
+          <text>备注</text>
+        </view>
+        <view class='orderdetail-price-item'>
+          <text>邮费</text>
+          <text>￥9.00</text>
+        </view>
+          <view class='orderdetail-price-item'>
+          <text>优惠</text>
+          <text>￥9.00</text>
+        </view>
+          <view class='orderdetail-price-item'>
+          <text>税金</text>
+          <text>￥9.00</text>
+        </view>
+        <view class='orderdetail-price-item'>
+          <text>合计</text>
+          <text>￥9.00</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='orderdetail-footer'>
+    <view>删除订单</view>
+    <view>付款</view>
+  </view>
+</view>

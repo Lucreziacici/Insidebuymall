@@ -1,0 +1,92 @@
+<view class="body">
+  <view class="body-head">
+    <view class="body-head-1">
+      <view class="body-head-1-1">
+        <input type="text" placeholder="输入关键字搜索" name="keyword" confirm-type="search" bindconfirm="keywordSubmit" bindinput="keywordInput" class="head-text" />
+        <image class="head-sousuo" src="{{url1+'/images/soso.png'}}" bindtap='suosuo'>
+        </image>
+      </view>
+    </view>
+    <view bindtap="onChangeShowState" class="body-head-2">
+      <image class="head-fenlei" src="{{url1+'/images/leibiao.png'}}"></image>
+    </view>
+  </view>
+
+  <view class="{{fenlei?'fenleibar-show': 'fenleibar-hide'}}">
+    <view wx:for="{{onemenus}}" wx:key="id" wx:for-index="i">
+      <navigator redirect url="../allfenlei/allfenlei?id={{item.id}}">
+        <view class="fenleibar-{{currentTab==item.id ? 'tow' : 'one'}}" data-id="{{item.id}}" bindtap="tagChoose">
+          <text class="fenlei-text">{{item.name}}</text>
+        </view>
+      </navigator>
+    </view>
+    <view class="fenleibar-one">
+      <text class="fenlei-text">更多</text>
+    </view>
+  </view>
+
+  <!--弹层  -->
+  <view>
+    <view wx:if="{{fenlei}}" class='modalbg' bindtap="closeModal"></view>
+    <view wx:if="{{fenlei}}" class='classify-box'>
+      <view class='classify-header'>
+        <text>筛选</text>
+      </view>
+      <view class='classify-list'>
+        <block wx:for="{{onemenus}}" wx:key="id" wx:for-index="i">
+          <view class='classify-item'>
+            <navigator url="../allfenlei/allfenlei?id={{item.id}}">
+              <text class="classify-text " data-id="{{item.id}}" bindtap="tagChoose">{{item.name}}</text>
+            </navigator>
+          </view>
+        </block>
+        <view class='classify-item'>
+          <navigator url="../allfenlei/allfenlei">
+            <text class="classify-text" data-id="{{item.id}}" bindtap="tagChoose">更多</text>
+          </navigator>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+
+  <block wx:for="{{product1s}}" wx:key="key">
+
+    <view class="tuijian-bodynei">
+      <navigator url="../product/product?id={{item.p1id}}">
+        <image class="tuijian-img1" src="{{item.img}}"></image>
+        <view class="tuijian-text">
+          <view class="tuijian-text0">
+            <text class="tuijian-text11">{{item.title}}</text>
+            <text class="tuijian-text3">￥{{item.price2}}</text>
+          </view>
+        </view>
+      </navigator>
+    </view>
+
+  </block>
+  <view class="dibu_0">
+
+  </view>
+  <view class="dibu_1 {{dibu?'': 'dibu_2'}}">
+    <text>已全部加载完成</text>
+  </view>
+</view>
+
+<!--快捷导航栏  -->
+<view>
+  <view wx:if="{{isShowModal}}" class='modalbg' bindtap="plus">
+  </view>
+  <image src="/images/plus.png" wx:if="{{!isShowModal}}" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/images/close.png" wx:else class="img-plus-style img-plus-style-active" animation="{{animPlus}}" bindtap="plus"></image>
+  <view class="img-style" animation="{{animTranspond}}" bindtap="collect">
+    <image src="/images/collect.png"></image>
+  </view>
+  <view class="img-style" animation="{{animCollect}}" bindtap="transpond">
+    <image src="/images/transpond.png"></image>
+  </view>
+  <view class="img-style" animation="{{animInput}}" bindtap="input">
+    <image src="/images/input.png"></image>
+  </view>
+</view>
