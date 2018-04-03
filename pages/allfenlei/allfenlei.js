@@ -16,6 +16,57 @@ Page({
     onemenuid:null,
     keyword: null,
     isShowModal: false,//弹层弹出
+    isApprove:false,
+
+  },
+  /**
+* 生命周期函数--监听页面显示
+*/
+  onShow: function () {
+    var that = this
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(function (userInfo, openid) {
+      //更新数据
+      if (!openid) {
+        that.showToast("获取信息失败，请刷新后重试", that)
+        return false;
+      }
+      that.setData({
+        userInfo: userInfo,
+        openid: openid
+      })
+
+      wx.request({
+        url: url + '/team!findteam1.action?openid=' + openid,
+        method: 'get',
+        header: { 'Content-Type': 'application/json' },
+        success: function (res) {
+          if (res.data.shstatus == '审核通过') {
+            that.setData({
+              isApprove: true
+            });
+
+          }
+          if (res.data.shstatus == null) {
+            wx.redirectTo({
+              url: '../login/login?openid=' + openid,
+            })
+          }
+        },
+        fail: function (res) {
+          console.log('submit fail');
+        },
+        complete: function (res) {
+          console.log('submit complete');
+        }
+      })
+    })
+  },
+  onChangeShowState: function () {
+    var that = this;
+    that.setData({
+      fenlei: !that.data.fenlei
+    })
   },
   onLoad:function(options){
     console.log('id:' + options.id);

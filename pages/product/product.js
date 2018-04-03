@@ -18,7 +18,8 @@ Page({
     team: {},//用户信息
     isShowToast: false,//控制显示提醒框
     srollHeight:"1000px",//滚动高度
-    isAddCart:"0"//是否为加入购物车
+    isAddCart:"0",//是否为加入购物车
+    isApprove: false
   },
   onLoad: function (options) {
     //获取用户信息
@@ -29,6 +30,12 @@ Page({
           this.setData({
             team: res.data,
           });
+          if (res.data.shstatus == '审核通过') {
+            this.setData({
+              isApprove: true
+            });
+
+          }
         },
         fail: (res) => {
           console.log('submit fail');
@@ -199,100 +206,6 @@ Page({
     }
     
   },
-  //点击弹出  
-  plus: function () {
-    if (this.data.isPopping) {
-      //缩回动画  
-      this.takeback();
-      this.setData({
-        isPopping: false,
-        isShowModal: false
-      })
-    } else if (!this.data.isPopping) {
-      //弹出动画  
-      this.popp();
-      this.setData({
-        isPopping: true,
-        isShowModal: true
-      })
-    }
-  },
-  input: function () {
-    wx.switchTab({
-      url: '../team/team'
-    })
-  },
-  transpond: function () {
-    wx.switchTab({
-      url: '../index/index'
-    })
-  },
-  collect: function () {
-    wx.switchTab({
-      url: '../cart/cart'
-    })
-  },
-
-  //弹出动画  
-  popp: function () {
-    //plus顺时针旋转  
-    var animationPlus = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    var animationcollect = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    var animationTranspond = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    var animationInput = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    animationPlus.rotateZ(360).step();
-    animationcollect.translate(-50, -70).rotateZ(360).opacity(1).step();
-    animationTranspond.translate(-100, 0).rotateZ(360).opacity(1).step();
-    animationInput.translate(-50, 70).rotateZ(360).opacity(1).step();
-    this.setData({
-      animPlus: animationPlus.export(),
-      animCollect: animationcollect.export(),
-      animTranspond: animationTranspond.export(),
-      animInput: animationInput.export(),
-    })
-  },
-  //收回动画  
-  takeback: function () {
-    //plus逆时针旋转  
-    var animationPlus = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    var animationcollect = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    var animationTranspond = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    var animationInput = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'ease-out'
-    })
-    animationPlus.rotateZ(0).step();
-    animationcollect.translate(0, 0).rotateZ(0).opacity(0).step();
-    animationTranspond.translate(0, 0).rotateZ(0).opacity(0).step();
-    animationInput.translate(0, 0).rotateZ(0).opacity(0).step();
-    this.setData({
-      animPlus: animationPlus.export(),
-      animCollect: animationcollect.export(),
-      animTranspond: animationTranspond.export(),
-      animInput: animationInput.export(),
-    })
-  },
 
   //前往首页
   gohome: function () {
@@ -305,20 +218,6 @@ Page({
     wx.switchTab({
       url: '../cart/cart'
     });
-  },
-  //因为身份审核还没过
-  nobuy: function (options) {
-    wx.request({
-      url: url + '/team!findteam1.action?openid=' + this.data.openid,
-      success:  (res)=> {
-        if (res.data.shstatus == '待审核') {
-          this.showToast("你资料还在审核中暂时无法购买", this)
-        }
-        if (res.data.shstatus == '审核不通过') {
-          this.showToast("很抱歉，你的资料没有审核通过，暂时无法购买，请重新上传或者联系客服", this)
-        }
-      },
-    })
   },
   //显示提示框
   showToast: function (text, that) {

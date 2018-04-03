@@ -43,7 +43,8 @@
               </view>
               <view style='display:flex;align-items: center; justify-content: space-between;margin:20rpx 0 0 0;padding:0 20rpx 0 0 '>
                 <view style=" ">
-                  <text style="font-size: 17px;color: #9a8c65">￥{{item.price2}}</text>
+                  <text wx:if="{{isApprove}}" style="font-size: 17px;color: #9a8c65">￥{{item.price2}}</text>
+                  <text wx:if="{{!isApprove}}" style="font-size: 17px;color: #9a8c65">￥***</text>
                   <!-- <text style="font-size: 17px;color: #9a8c65" wx:if="{{item.baoshuiqu==1&&item.baoshui==1}}">￥{{item.shuihoujia}}</text>
                 <block wx:if="{{item.baoshuiqu==1}}">
                   <text style="float: right;font-size: 22rpx;color:#989898;margin-top:2%;margin-right: 20rpx;" wx:if="{{item.baoshui==1}}">包税</text>
@@ -84,7 +85,8 @@
     <view class="body-bottom-1">
       <view class='total-price'>
         <text class="bottom-text1">合计：</text>
-        <text class="bottom-text2">￥{{allprice}}</text>
+        <text wx:if="{{isApprove}}" class="bottom-text2">￥{{allprice}}</text>
+        <text wx:if="{{!isApprove}}" class="bottom-text2">￥***</text>
       </view>
       <text class="bottom-text3">含税金</text>
     </view>

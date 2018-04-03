@@ -32,7 +32,8 @@
             <view  class="tuijian-text">
               <view class="tuijian-text0">
                   <text class="tuijian-text11">{{item.title}}</text>
-                  <text class="tuijian-text3">￥{{item.price2}}</text> 
+                  <text wx:if="{{isApprove}}"  class="tuijian-text3">￥{{item.price2}}</text>
+            <text wx:if="{{!isApprove}}"  class="tuijian-text3">￥***</text>
               </view>
             </view>
             </navigator> 

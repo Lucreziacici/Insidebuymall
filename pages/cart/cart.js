@@ -16,8 +16,38 @@ Page({
     isShowToast: false,//提示框
     cartindex: null,//选中商品的index
     cartvalues: [],
+    isApprove: false
   },
+  onLoad: function (options) {
+    //获取用户信息
+    app.getUserInfo((userInfo, openid) => {
+      wx.request({
+        url: url + '/team!findteam1.action?openid=' + openid,
+        success: (res) => {
+          this.setData({
+            team: res.data,
+          });
+          if (res.data.shstatus == '审核通过') {
+            this.setData({
+              isApprove: true
+            });
 
+          }
+        },
+        fail: (res) => {
+          console.log('submit fail');
+        },
+        complete: (res) => {
+          console.log('submit complete');
+        }
+      })
+      //更新数据
+      this.setData({
+        openid: openid
+      });
+    });
+
+  },
   onShow: function () {
     //调用应用实例的方法获取全局数据
     app.getUserInfo((userInfo, openid) => {
