@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "商品详情页"
+  "navigationBarTitleText": "商品详情页",
+  "usingComponents": {
+    "SuspendedNavigation": "/components/SuspendedNavigation/SuspendedNavigation"
+  }
 }

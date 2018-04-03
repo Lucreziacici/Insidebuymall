@@ -16,9 +16,7 @@
     </view>
   </view>
 </scroll-view>
-
 <!--分类-->
-
 <view class="clearfix">
   <block wx:for="{{products}}" wx:key="key">
     <view class="tuijian-bodynei">
@@ -34,7 +32,6 @@
     </view>
   </block>
 </view>
-
 <navigator open-type="redirect" url="../allproducts/allproducts">
   <image class="buttom_1_image" src="{{url1+'/images/gd.png'}}"></image>
 </navigator>

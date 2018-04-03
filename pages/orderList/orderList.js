@@ -9,7 +9,7 @@ Page({
     resource: app.globalData.url,//资源路径
     orderList:[],//订单列表
     activedTab:0,//tab激活状态
-    tabList:['全部订单','待付款','待发货','已发货','已完成','退款']
+    tabList:['全部订单','待付款','待发货','已发货','已完成','退款'],
 
   },
 
@@ -33,13 +33,14 @@ Page({
   onShow: function () {
     wx.getSystemInfo({
       success: (res) => {
-        console.log(res.windowHeight)
+        console.log(res)
 
         this.setData({
           srollHeight: res.windowHeight - 51,
         });
       }
-    })
+    });
+    
   },
   // 切换tab
   switchTab:function(option){
@@ -75,10 +76,30 @@ Page({
   onReachBottom: function () {
   
   },
+  // 加载更多
   loadMore:function(){
    console.log("111")
   },
-
+  // 删除订单
+  deleteOrder: function () {
+    console.log("删除订单")
+  },
+  // 支付订单
+  payOrder: function () {
+    console.log("支付订单")
+  },
+  //查看物流 
+  checkLogistics: function () {
+    console.log("查看物流")
+  },
+  // 退款
+  refundOrder: function () {
+    console.log("退款")
+  },
+  //确认收货
+  confirmOrder: function () {
+    console.log("确认收货")
+  },
   /**
    * 用户点击右上角分享
    */

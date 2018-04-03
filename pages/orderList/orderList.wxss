@@ -20,11 +20,11 @@ page {
 }
 
 .header-tab view{
- padding: 20rpx 0;
+ padding: 35rpx 0;
 }
 .tab-active {
   color: #9c855c;
-  border-bottom: 2px #9c855c solid;
+  border-bottom: 1px #9c855c solid;
  
 }
 

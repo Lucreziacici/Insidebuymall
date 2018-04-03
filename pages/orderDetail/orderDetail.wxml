@@ -53,7 +53,7 @@
       <view class='orderdetail-price-list'>
         <view class='orderdetail-price-item'>
           <text>备注</text>
-          <text>备注</text>
+          <text style='max-width:400rpx;text-align:justify;'>备注</text>
         </view>
         <view class='orderdetail-price-item'>
           <text>邮费</text>
@@ -75,7 +75,11 @@
     </view>
   </view>
   <view class='orderdetail-footer'>
-    <view>删除订单</view>
-    <view>付款</view>
+    <view bindtap='deleteOrder'>删除订单</view>
+    <view bindtap='payOrder'>付款</view>
+    <view bindtap='checkLogistics'>查看物流</view>
+    <view bindtap='refundOrder'>退款</view>
+    <view bindtap='confirmOrder'>确认收货</view>
   </view>
 </view>
+<SuspendedNavigation></SuspendedNavigation>

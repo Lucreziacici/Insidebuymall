@@ -17,7 +17,7 @@
     </view>
     <view class='order-item-body'>
       <view class='order-item-message'>
-        <navigator  hover-class='none'>
+        <navigator hover-class='none'>
           <view class='order-product-image'>
             <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
           </view>
@@ -36,8 +36,11 @@
         <text>20.00</text>(含运费￥20.00)</view>
     </view>
     <view class='order-item-footer'>
-      <text>付款</text>
-      <text>删除订单</text>
+      <text bindtap='deleteOrder'>删除订单</text>
+      <text bindtap='payOrder'>付款</text>
+      <text bindtap='checkLogistics'>查看物流</text>
+      <text bindtap='refundOrder'>退款</text>
+      
     </view>
   </view>
   <view class='order-item white'>
@@ -71,8 +74,10 @@
         <text>20.00</text>(含运费￥20.00)</view>
     </view>
     <view class='order-item-footer'>
-      <text>付款</text>
-      <text>删除订单</text>
+      <text bindtap='payOrder'>付款</text>
+      <text bindtap='deleteOrder'>删除订单</text>
+      <text bindtap='confirmOrder'>确认收货</text>
     </view>
   </view>
 </scroll-view>
+<SuspendedNavigation></SuspendedNavigation>
