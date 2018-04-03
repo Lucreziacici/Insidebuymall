@@ -92,7 +92,7 @@ App({
     secret:'37951450999e53b003be17fb540179e0',//secret需自己提供，此处的secret我随机编写 
     partner: '1488718912',//商户号
     partnerkey: 'LnFqv5I4LFGSDq3QjsNgUuI8x7jvs2Fo',//支付密钥
-    title:'小程序商城',
+    title:'ZIGGIE内购商城',
     userInfo:null,
     openid:null,
   }

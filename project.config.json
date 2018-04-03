@@ -10,7 +10,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "1.9.91",
 	"appid": "wx56cdb2dddcd85394",
-	"projectname": "%E5%86%85%E8%B4%AD",
+	"projectname": "%E5%86%85%E8%B4%AD%E6%96%B0%E7%89%88%E6%9C%AC",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -133,6 +133,18 @@
 					"name": "下单",
 					"pathName": "pages/product/product",
 					"query": "id=405"
+				},
+				{
+					"id": -1,
+					"name": "客服",
+					"pathName": "pages/service/service",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "身份证",
+					"pathName": "pages/sfzheng/sfzheng",
+					"query": "oid=FX0402132515"
 				}
 			]
 		}

@@ -40,7 +40,7 @@
         <text wx:if="{{item.status=='已下架'}}">已下架</text>
         <text wx:if="{{item.status=='待付款'}}">待付款</text>
         <text wx:if="{{item.status=='已付款'&&item.tuikuan==0}}">{{item.fhstatus}}</text>
-         <text wx:if="{{item.status=='已付款'&&item.tuikuan==1}}">{{item.tkstatus}}</text>
+        <text wx:if="{{item.status=='已付款'&&item.tuikuan==1}}">{{item.tkstatus}}</text>
       </view>
     </view>
     </navigator>

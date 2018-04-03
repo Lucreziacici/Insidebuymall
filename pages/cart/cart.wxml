@@ -70,7 +70,11 @@
       确认删除吗？
     </modal>
   </view>
-
+<view class="page__bd">
+    <modal title="确认" confirm-text="确定"  cancel-text="取消" hidden="{{modalStatus}}" mask bindconfirm="confirmAccount" bindcancel="cancelAccount">
+      确认结算吗？
+    </modal>
+  </view>
   <view class="clear-body"></view>
   <view class="body-bottom">
     <view class="body-head" bindtap="checkAll">

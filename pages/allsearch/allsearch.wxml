@@ -60,10 +60,10 @@
         </view>
       </block>
        <view class='classify-item'>
-          <navigator url="../allfenlei/allfenlei">
-            <text class="classify-text" data-id="{{item.id}}" bindtap="tagChoose">更多</text>
+          <navigator url="../allproducts/allproducts">
+            <text class="classify-text" data-id="{{item.id}}" bindtap="tagChoose">全部</text>
           </navigator>
-        </view>
+        </view> 
       </view>
     </view>
 

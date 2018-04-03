@@ -11,12 +11,14 @@ Page({
     oid: '',
     modalHidden: true,
     leixing: null,
+    isShowToast: false,
+    tip: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options){
+  onLoad: function (options) {
     var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo, openid) {
@@ -56,7 +58,7 @@ Page({
         console.log('res：' + res.data);
         wx.hideLoading();
         that.setData({
-          
+
           modalHidden: true,
         })
         wx.redirectTo({
@@ -85,6 +87,13 @@ Page({
     }
     if (that.data.leixing == "发货3") {
       this.modalTap("是否确认发货？");
+    }
+    if (that.data.leixing == '物流') {
+      wx.navigateTo({
+        url: '../wuliu/wuliu?id=' + oid + '&key=0',
+
+      })
+
     }
 
   },
@@ -129,7 +138,7 @@ Page({
         wx.hideLoading();
         that.setData({
           order: res.data,
-          
+
           modalHidden: true,
         })
       },
@@ -179,93 +188,59 @@ Page({
         wx.hideLoading();
         that.setData({
           order: res.data,
-          
           modalHidden: true,
-        })
+        });
+        that.showToast("您已提交退款申请~耐心等待审核", that)
       },
     })
   },
+  //显示提示框
+  showToast: function (text, that) {
+    that.setData({
+      tip: text,
+      isShowToast: !that.data.isShowToast
+    })
+    setTimeout(function () {
+      that.setData({
+        isShowToast: !that.data.isShowToast
+      });
+      wx.navigateBack();
+    }, 1500);
+  },
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+
   },
 
 

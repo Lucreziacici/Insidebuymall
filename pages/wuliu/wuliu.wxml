@@ -1,6 +1,6 @@
 <view class="body-sp" wx:for="{{order.order1s}}" wx:key="id" wx:for-index="i">
   <view class="body-sp1">
-    <image style="height: 200rpx;width: 200rpx;" src="{{url1+item.img}}"> </image>
+    <image style="height: 200rpx;width: 200rpx;" src="{{item.img}}"> </image>
   </view>
   <view class="body-sp1">
     <view class="sp1-1" style="color:#4a4a4a;"><text class='tuijian-text1'>{{item.title}}</text></view>

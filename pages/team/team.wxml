@@ -22,10 +22,16 @@
   </block>
 </view>
 <view class="member-list">
-  <view class='member-item'>
+  <!-- <view class='member-item'>
     <view class="member-item-box" bindtap='calling'>
         <text>联系客服</text>
         <text>{{admin.kfphone}}</text>
     </view>
+  </view> -->
+  <view class='member-item'>
+    <navigator url='/pages/service/service' class="member-item-box">
+        <text>联系客服</text>
+        <image src="{{resources+'/images/箭头.png'}}"></image>
+    </navigator>
   </view>
 </view>

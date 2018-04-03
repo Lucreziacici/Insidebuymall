@@ -23,7 +23,8 @@
     "pages/login/login",
     "pages/main/main",
     "pages/orderList/orderList",
-    "pages/orderDetail/orderDetail"
+    "pages/orderDetail/orderDetail",
+    "pages/service/service"
   ],
   "window": {
     "backgroundTextStyle": "light",

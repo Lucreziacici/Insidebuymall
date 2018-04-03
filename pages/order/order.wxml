@@ -165,7 +165,7 @@
       <view class="body-button" wx:if="{{order.fhstatus=='已发货'&&order.bufenfahuo==0}}" id='{{order.oid}}' data-id="{{order.oid}}" data-class='发货' bindtap='queren'>
         <text class="button-text">确认收货</text>
       </view>
-      <view class="body-button" wx:if="{{order.fhstatus=='已发货'&&order.bufenfahuo==0}}">
+      <view class="body-button" wx:if="{{order.fhstatus=='已发货'&&order.bufenfahuo==0}}" data-id="{{order.id}}" data-class='物流' bindtap='queren'>
         <text class="button-text">查看物流</text>
       </view>
       <view class="body-button" wx:if="{{order.status=='待付款'||order.status=='已下架'}}" id='{{order.oid}}' data-id='{{order.oid}}' data-class='删除'  bindtap='queren'>
@@ -184,3 +184,11 @@
       {{tip}}
     </modal>
 </view>
+ <!--tip  -->
+  <view class="toast_content_box" wx:if="{{isShowToast}}">
+    <view class="toast_content">
+      <view class="toast_content_text">
+        {{tip}}
+      </view>
+    </view>
+  </view>
