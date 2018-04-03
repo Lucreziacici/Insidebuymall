@@ -18,7 +18,8 @@ Page({
     team: {},//用户信息
     isShowToast: false,//控制显示提醒框
     srollHeight:"1000px",//滚动高度
-    isAddCart:"0"//是否为加入购物车
+    isAddCart:"0",//是否为加入购物车
+    isApprove: false
   },
   onLoad: function (options) {
     //获取用户信息
@@ -29,6 +30,12 @@ Page({
           this.setData({
             team: res.data,
           });
+          if (res.data.shstatus == '审核通过') {
+            this.setData({
+              isApprove: true
+            });
+
+          }
         },
         fail: (res) => {
           console.log('submit fail');
@@ -199,6 +206,7 @@ Page({
     }
     
   },
+
   //前往首页
   gohome: function () {
     wx.switchTab({
@@ -210,20 +218,6 @@ Page({
     wx.switchTab({
       url: '../cart/cart'
     });
-  },
-  //因为身份审核还没过
-  nobuy: function (options) {
-    wx.request({
-      url: url + '/team!findteam1.action?openid=' + this.data.openid,
-      success:  (res)=> {
-        if (res.data.shstatus == '待审核') {
-          this.showToast("你资料还在审核中暂时无法购买", this)
-        }
-        if (res.data.shstatus == '审核不通过') {
-          this.showToast("很抱歉，你的资料没有审核通过，暂时无法购买，请重新上传或者联系客服", this)
-        }
-      },
-    })
   },
   //显示提示框
   showToast: function (text, that) {

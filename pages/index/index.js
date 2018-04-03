@@ -21,6 +21,7 @@ Page({
     currentTab: 0,
     admin:{},
     isShowToast: false,
+    isApprove:false
 
   },
 
@@ -100,6 +101,7 @@ Page({
       url: e.currentTarget.dataset.url,
     })
   },
+
   /**
   * 生命周期函数--监听页面显示
   */
@@ -122,6 +124,12 @@ Page({
         method: 'get',
         header: { 'Content-Type': 'application/json' },
         success: function (res) {
+          if (res.data.shstatus =='审核通过'){
+            that.setData({
+              isApprove:true
+            });
+
+          }
           if (res.data.shstatus==null){
             wx.redirectTo({
               url: '../login/login?openid='+openid,
