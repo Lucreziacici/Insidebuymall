@@ -1,7 +1,6 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
-
 Page({
   data: {
     resources: app.globalData.url,//资源路径
@@ -13,10 +12,9 @@ Page({
     modalHidden: true,//弹框
     modalStatus: true,//弹框
     cartid: null,//选中商品的id
-    isShowToast: false,//提示框
     cartindex: null,//选中商品的index
-    cartvalues: [],
-    isApprove: false
+    cartvalues: [],//选中商品数组
+    isApprove: false,//是否通过审核
   },
   onLoad: function (options) {
     //获取用户信息
@@ -24,14 +22,10 @@ Page({
       wx.request({
         url: url + '/team!findteam1.action?openid=' + openid,
         success: (res) => {
-          this.setData({
-            team: res.data,
-          });
           if (res.data.shstatus == '审核通过') {
             this.setData({
               isApprove: true
             });
-
           }
         },
         fail: (res) => {
@@ -46,14 +40,13 @@ Page({
         openid: openid
       });
     });
-
   },
   onShow: function () {
     //调用应用实例的方法获取全局数据
     app.getUserInfo((userInfo, openid) => {
       //更新数据
       if (!openid) {
-        this.showToast("获取信息失败，请刷新后重试", this)
+        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试")
         return false;
       }
       this.setData({
@@ -63,7 +56,6 @@ Page({
         url: url + '/cart!findall1.action?openid=' + this.data.openid + '&appid=' + appid,
         method: 'get',
         success: (res) => {
-          console.log(res.data);
           this.setData({
             carts: res.data.objs,
             allprice: res.data.allprice.toFixed(2),
@@ -145,7 +137,6 @@ Page({
       url: url + '/cart!add2.action?cart.id=' + id,
       method: 'get',
       success: (res) => {
-        console.log(res)
         for (var i = 0; i < this.data.carts.length; i++) {
           if (id == this.data.carts[i].id) {
             this.data.carts[i].num = res.data.num;
@@ -176,7 +167,6 @@ Page({
       url: url + '/cart!add3.action?cart.id=' + id,
       method: 'get',
       success: (res) => {
-        console.log(res)
         for (var i = 0; i < this.data.carts.length; i++) {
           if (id == this.data.carts[i].id) {
             this.data.carts[i].num = res.data.num
@@ -208,14 +198,11 @@ Page({
   formBindsubmit: function (e) {
     var opneid = e.detail.value.openid
     var appid = e.detail.value.appid
-    console.log(e)
-    // var cartvalues = e.detail.value.cartvalues
     this.setData({
       modalStatus: false,
       cartvalues: e.detail.value.cartvalues,
       opneid: e.detail.value.openid
     });
-
   },
   //弹出结算提示框
   confirmAccount: function (e) {
@@ -233,7 +220,7 @@ Page({
       }
     }
     if (buzu) {
-      this.showToast("您所购买的商品库存不足，请重新选择，或者减少购买数量", this)
+      this.selectComponent("#Toast").showToast("您所购买的商品库存不足，请重新选择，或者减少购买数量")
       return false;
     }
     if (checked) {
@@ -314,30 +301,16 @@ Page({
   },
   //取消删除
   cancelDelete: function (e) {
-    console.log(e);
-
     this.setData({
       modalHidden: true,
     });
   },
   //验证商品数
   most: function () {
-    this.showToast("商品数量已经达到库存量", this)
+    this.selectComponent("#Toast").showToast("商品数量已经达到库存量");
   },
   //不能再少啦
   least: function () {
-    this.showToast("不能再少啦", this)
-  },
-  //弹框
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
-  },
+    this.selectComponent("#Toast").showToast("不能再少啦");
+  }
 })

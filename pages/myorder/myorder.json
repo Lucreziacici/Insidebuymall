@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我的订单",
   "usingComponents": {
-    "SuspendedNavigation": "/components/SuspendedNavigation/SuspendedNavigation"
+    "SuspendedNavigation": "/components/SuspendedNavigation/SuspendedNavigation",
+    "Toast": "/components/Toast/Toast"
   }
 }

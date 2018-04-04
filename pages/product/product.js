@@ -16,7 +16,6 @@ Page({
     repertory: '',//商品库存
     repertoryMax: 100,//商品库存最大值
     team: {},//用户信息
-    isShowToast: false,//控制显示提醒框
     srollHeight:"1000px",//滚动高度
     isAddCart:"0",//是否为加入购物车
     isApprove: false
@@ -98,11 +97,10 @@ Page({
   // 下单显示弹窗
   onChangeShowState: function (options) {
     //根据data-type 判断是加入购物车还是立即购买
-    console.log(this.data.team)
     if (this.data.team.shstatus == '待审核'){
-      this.showToast("你资料还在审核中暂时无法购买", this)
+      this.selectComponent("#Toast").showToast("你资料还在审核中暂时无法购买")
     } else if (this.data.team.shstatus == '审核未通过'){
-      this.showToast("很抱歉，你的资料没有审核通过，暂时无法购买，请重新上传或者联系客服", this)
+      this.selectComponent("#Toast").showToast("很抱歉，你的资料没有审核通过，暂时无法购买，请重新上传或者联系客服")
     } else if (this.data.team.shstatus =='审核通过'){
       this.setData({
         widgets: (!this.data.widgets),
@@ -136,14 +134,14 @@ Page({
   //加入购物车
   addcart: function () {
     if (!this.data.openid) {
-      this.showToast("获取信息失败，请刷新后重试", this)
+      this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试")
       return false;
     }
     if (this.data.repertory=='0'){
       this.setData({
         widgets: (!this.data.widgets),
-      })
-      this.showToast("已售空", this)
+      });
+      this.selectComponent("#Toast").showToast("已售空");
     }else{
       wx.request({
         url: url + '/cart!add1.action?appid=' + appid + '&openid=' + this.data.openid + '&cart.pid=' + this.data.product.p1id + '&num=' + this.data.quantity + '&guige.id=' + this.data.specificationId,
@@ -175,8 +173,8 @@ Page({
     if (this.data.repertory == '0') {
       this.setData({
         widgets: (!this.data.widgets),
-      })
-      this.showToast("已售空", this)
+      });
+      this.selectComponent("#Toast").showToast("已售空");
     } else {
       wx.request({
         url: url + '/order!add1.action?appid=' + appid + '&openid=' + this.data.openid + '&product1.id=' + this.data.product.p1id + '&num=' + this.data.quantity + '&guige.id=' + this.data.specificationId,
@@ -218,18 +216,6 @@ Page({
     wx.switchTab({
       url: '../cart/cart'
     });
-  },
-  //显示提示框
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
   },
   // 转发
   onShareAppMessage: function (res) {

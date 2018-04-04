@@ -14,7 +14,6 @@ Page({
     modalHidden: true,
     leixing:null,
     status:"",
-    isShowToast: false,
   },
   onLoad: function (){
     var that = this
@@ -22,7 +21,7 @@ Page({
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo, openid) {
       if (!openid) {
-        that.showToast("获取信息失败，请刷新后重试", that)
+        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
         return false;
       }
       //更新数据
@@ -447,20 +446,6 @@ Page({
       },
     })
   },
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
-  },
- 
-
-
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮

@@ -1,10 +1,10 @@
 // 删减40行 做成公共类 by xixi
+// 删减20行 toast 抽象by xixi 18/4/3
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
 Page({
   data: {
-    isShowToast: false,//提示框是否显示
     tip: '',//提示框内容
     radio1: true,//单选框
     openid: '',//openid
@@ -29,35 +29,32 @@ Page({
     var phone = e.detail.value.phone;
     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     if (name == '') {
-      this.showToast("请填写姓名", this)
+      this.selectComponent("#Toast").showToast("请填写姓名");
       return false;
     }
     if (phone == '') {
-      this.showToast("请输入手机号码", this)
+      this.selectComponent("#Toast").showToast("请输入手机号码");
       return false;
     }
     if (!myreg.test(phone)) {
-      this.showToast("手机号码有误", this)
+      this.selectComponent("#Toast").showToast("手机号码有误");
       return false;
     }
     if (bumen == '') {
-      this.showToast("请填写所在部门", this)
+      this.selectComponent("#Toast").showToast("请填写所在部门");
       return false;
     }
     if (name1 == '') {
-      this.showToast("请填写主管姓名", this)
+      this.selectComponent("#Toast").showToast("请填写主管姓名");
       return false;
     }
     if (!(this.data.radio1)) {
-      this.showToast("请阅读协议", this)
+      this.selectComponent("#Toast").showToast("请阅读协议");
       return false;
     }
     wx.showLoading({
       title: '加载中....',
-      mask: true,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
+      mask: true
     })
     wx.request({
       url: url + '/team!zhuce.action',
@@ -79,16 +76,5 @@ Page({
         wx.hideLoading();
       }
     })
-  },
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
   },
 })

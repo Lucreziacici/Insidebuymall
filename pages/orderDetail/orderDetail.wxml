@@ -59,11 +59,11 @@
           <text>邮费</text>
           <text>￥9.00</text>
         </view>
-          <view class='orderdetail-price-item'>
+        <view class='orderdetail-price-item'>
           <text>优惠</text>
           <text>￥9.00</text>
         </view>
-          <view class='orderdetail-price-item'>
+        <view class='orderdetail-price-item'>
           <text>税金</text>
           <text>￥9.00</text>
         </view>
@@ -83,3 +83,4 @@
   </view>
 </view>
 <SuspendedNavigation></SuspendedNavigation>
+<Toast id="Toast"></Toast>

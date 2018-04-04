@@ -20,7 +20,6 @@ Page({
     navbar: [],
     currentTab: 0,
     admin:{},
-    isShowToast: false,
     isApprove:false
 
   },
@@ -39,7 +38,6 @@ Page({
       currentTab: e.currentTarget.dataset.idx,
       products: [],
     })
-
     wx.request({
       url: url + '/foodchain!huoqu1.action?appid=' + appid + '&onemenu.id=' + id,
       method: 'get',
@@ -56,18 +54,13 @@ Page({
       complete: function (res) {
         console.log('submit complete');
       }
-
     })
-
   },
   onLoad: function () {
     console.log('onLoad')
-
     var that = this
     //调用应用实例的方法获取全局数据
-
     wx.setNavigationBarTitle({ title: title })
-
     wx.request({
       url: url + '/foodchain!tohomepageneigou.action?appid=' + appid,
       method: 'get',
@@ -89,11 +82,7 @@ Page({
       complete: function (res) {
         console.log('submit complete');
       }
-
     })
-
-    
-
   },
   gourl: function (e){
     
@@ -111,7 +100,7 @@ Page({
     app.getUserInfo(function (userInfo, openid) {
       //更新数据
       if (!openid) {
-        that.showToast("获取信息失败，请刷新后重试", that)
+        that.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试")
         return false;
       }
       that.setData({
@@ -144,17 +133,6 @@ Page({
         }
       })
     })
-  },
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
   },
   onShareAppMessage: function (res) {
     if (res.from === 'button') {

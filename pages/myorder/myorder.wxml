@@ -19,13 +19,7 @@
     <view class="nav-{{currentTab==5?'hover':'sty'}}" data-current="5" data-key="退款" bindtap="myorder3">退款</view>
   </view>
 </view>
- <view class="toast_content_box" wx:if="{{isShowToast}}">
-    <view class="toast_content">
-      <view class="toast_content_text">
-        {{tip}}
-      </view>
-    </view>
-  </view>
+<Toast id="Toast"></Toast>
 <block wx:for="{{orders}}" wx:if="{{orders.length>0}}" wx:key="id">
  
   <view class="nei">

@@ -48,3 +48,4 @@
     确认删除吗？
   </modal>
 </view>
+<Toast id="Toast"></Toast>

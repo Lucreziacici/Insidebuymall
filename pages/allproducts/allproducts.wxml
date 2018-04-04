@@ -76,3 +76,4 @@
 </view>
 
 <SuspendedNavigation></SuspendedNavigation>
+<Toast id="Toast"></Toast>

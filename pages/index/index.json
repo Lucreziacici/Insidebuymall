@@ -1,5 +1,7 @@
 {
- 
+  "usingComponents": {
+    "Toast": "/components/Toast/Toast"
+  },
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "ZIGGIE内购商城",

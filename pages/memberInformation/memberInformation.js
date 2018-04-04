@@ -4,7 +4,6 @@ var url = app.globalData.url
 var appid = app.globalData.appid
 Page({
   data: {
-    isShowToast: false,//控制提示框
     tip: '',//提示框文字
     openid: '',//用户openid
     province: '',//省 应该没用到
@@ -46,31 +45,31 @@ Page({
     var shen = e.detail.value.shen;
     var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if (name == '') {
-      this.showToast("请填写姓名", this)
+      this.selectComponent("#Toast").showToast("请填写姓名");
       return false;
     }
     if (phone == '') {
-      this.showToast("请输入手机号码", this)
+      this.selectComponent("#Toast").showToast("请输入手机号码");
       return false;
     }
     if (!myreg.test(phone)) {
-      this.showToast("手机号码有误", this)
+      this.selectComponent("#Toast").showToast("手机号码有误");
       return false;
     }
     if (bumen == '') {
-      this.showToast("请填写所在部门", this)
+      this.selectComponent("#Toast").showToast("请填写所在部门")
       return false;
     }
     if (name1 == '') {
-      this.showToast("请填写主管姓名", this)
+      this.selectComponent("#Toast").showToast("请填写主管姓名")
       return false;
     }
     if (shen == '') {
-      this.showToast("身份号不能为空", this)
+      this.selectComponent("#Toast").showToast("身份号不能为空")
       return false;
     }
     if (!pattern.test(shen)) {
-      this.showToast("身份号格式有误", this)
+      this.selectComponent("#Toast").showToast("身份号格式有误")
       return false;
     }
     wx.showLoading({
@@ -96,16 +95,5 @@ Page({
         wx.navigateBack({})
       }
     })
-  },
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
   },
 })

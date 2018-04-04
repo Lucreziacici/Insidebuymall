@@ -30,17 +30,4 @@
   <button class="common-bottom" form-type="submit">修改</button>
 
 </form>
-<view class="toast_content_box" wx:if="{{isShowToast}}">
-  <view class="toast_content">
-    <view class="toast_content_text">
-      {{tip}}
-    </view>
-  </view>
-</view>
-
-<!-- <view class="page__bd">
-  <modal title="确认" confirm-text="确定" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirm_one" bindcancel="cancel_one">
-    确认提交么？
-  </modal>
-
-</view> -->
+<Toast id="Toast"></Toast>

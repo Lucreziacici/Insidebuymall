@@ -11,14 +11,7 @@
       </swiper-item>
     </block>
   </swiper>
-  <!--tip  -->
-  <view class="toast_content_box" wx:if="{{isShowToast}}">
-    <view class="toast_content">
-      <view class="toast_content_text">
-        {{tip}}
-      </view>
-    </view>
-  </view>
+  <Toast id="Toast"></Toast>
   <!--商品信息  -->
   <view class="commodity-message white">
     <text class=' commodity-title'>{{product.title}}</text>

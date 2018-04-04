@@ -36,10 +36,4 @@
 <navigator open-type="redirect" url="../allproducts/allproducts">
   <image class="buttom_1_image" src="{{url1+'/images/gd.png'}}"></image>
 </navigator>
- <view class="toast_content_box" wx:if="{{isShowToast}}">
-    <view class="toast_content">
-      <view class="toast_content_text">
-        {{tip}}
-      </view>
-    </view>
-  </view>
+  <Toast id="Toast"></Toast>

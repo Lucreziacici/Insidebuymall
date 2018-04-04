@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -61,12 +61,6 @@
 					"name": "我的地址",
 					"pathName": "pages/addressList/addressList",
 					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "下单",
-					"pathName": "pages/final/final",
-					"query": "oid=FX0322134843"
 				},
 				{
 					"id": 6,
@@ -105,10 +99,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 11,
 					"name": "商品分类列表",
 					"pathName": "pages/allfenlei/allfenlei",
-					"query": ""
+					"query": "id=2"
 				},
 				{
 					"id": -1,
@@ -145,6 +139,12 @@
 					"name": "身份证",
 					"pathName": "pages/sfzheng/sfzheng",
 					"query": "oid=FX0402132515"
+				},
+				{
+					"id": 19,
+					"name": "物流",
+					"pathName": "pages/wuliu/wuliu",
+					"query": "id=2724&key=0"
 				}
 			]
 		}

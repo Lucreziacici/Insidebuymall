@@ -13,6 +13,7 @@ Page({
   // 删除订单
   deleteOrder: function () {
     console.log("删除订单")
+    this.selectComponent("#Toast").showToast("123")
   },
   // 支付订单
   payOrder: function () {

@@ -1,14 +1,4 @@
-<!-- <view class="body-head" bindtap="checkAll">
-  <image class="head-xuan" src="{{resources}}/images/{{checkAllStatus?'2':'1'}}.png" ></image>
-  <text class="tab-bottom-text">全选</text>
-</view> -->
-<view class="toast_content_box" wx:if="{{isShowToast}}">
-  <view class="toast_content">
-    <view class="toast_content_text">
-      {{tip}}
-    </view>
-  </view>
-</view>
+<Toast id="Toast"></Toast>
 <form bindsubmit="formBindsubmit" bindreset="formReset">
   <input type="text" hidden="false" name="appid" value="{{appid}}" />
   <input type="text" hidden="false" name="openid" value="{{openid}}" />
@@ -33,7 +23,6 @@
                   {{item.title}}
                 </view>
                 <view class="tab-title-1-2" data-index="{{idx}}" data-id="{{item.id}}" bindtap="dialogDelete">
-
                   <image class="delete-img" src="{{resources+'/images/dishanchu.png'}}"></image>
                   <view class="delete-view">删除</view>
                 </view>
@@ -65,7 +54,6 @@
       </block>
     </checkbox-group>
   </view>
-
   <view class="page__bd">
     <modal title="确认" confirm-text="确定" data-id="{{cartid}}" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirmDelete" bindcancel="cancelDelete">
       确认删除吗？
@@ -90,7 +78,6 @@
       </view>
       <text class="bottom-text3">含税金</text>
     </view>
-
     <button class="body-bottom-2" form-type="submit">结算</button>
   </view>
 </form>

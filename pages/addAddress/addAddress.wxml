@@ -27,30 +27,7 @@
       <text class="address-title">详细地址:</text>
       <textarea type="text" auto-height name="address" fixed="true" class="address-input" value='{{detailInfo}}' placeholder="请填写详细地址" />
     </view>
-
   </view>
  <button class="common-bottom" form-type="submit">添加</button>
-
 </form>
-<view class="toast_content_box" wx:if="{{isShowToast}}">
-  <view class="toast_content">
-    <view class="toast_content_text">
-      {{tip}}
-    </view>
-  </view>
-</view>
-<!--看上去并没有用到  -->
-<!-- <view class="page__bd">
-  <modal title="确认" confirm-text="确定" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirm_one" bindcancel="cancel_one">
-    确认提交么？
-  </modal>
-</view> -->
-<!-- todo 使用微信地址考虑放在新增地址位置  -->
-<!-- <button class="butto-1" bindtap='getaddress'>使用微信地址</button> -->
- <view class="toast_content_box" wx:if="{{isShowToast}}">
-    <view class="toast_content">
-      <view class="toast_content_text">
-        {{tip}}
-      </view>
-    </view>
-  </view>
+<Toast id="Toast"></Toast>

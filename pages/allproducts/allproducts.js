@@ -57,10 +57,10 @@ Page({
   onShow: function () {
     var that = this
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo, openid) {
+    app.getUserInfo( (userInfo, openid)=> {
       //更新数据
       if (!openid) {
-        that.showToast("获取信息失败，请刷新后重试", that)
+        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
         return false;
       }
       that.setData({
