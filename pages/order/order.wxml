@@ -185,10 +185,4 @@
     </modal>
 </view>
  <!--tip  -->
-  <view class="toast_content_box" wx:if="{{isShowToast}}">
-    <view class="toast_content">
-      <view class="toast_content_text">
-        {{tip}}
-      </view>
-    </view>
-  </view>
+<Toast id="Toast"></Toast>

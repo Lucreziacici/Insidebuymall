@@ -54,6 +54,7 @@ Page({
     //调用应用实例的方法获取全局数据
     app.getUserInfo((userInfo, openid) => {
       //更新数据
+      
       if (!openid) {
         this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
         return false;

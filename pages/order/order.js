@@ -190,23 +190,11 @@ Page({
           order: res.data,
           modalHidden: true,
         });
-        that.showToast("您已提交退款申请~耐心等待审核", that)
+        that.selectComponent("#Toast").showToast("您已提交退款申请~耐心等待审核");
       },
     })
   },
-  //显示提示框
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-      wx.navigateBack();
-    }, 1500);
-  },
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -219,12 +219,15 @@ Page({
   },
   // 转发
   onShareAppMessage: function (res) {
+    var pages = getCurrentPages();
+   var currentPage = pages[pages.length - 1];
+   var options = currentPage.options;
     if (res.from === 'button') {
       // 来自页面内转发按钮
     }
     return {
       title: this.data.product.title,
-      path: 'pages/product/product',
+      path: 'pages/product/product?id=' + options.id,
       success: function (res) {
         // 转发成功
       },

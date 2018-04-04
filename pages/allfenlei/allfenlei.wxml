@@ -71,4 +71,6 @@
     </view>
 
   </view>
+<!--快捷导航栏  -->
 <SuspendedNavigation></SuspendedNavigation>
+<Toast id="Toast"></Toast>

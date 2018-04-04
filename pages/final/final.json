@@ -1,1 +1,6 @@
-{"navigationBarTitleText": "订单确认"}
+{
+  "navigationBarTitleText": "订单确认",
+  "usingComponents": {
+    "Toast": "/components/Toast/Toast"
+  }
+}

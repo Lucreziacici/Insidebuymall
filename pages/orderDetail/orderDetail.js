@@ -9,10 +9,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // this.selectComponent("#Toast").showToast("123")
   },
   // 删除订单
   deleteOrder: function () {
-    console.log("删除订单")
     this.selectComponent("#Toast").showToast("123")
   },
   // 支付订单

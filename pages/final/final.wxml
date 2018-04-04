@@ -29,13 +29,7 @@
 </navigator>
 
 
-<view class="toast_content_box" wx:if="{{isShowToast}}">
-  <view class="toast_content">
-    <view class="toast_content_text">
-      {{tip}}
-    </view>
-  </view>
-</view>
+<Toast id="Toast"></Toast>
 <view class="body-head1" wx:if="{{order.province==null}}">
   <navigator url="../addressList/addressList?oid={{order.oid}}&onmsg=true&openid={{openid}}">
     <view class="body-head-1">

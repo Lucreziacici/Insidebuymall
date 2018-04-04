@@ -13,7 +13,6 @@ Page({
     paySign: '',
     userInfo: {},
     openid: null,
-    isShowToast: false,
     oid:'',
   },
 
@@ -29,7 +28,7 @@ Page({
         openid: openid
       })
       if (!that.data.openid) {
-        that.showToast("信息读取失败，请刷新后重试", that)
+        that.selectComponent("#Toast").showToast("信息读取失败，请刷新后重试");
         return false;
       }
       wx.request({
@@ -83,18 +82,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
-  },
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
 
   },
   /**

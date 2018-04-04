@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 14,
 			"list": [
 				{
 					"id": -1,
@@ -75,7 +75,7 @@
 					"query": "id=1074&openid=oYGDz0Nkaze9KLz7GiWsjUzHm0Rc"
 				},
 				{
-					"id": 8,
+					"id": 7,
 					"name": "商品详情",
 					"pathName": "pages/product/product",
 					"query": "id=572"
@@ -105,10 +105,10 @@
 					"query": "id=2"
 				},
 				{
-					"id": -1,
+					"id": 12,
 					"name": "商品搜索",
 					"pathName": "pages/allsearch/allsearch",
-					"query": "keyword=1'"
+					"query": "keyword=1"
 				},
 				{
 					"id": -1,
@@ -117,10 +117,10 @@
 					"query": "id=1"
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "订单详情",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "id=1"
+					"query": "oid=FX0404104420"
 				},
 				{
 					"id": -1,

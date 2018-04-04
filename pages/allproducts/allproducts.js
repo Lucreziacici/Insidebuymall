@@ -172,7 +172,6 @@ Page({
        url: '../allsearch/allsearch?keyword=' + this.data.keyword,
      })
    },
-  
    closeModal:function(res){
      this.setData({
        fenlei:false

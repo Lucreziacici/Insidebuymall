@@ -20,14 +20,14 @@ Page({
    
     var that = this
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo, openid) {
+    app.getUserInfo( (userInfo, openid)=> {
       //更新数据
       that.setData({
         userInfo: userInfo,
         openid: openid
       })
       if (!openid) {
-        that.showToast("获取信息失败，请刷新后重试", that)
+        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
         return false;
       }
     })
@@ -137,8 +137,7 @@ Page({
   zhifu: function (event) {
     var that = this;
     if (this.data.order.province == null){
-      
-      that.showToast("请选择收货地址", that)
+      that.selectComponent("#Toast").showToast("请选择收货地址");
     }else{
       wx.request({
         url: url + '/order!findorer.action?oid='  + that.data.order.oid,
@@ -152,7 +151,7 @@ Page({
             yhjuans: res.data.objs2,
           });
           if (res.data.res1 =="不足"){
-            that.showToast("你所购买的商品已售完，请重新下单", that)
+            that.selectComponent("#Toast").showToast("你所购买的商品已售完，请重新下单");
           }else{
             wx.navigateTo({
               url: '../zhifu/zhifu?oid=' + that.data.order.oid
@@ -172,15 +171,4 @@ Page({
     }
   }, 
  
-  showToast: function (text, that) {
-    that.setData({
-      tip: text,
-      isShowToast: !that.data.isShowToast
-    })
-    setTimeout(function () {
-      that.setData({
-        isShowToast: !that.data.isShowToast
-      });
-    }, 1500);
-  },
 })
