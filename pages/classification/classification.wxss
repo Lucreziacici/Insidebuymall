@@ -1,0 +1,47 @@
+/* pages/classification/classification.wxss */
+
+page {
+  background: #f0f5f6;
+}
+
+.classification-item {
+  margin: 20rpx 0 0 0;
+}
+
+.classification-title {
+  padding: 30rpx;
+}
+
+.classification-title navigator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11pt;
+}
+
+.classification-title view {
+  color: #a0a0a0;
+  font-size: 10pt;
+}
+
+.classification-title image {
+  width: 12rpx;
+  height: 22rpx;
+  margin: 0 0 0 10rpx;
+}
+
+.classification-body {
+  padding: 0 30rpx 0 30rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.classification-body view {
+  background: #f4f9fa;
+  border: 4rpx solid #f7f7f7;
+  width: 44%;
+  padding:22rpx 15rpx;
+  font-size: 10pt;
+  margin:0 0 15rpx 0;
+}

@@ -48,6 +48,7 @@ page {
   font-size: 10pt;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .member-item-box image {

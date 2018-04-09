@@ -343,7 +343,7 @@ Page({
       this.modalTap("是否确认收货？");
     }
     if (that.data.leixing == "发货3") {
-      this.modalTap("是否确认发货？");
+      this.modalTap("是否确认收货？");
     }
     
   },

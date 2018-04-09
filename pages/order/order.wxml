@@ -32,11 +32,6 @@
           <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
           <view class="sp1-2">
             <text style="font-size: 17px;color:#9a8c65; text-align:lift;">￥{{item.price2}}</text>
-             <!--<text style="font-size: 17px;color:#9a8c65" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
-            <block wx:if="{{item.baoshui==1}}">
-              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
-              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
-            </block>-->
           </view>
           <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
           <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>
@@ -64,11 +59,6 @@
             <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
             <view class="sp1-2">
               <text style="font-size: 17px;color:#9a8c65; text-align:lift;" >￥{{item.price2}}</text>
-               <!--<text style="font-size: 17px;color:#9a8c65" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
-              <block wx:if="{{item.baoshui==1}}">
-                <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
-                <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
-              </block>-->
             </view>
             <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
             <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>
@@ -79,7 +69,7 @@
             <text class="button-text">确认收货</text>
           </view>
           <view class="body-button" wx:if="{{item.fhstatus=='已发货'||item.fhstatus=='已完成'}}">
-            <text class="button-text">查看物流</text>
+            <text class="button-text" data-id="{{item.id}}" data-class='物流' data-type="0" bindtap='queren'>查看物流</text>
           </view>
         </view>
       </block>
@@ -95,11 +85,6 @@
           <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
           <view class="sp1-2">
             <text style="font-size: 17px;color:#9a8c65; text-align:left;" >￥{{item.price2}}</text>
-             <!--<text style="font-size: 17px;color:#9a8c65" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
-            <block wx:if="{{item.baoshui==1}}">
-              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
-              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
-            </block>-->
           </view>
           <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
           <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>
@@ -165,7 +150,7 @@
       <view class="body-button" wx:if="{{order.fhstatus=='已发货'&&order.bufenfahuo==0}}" id='{{order.oid}}' data-id="{{order.oid}}" data-class='发货' bindtap='queren'>
         <text class="button-text">确认收货</text>
       </view>
-      <view class="body-button" wx:if="{{order.fhstatus=='已发货'&&order.bufenfahuo==0}}" data-id="{{order.id}}" data-class='物流' bindtap='queren'>
+      <view class="body-button" wx:if="{{order.fhstatus=='已发货'&&order.bufenfahuo==0}}" data-id="{{order.id}}" data-type="1" data-class='物流' bindtap='queren'>
         <text class="button-text">查看物流</text>
       </view>
       <view class="body-button" wx:if="{{order.status=='待付款'||order.status=='已下架'}}" id='{{order.oid}}' data-id='{{order.oid}}' data-class='删除'  bindtap='queren'>

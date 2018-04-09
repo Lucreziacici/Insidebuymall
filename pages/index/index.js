@@ -90,6 +90,12 @@ Page({
       url: e.currentTarget.dataset.url,
     })
   },
+  // 前往搜索页，带个参数
+  gosearch:function(e){
+    wx.navigateTo({
+      url: "/pages/allsearch/allsearch?type=1",
+    })
+  },
 
   /**
   * 生命周期函数--监听页面显示

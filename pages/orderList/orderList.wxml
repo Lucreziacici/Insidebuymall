@@ -5,79 +5,79 @@
   </block>
 </view>
 <scroll-view class='order-list' scroll-y lower-threshold="10" bindscrolltolower="loadMore" style='height: {{srollHeight}}px;'>
-  <view class='order-item white'>
+  <view wx:for="{{orderList}}" wx:key="{{key}}" class='order-item white'>
     <view class='order-item-header'>
-      <navigator url="/pages/orderDetail/orderDetail?id=1" hover-class='none'>
-        <view class='order-status'>待付款</view>
+      <navigator url="/pages/order/order?oid={{item.oid}}" hover-class='none'>
+        <view wx:if="{{item.status=='已下架'}}" class='order-status'>已下架</view>
+        <view wx:if="{{item.status=='待付款'}}" class='order-status'>待付款</view>
+        <view wx:if="{{item.status=='已付款'&&item.tuikuan==0}}" class='order-status'>{{item.fhstatus}}</view>
+        <view wx:if="{{item.status=='已付款'&&item.tuikuan==1}}" class='order-status'>{{item.tkstatus}}</view>
         <view>
-          <text class='order-orderid'>订单号：fx0327133749</text>
+          <text class='order-orderid'>订单号：{{item.oid}}</text>
           <image src="{{resource+'/images/8.png'}}"></image>
         </view>
       </navigator>
     </view>
     <view class='order-item-body'>
-      <view class='order-item-message'>
-        <navigator hover-class='none'>
-          <view class='order-product-image'>
-            <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
-          </view>
-          <view class='order-product-message'>
-            <view>Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜</view>
-            <view>规格：草莓清洁面膜</view>
-            <view>￥1</view>
-          </view>
-          <view class='order-product-num'>
-            × 1
-          </view>
-        </navigator>
-      </view>
-      <view class='order-price'>
-        共1件商品 合计:￥
-        <text>20.00</text>(含运费￥20.00)</view>
-    </view>
-    <view class='order-item-footer'>
-      <text bindtap='deleteOrder'>删除订单</text>
-      <text bindtap='payOrder'>付款</text>
-      <text bindtap='checkLogistics'>查看物流</text>
-      <text bindtap='refundOrder'>退款</text>
-      
-    </view>
-  </view>
-  <view class='order-item white'>
-    <view class='order-item-header'>
-      <navigator url="/pages/orderDetail/orderDetail?id=1" hover-class='none'>
-        <view class='order-status'>待付款</view>
-        <view>
-          <text class='order-orderid'>订单号：fx0327133749</text>
-          <image src="{{resource+'/images/8.png'}}"></image>
+      <!--TODO真的神他妈的数据  -->
+      <view wx:for="{{item.order3s}}" wx:key="key">
+        <view class='order-item-message' wx:for="{{item.order1s}}" wx:key="key">
+          <navigator hover-class='none' url="/pages/product/product?id={{item.pid}}">
+            <view class='order-product-image'>
+              <image src="{{item.img}}"></image>
+            </view>
+            <view class='order-product-message'>
+              <view>{{item.title}}</view>
+              <view>规格：{{item.guigename}}</view>
+              <view>￥{{item.price2}}</view>
+            </view>
+            <view class='order-product-num'>
+              × {{item.num}}
+            </view>
+          </navigator>
         </view>
-      </navigator>
-    </view>
-    <view class='order-item-body'>
-      <view class='order-item-message'>
-        <navigator>
+        <view class='order-item-button' wx:if="{{item.order1s.length!==0}}">
+          <text bindtap='deleteOrder' wx:if="{{item.status=='待付款'||item.status=='已下架'}}" data-id='{{item.oid}}'>删除订单</text>
+          <text bindtap='payOrder' wx:if="{{item.status=='待付款'}}" id='{{item.oid}}'>付款</text>
+          <text bindtap='checkLogistics' wx:if="{{(item.fhstatus=='已发货'&&item.bufenfahuo==0)||(item.fhstatus=='已完成'&&item.bufenfahuo==0)}}">查看物流</text>
+          <text bindtap='refundOrder' wx:if="{{item.status=='已付款'&&item.fhstatus=='待发货'&&item.tuikuan==0}}" data-id='{{item.oid}}'>退款</text>
+          <text bindtap='confirmOrder'  wx:if="{{item.fhstatus=='已发货'&&item.bufenfahuo==0}}" data-id="{{item.oid}}">确认收货</text>
+        </view>
+      </view>
+      <view class='order-item-message' wx:for="{{item.order1s}}" wx:key="key">
+        <navigator hover-class='none' url="/pages/product/product?id={{item.pid}}">
           <view class='order-product-image'>
-            <image src='https://fx.comeyang.com/upload/1516872852068P1160016.JPG'></image>
+            <image src="{{item.img}}"></image>
           </view>
           <view class='order-product-message'>
-            <view>Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜Boots Sabai arom护手霜</view>
-            <view>规格：草莓清洁面膜</view>
-            <view>￥1</view>
+            <view>{{item.title}}</view>
+            <view>规格：{{item.guigename}}</view>
+            <view>￥{{item.price2}}</view>
           </view>
           <view class='order-product-num'>
-            × 1
+            × {{item.num}}
           </view>
         </navigator>
       </view>
-      <view class='order-price'>
-        共1件商品 合计:￥
-        <text>20.00</text>(含运费￥20.00)</view>
+      <view class='order-item-button' wx:if="{{item.order1s.length!==0}}">
+         <text bindtap='deleteOrder' wx:if="{{item.status=='待付款'||item.status=='已下架'}}" data-id='{{item.oid}}'>删除订单</text>
+          <text bindtap='payOrder' wx:if="{{item.status=='待付款'}}" id='{{item.oid}}'>付款</text>
+          <text bindtap='checkLogistics' wx:if="{{(item.fhstatus=='已发货'&&item.bufenfahuo==0)||(item.fhstatus=='已完成'&&item.bufenfahuo==0)}}">查看物流</text>
+          <text bindtap='refundOrder' wx:if="{{item.status=='已付款'&&item.fhstatus=='待发货'&&item.tuikuan==0}}" data-id='{{item.oid}}'>退款</text>
+          <text bindtap='confirmOrder'  wx:if="{{item.fhstatus=='已发货'&&item.bufenfahuo==0}}" data-id="{{item.oid}}">确认收货</text>
+
+      </view>
+
+
+
     </view>
-    <view class='order-item-footer'>
-      <text bindtap='payOrder'>付款</text>
-      <text bindtap='deleteOrder'>删除订单</text>
-      <text bindtap='confirmOrder'>确认收货</text>
-    </view>
+    <!--TODO这个数量有问题，后期换接口换  -->
+    <view class='order-footer'>
+      <!-- 共{{item.order1s.length}}件商品  -->
+      合计:￥
+      <text>{{item.shifu}}</text>(含运费￥{{item.postfee}})</view>
   </view>
+
 </scroll-view>
 <SuspendedNavigation></SuspendedNavigation>
+<Toast id="Toast"></Toast>

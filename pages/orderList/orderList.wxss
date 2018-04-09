@@ -33,7 +33,7 @@ page {
   width: 750rpx;
 }
 
-.order-item {
+/* .order-item {
   padding: 20rpx;
   margin: 20rpx 0 0 0;
 }
@@ -136,4 +136,4 @@ page {
 }
 .orderdetail-footer{
   border-top:1px solid #e7e7e7;
-}
+} */

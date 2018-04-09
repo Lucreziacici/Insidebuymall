@@ -30,7 +30,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 14,
+			"current": 9,
 			"list": [
 				{
 					"id": -1,
@@ -130,12 +130,6 @@
 				},
 				{
 					"id": -1,
-					"name": "客服",
-					"pathName": "pages/service/service",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "身份证",
 					"pathName": "pages/sfzheng/sfzheng",
 					"query": "oid=FX0402132515"
@@ -143,8 +137,20 @@
 				{
 					"id": 19,
 					"name": "物流",
-					"pathName": "pages/wuliu/wuliu",
+					"pathName": "pages/logistics/logistics",
 					"query": "id=2724&key=0"
+				},
+				{
+					"id": -1,
+					"name": "下单",
+					"pathName": "pages/final/final",
+					"query": "oid=FX0404181625"
+				},
+				{
+					"id": -1,
+					"name": "商品分类",
+					"pathName": "pages/classification/classification",
+					"query": ""
 				}
 			]
 		}

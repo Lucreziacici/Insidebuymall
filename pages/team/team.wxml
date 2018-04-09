@@ -12,7 +12,7 @@
   </navigator>
 </view>
 <view class="member-list">
-  <block wx:for='{{list}}'>
+  <block wx:for='{{list}}' wx:key="{{key}}">
     <navigator class='member-item' url="{{item.link}}?openid={{openid}}">
       <view class=" member-item-box">
           <text>{{item.name}}</text>
@@ -22,12 +22,6 @@
   </block>
 </view>
 <view class="member-list">
-  <!-- <view class='member-item'>
-    <view class="member-item-box" bindtap='calling'>
-        <text>联系客服</text>
-        <text>{{admin.kfphone}}</text>
-    </view>
-  </view> -->
   <view class='member-item'>
     <navigator url='/pages/service/service' class="member-item-box">
         <text>联系客服</text>

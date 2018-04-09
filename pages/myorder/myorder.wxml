@@ -20,6 +20,7 @@
   </view>
 </view>
 <Toast id="Toast"></Toast>
+
 <block wx:for="{{orders}}" wx:if="{{orders.length>0}}" wx:key="id">
  
   <view class="nei">
@@ -92,12 +93,12 @@
           <view class="body-button" wx:if="{{item.fhstatus=='已发货'}}" data-id='{{item.id}}' data-class='发货3'  bindtap='queren'>
             <text class="button-text">确认收货</text>
           </view>
-          <navigator url="../wuliu/wuliu?id={{item.id}}&key=1">
+          <navigator url="../logistics/logistics?id={{item.id}}&key=1">
            <view class="body-button" wx:if="{{item.fhstatus=='已完成'}}">
             <text class="button-text">查看物流</text>
           </view>
           </navigator>
-          <navigator url="../wuliu/wuliu?id={{item.id}}&key=1">
+          <navigator url="../logistics/logistics?id={{item.id}}&key=1">
           <view class="body-button" wx:if="{{item.fhstatus=='已发货'}}">
             <text class="button-text">查看物流</text>
           </view>
@@ -116,7 +117,7 @@
         <view class="body-sp1">
           <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
           <view class="sp1-2">
-            <text style="font-size: 17px;color:#fe0606; text-align:lift;">￥{{item.price2}}</text>
+            <text style="font-size: 17px;color:#9a8c65; text-align:lift;">￥{{item.price2}}</text>
             <!-- <text style="font-size: 17px;color:#fe0606" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
             <block wx:if="{{item.baoshui==1}}">
               <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
@@ -173,12 +174,12 @@
       <view class="body-button" wx:if="{{item.fhstatus=='已发货'&&item.bufenfahuo==0}}" data-id="{{item.oid}}" data-class='发货' bindtap='queren'>
         <text class="button-text">确认收货</text>
       </view>
-      <navigator url="../wuliu/wuliu?id={{item.id}}&key=0">
+      <navigator url="../logistics/logistics?id={{item.id}}&key=0">
       <view class="body-button" wx:if="{{item.fhstatus=='已发货'&&item.bufenfahuo==0}}">
         <text class="button-text">查看物流</text>
       </view>
       </navigator>
-      <navigator url="../wuliu/wuliu?id={{item.id}}&key=0">
+      <navigator url="../logistics/logistics?id={{item.id}}&key=0">
       <view class="body-button" wx:if="{{item.fhstatus=='已完成'&&item.bufenfahuo==0}}">
         <text class="button-text">查看物流</text>
       </view>

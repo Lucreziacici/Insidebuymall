@@ -1,7 +1,6 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
-    "pages/indexneigou/indexneigou",
     "pages/logs/logs",
     "pages/product/product",
     "pages/cart/cart",
@@ -17,14 +16,15 @@
     "pages/final/final",
     "pages/zhifu/zhifu",
     "pages/sfzheng/sfzheng",
-    "pages/wuliu/wuliu",
+    "pages/logistics/logistics",
     "pages/memberInformation/memberInformation",
     "pages/order/order",
     "pages/login/login",
     "pages/main/main",
     "pages/orderList/orderList",
     "pages/orderDetail/orderDetail",
-    "pages/service/service"
+    "pages/service/service",
+    "pages/classification/classification"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -44,7 +44,12 @@
         "selectedIconPath": "images/home-active-icon.png",
         "text": "首页"
       },
-
+      {
+        "pagePath": "pages/classification/classification",
+        "iconPath": "images/classifination-icon.png",
+        "selectedIconPath": "images/classifination-acitive-icon.png",
+        "text": "商品分类"
+      },
       {
         "pagePath": "pages/cart/cart",
         "iconPath": "images/shopping-icon.png",

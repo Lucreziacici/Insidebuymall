@@ -98,12 +98,19 @@ page {
 }
 
 .commodity-navigation-buttons .cell image {
-  width: 40rpx;
-  height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .commodity-navigation-buttons .cell text {
-  font-size: 10pt;
+  font-size: 8pt;
+  color: #9c855c;
+
+}
+contact-button{
+position:absolute;
+opacity:0;
+
 }
 
 .buy-button {

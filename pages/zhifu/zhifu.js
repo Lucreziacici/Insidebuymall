@@ -52,15 +52,16 @@ Page({
             'signType': 'MD5',
             'paySign': that.data.paySign,
             'success': function (res) {
-              console.log("支付成功");
+              console.log(res);
               wx.redirectTo({
                 url: '../myorder/myorder'
               })
             },
             fail: function (res) {
-              console.log("res:" + res);
+              console.log(res);
             },
             complete: function () {
+              console.log("123")
             }
 
           })

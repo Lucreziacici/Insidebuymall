@@ -68,6 +68,7 @@ Page({
     })
   },
   queren: function (e) {
+    console.log(e)
     var that = this;
     var oid = e.currentTarget.dataset.id;
     var leixing = e.currentTarget.dataset.class;
@@ -89,10 +90,18 @@ Page({
       this.modalTap("是否确认发货？");
     }
     if (that.data.leixing == '物流') {
-      wx.navigateTo({
-        url: '../wuliu/wuliu?id=' + oid + '&key=0',
+      if (e.currentTarget.dataset.type=='1'){
+        wx.navigateTo({
+          url: '../logistics/logistics?id=' + oid + '&key=0',
 
-      })
+        })
+      }else{
+        wx.navigateTo({
+          url: '../logistics/logistics?id=' + oid + '&key=1',
+
+        })
+      }
+     
 
     }
 

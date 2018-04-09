@@ -32,8 +32,9 @@
   </view>
 </view>
 <view class='logistics_title white'>
-  <text>物流信息:</text>
-  <text class="logistics_name">{{order.postcompany}}</text>
+  <text>物流信息:<text class="logistics_name">{{order.postcompany}}</text></text>
+  <text>物流单号:{{order.postnum}}</text>
+  
 </view>
 <view class='order_detaillist white'>
   <view class='order_detaillist_ul '>

@@ -1,15 +1,21 @@
 // pages/orderList/orderList.js
 var app = getApp()
+var url = app.globalData.url
+var appid = app.globalData.appid;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo: {},//用户信息
+    openid: null,//openid
     resource: app.globalData.url,//资源路径
     orderList:[],//订单列表
     activedTab:0,//tab激活状态
-    tabList:['全部订单','待付款','待发货','已发货','已完成','退款'],
+    tabList:['全部订单','待付款','待发货','已发货','已完成','退款'],//tab值
+
+
 
   },
 
@@ -17,7 +23,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo( (userInfo, openid)=> {
+      if (!openid) {
+        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
+        return false;
+      }
+      //更新数据
+      this.setData({
+        userInfo: userInfo,
+        openid: openid
+      })
+      //获取订单信息
+      wx.request({
+        url: url + '/order!myorder.action?appid=' + appid + '&openid=' + openid,
+        success:  (res)=> {
+          this.setData({
+            orderList: res.data,
+          });
+        },
+        fail: function (res) {
+          console.log('submit fail');
+        },
+        complete: function (res) {
+          console.log('submit complete');
+        }
+      })
+    })
   },
 
   /**

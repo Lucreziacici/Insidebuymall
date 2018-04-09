@@ -58,16 +58,22 @@
 <view class='commodity-bottom white'>
   <view class='commodity-navigation-buttons'>
     <navigator url='/pages/index/index' class='cell' open-type='switchTab'>
-      <image src="{{resources+'/images/home.png'}}"></image>
+      <!-- <image src="{{resources+'/images/home.png'}}"></image> -->
+      <image src='../../images/home.png'></image>
       <text>首页</text>
     </navigator>
     <navigator url='/pages/cart/cart' class='cell' open-type='switchTab'>
-      <image src="{{resources+'/images/cart.png'}}"></image>
+      <!-- <image src="{{resources+'/images/cart.png'}}"></image> -->
+      <image src='../../images/cart.png'></image>
       <text>购物车</text>
     </navigator>
+    <view >
+    <contact-button type="default-light" size="23" session-from="weapp"></contact-button>
     <view class='cell'>
-      <contact-button type="default-dark" size="23" session-from="weapp"></contact-button>
-      <text class="body-goumai-1-text">客服</text>
+          <image src='../../images/service.png'></image>
+      
+      <text class="body-goumai-1-text">客服</text></view>
+
     </view>
   </view>
   <view class='buy-button'>

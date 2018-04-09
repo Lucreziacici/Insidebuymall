@@ -56,6 +56,11 @@ Component({
         url: '../cart/cart'
       })
     },
+    goclassification:function(){
+      wx.switchTab({
+        url: '../classification/classification'
+      })
+    },
 
     //弹出动画  
     popp: function () {
@@ -76,15 +81,21 @@ Component({
         duration: 500,
         timingFunction: 'ease-out'
       })
+      var animGoclassification = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease-out'
+      })
       animationPlus.rotateZ(360).step();
       animationcollect.translate(-50, -70).rotateZ(360).opacity(1).step();
-      animationTranspond.translate(-100, 0).rotateZ(360).opacity(1).step();
+      animationTranspond.translate(-90, 28).rotateZ(360).opacity(1).step();
+      animGoclassification.translate(-90, -28).rotateZ(360).opacity(1).step();
       animationInput.translate(-50, 70).rotateZ(360).opacity(1).step();
       this.setData({
         animPlus: animationPlus.export(),
         animCollect: animationcollect.export(),
         animTranspond: animationTranspond.export(),
         animInput: animationInput.export(),
+        animGoclassification: animGoclassification.export()
       })
     },
     //收回动画  
@@ -98,6 +109,10 @@ Component({
         duration: 500,
         timingFunction: 'ease-out'
       })
+      var animGoclassification=wx.createAnimation({
+        duration:500,
+        timingFunction:'ease-out'
+      })
       var animationTranspond = wx.createAnimation({
         duration: 500,
         timingFunction: 'ease-out'
@@ -110,11 +125,13 @@ Component({
       animationcollect.translate(0, 0).rotateZ(0).opacity(0).step();
       animationTranspond.translate(0, 0).rotateZ(0).opacity(0).step();
       animationInput.translate(0, 0).rotateZ(0).opacity(0).step();
+      animGoclassification.translate(0, 0).rotateZ(0).opacity(0).step();
       this.setData({
         animPlus: animationPlus.export(),
         animCollect: animationcollect.export(),
         animTranspond: animationTranspond.export(),
         animInput: animationInput.export(),
+        animGoclassification: animGoclassification.export(),
       })
     },
   }

@@ -60,8 +60,13 @@ Page({
     })
   },
   onLoad:function(options){
-    console.log('keyword:' + options.keyword);
+    console.log(options)
     var that = this;
+    if(options.type=='1'){
+      this.setData({
+        focus:true,
+      })
+    }
     wx.request({
       url: url + '/product1!allsearch1.action',
       header: {
@@ -71,8 +76,6 @@ Page({
         appid: appid,
         keyword: options.keyword
       },
-      method: 'get',
-      
       success: function(res){
         console.log('res.data' + res.data.objs2.length );
         list = res.data
@@ -166,13 +169,6 @@ Page({
     var that = this;
     console.log('event.detail：' + event.detail.value);
     wx.navigateTo({
-      url: '../allsearch/allsearch?keyword=' + event.detail.value,
-    })
-  },
-  keywordSubmit: function (event) {
-    var that = this;
-    console.log('event.detail：' + event.detail.value);
-    wx.redirectTo({
       url: '../allsearch/allsearch?keyword=' + event.detail.value,
     })
   },

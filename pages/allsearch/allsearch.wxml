@@ -2,7 +2,7 @@
   <view class="body-head">
     <view class="body-head-1">
       <view class="body-head-1-1">
-        <input type="text" placeholder="输入关键字搜索" name="keyword" confirm-type="search" value='{{keyword}}' bindconfirm="keywordSubmit" class="head-text" bindinput="keywordInput" />
+        <input type="text" focus="{{focus}}" placeholder="输入关键字搜索" name="keyword" confirm-type="search" value='{{keyword}}' bindconfirm="keywordSubmit" class="head-text" bindinput="keywordInput" />
         <image class="head-sousuo" src="{{url1+'/images/soso.png'}}" bindtap='suosuo'>
         </image>
       </view>
@@ -40,7 +40,7 @@
   <view class="dibu_0">
 
   </view>
-  <view class="dibu_1 {{dibu?'': 'dibu_2'}}">
+  <view wx:if="{{!focus}}" class="dibu_1 {{dibu?'': 'dibu_2'}}">
     <text>已全部加载完成</text>
   </view>
 </view>

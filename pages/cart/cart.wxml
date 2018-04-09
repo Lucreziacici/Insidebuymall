@@ -1,9 +1,14 @@
 <Toast id="Toast"></Toast>
-<form bindsubmit="formBindsubmit" bindreset="formReset">
+<view class='cart_empty' wx:if="{{carts.length==0}}">
+      <image src='../../images/cart_empty.png'></image>
+      <text>购物车竟然是空的</text>
+      <text>"再忙，也要记得买点什么犒赏自己~"</text>
+    </view>
+<form wx:if="{{carts.length!==0}}" bindsubmit="formBindsubmit" bindreset="formReset">
   <input type="text" hidden="false" name="appid" value="{{appid}}" />
   <input type="text" hidden="false" name="openid" value="{{openid}}" />
   <view class="body-tab">
-    <checkbox-group bindchange="checkboxChange" name="cartvalues">
+    <checkbox-group  bindchange="checkboxChange" name="cartvalues">
       <block wx:for="{{carts}}" wx:for-index="idx" wx:key="key">
         <view class="tab-body">
           <view class="tab-body-1">
@@ -53,6 +58,7 @@
         </view>
       </block>
     </checkbox-group>
+    
   </view>
   <view class="page__bd">
     <modal title="确认" confirm-text="确定" data-id="{{cartid}}" cancel-text="取消" hidden="{{modalHidden}}" mask bindconfirm="confirmDelete" bindcancel="cancelDelete">

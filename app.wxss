@@ -48,6 +48,14 @@
 
 
 /* 分类弹框  */
+.modalbg{
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ background:rgba(0,0,0,.4); 
+}
 .classify-box{
   background-color: white;
   position: fixed;
@@ -148,35 +156,37 @@
 
 .order-product-message view:nth-child(3) {
   color: #9c855c;
+  font-size: 13pt;
 }
 
 .order-product-num {
   font-size: 10pt;
 }
 
-.order-price {
+.order-footer {
   font-size: 10pt;
   padding: 20rpx 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border-bottom: 1px solid #eee;
 }
 
-.order-price text {
+.order-footer text {
   font-size: 12pt;
 }
 
-.order-item-footer {
+.order-item-button {
   display: flex;
   justify-content: flex-end;
-  padding: 30rpx 0 0 0;
+  padding: 30rpx 0;
+    border-bottom: 1px solid #eee;
 }
 
-.order-item-footer text {
+.order-item-button text {
   font-size: 10pt;
   border: 1px solid #aaa;
   border-radius: 10rpx;
   padding: 10rpx 30rpx;
   margin: 0 0 0 10rpx;
+  
 }

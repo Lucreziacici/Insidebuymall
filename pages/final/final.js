@@ -7,22 +7,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-      userInfo: {},
-      openid: null,
-      url1: app.globalData.url,
-      order: {},
+      userInfo: {},//用户信息
+      openid: null,//openid
+      resources: app.globalData.url,//资源路径
+      orderinformation: {},//订单信息
       yhjuanview:false,
-      order1s:[],
-      yhjuans:[],
+      orderslist:[],//订单商品状态
+      yhjuans:[],//优惠券
   },
 
   onLoad: function (options) {
-   
-    var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo( (userInfo, openid)=> {
       //更新数据
-      that.setData({
+      this.setData({
         userInfo: userInfo,
         openid: openid
       })
@@ -32,17 +30,14 @@ Page({
       }
     })
     wx.request({
+      // 获取订单信息
       url: url + '/order!findorer.action?oid=' + options.oid,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log('res：' + res.data.objs2);
-        that.setData({
-          order: res.data.object,
-          order1s: res.data.objs,
+      success:  (res)=> {
+        this.setData({
+          orderinformation: res.data.object,
+          orderslist: res.data.objs,
           yhjuans: res.data.objs2,
         });
-        
       },
       fail: function (res) {
         console.log('submit fail');
@@ -52,24 +47,21 @@ Page({
       }
     })
   },
+  // 更改优惠券
   changeyhjuanview: function (e) {
-     var that = this;
-     that.setData({
-       yhjuanview: (!that.data.yhjuanview)
+     this.setData({
+       yhjuanview: (!this.data.yhjuanview)
      })
   },
+  // 更新优惠券
   updateyhjuan:function(e){
-    var that = this;
     var id = e.currentTarget.id;
     wx.request({
-      url: url + '/order!updateyhjuan.action?oid='+that.data.order.oid+'&yid='+id,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log('res:' + res.data);
-        that.setData({
-          order: res.data,
-          yhjuanview: !that.data.yhjuanview
+      url: url + '/order!updateyhjuan.action?oid=' + this.data.orderinformation.oid+'&yid='+id,
+      success:  (res)=> {
+        this.setData({
+          orderinformation: res.data,
+          yhjuanview: !this.data.yhjuanview
         });
       },
       fail: function (res) {
@@ -80,25 +72,17 @@ Page({
       }
     })
   },
+  //更新备注
   updatebeizhu: function (event){
-    var that = this;
     var tex = event.detail.value;
-  
     wx.showLoading({
       title: '加载中....',
       mask: true,
-      success: function (res) {},
-      fail: function (res) {},
-      complete: function (res) {},
     })
     wx.request({
-      url: url + '/order!updatebeizhu.action?oid=' + that.data.order.oid + '&beizhu=' + tex,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
+      url: url + '/order!updatebeizhu.action?oid=' + this.data.orderinformation.oid + '&beizhu=' + tex,
       success: function (res) {
-        console.log('res:' + res.data);
         wx.hideLoading();
-
       },
       fail: function (res) {
         console.log('submit fail');
@@ -108,23 +92,17 @@ Page({
       }
     })
   },
+   //提交备注
   beizhuSubmit: function (event) {
     var tex = event.detail.value;
     wx.showLoading({
       title: '加载中....',
       mask: true,
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
     })
     wx.request({
-      url: url + '/order!updatebeizhu.action?oid=' + that.data.order.oid + '&beizhu=' + tex,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
+      url: url + '/order!updatebeizhu.action?oid=' + this.data.orderinformation.oid + '&beizhu=' + tex,
       success: function (res) {
-        console.log('res:' + res.data);
         wx.hideLoading();
-
       },
       fail: function (res) {
         console.log('submit fail');
@@ -134,27 +112,24 @@ Page({
       }
     })
   },
+  //支付
   zhifu: function (event) {
-    var that = this;
-    if (this.data.order.province == null){
-      that.selectComponent("#Toast").showToast("请选择收货地址");
+    if (this.data.orderinformation.province == null){
+      this.selectComponent("#Toast").showToast("请选择收货地址");
     }else{
       wx.request({
-        url: url + '/order!findorer.action?oid='  + that.data.order.oid,
-        method: 'get',
-        header: { 'Content-Type': 'application/json' },
-        success: function (res) {
-          
-          that.setData({
-            order: res.data.object,
-            order1s: res.data.objs,
+        url: url + '/order!findorer.action?oid=' + this.data.orderinformation.oid,
+        success:  (res)=> {
+          this.setData({
+            orderinformation: res.data.object,
+            orderslist: res.data.objs,
             yhjuans: res.data.objs2,
           });
           if (res.data.res1 =="不足"){
-            that.selectComponent("#Toast").showToast("你所购买的商品已售完，请重新下单");
+            this.selectComponent("#Toast").showToast("你所购买的商品已售完，请重新下单");
           }else{
             wx.navigateTo({
-              url: '../zhifu/zhifu?oid=' + that.data.order.oid
+              url: '../zhifu/zhifu?oid=' + this.data.orderinformation.oid
             })
           }
         },
@@ -165,10 +140,6 @@ Page({
           console.log('submit complete');
         }
       })
-
-
-     
     }
   }, 
- 
 })
