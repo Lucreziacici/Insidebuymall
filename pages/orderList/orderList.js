@@ -2,6 +2,8 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid;
+import Watch from '../../libs/watch';
+let watch;
 Page({
 
   /**
@@ -23,6 +25,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      activedTab:options.id
+    })
     //调用应用实例的方法获取全局数据
     app.getUserInfo( (userInfo, openid)=> {
       if (!openid) {
@@ -34,24 +40,187 @@ Page({
         userInfo: userInfo,
         openid: openid
       })
-      //获取订单信息
-      wx.request({
-        url: url + '/order!myorder.action?appid=' + appid + '&openid=' + openid,
-        success:  (res)=> {
-          this.setData({
-            orderList: res.data,
-          });
-        },
-        fail: function (res) {
-          console.log('submit fail');
-        },
-        complete: function (res) {
-          console.log('submit complete');
-        }
+      let baseurl="";
+      wx.showLoading({
+        title: '加载中....',
+        mask: true,
       })
+      if (options.id=='0'){
+        //获取订单信息
+        wx.request({
+          url: url + '/order!myorder.action?appid=' + appid + '&openid=' + openid,
+          success: (res) => {
+            wx.hideLoading();
+            this.setData({
+              orderList: res.data,
+            });
+          },
+          fail: function (res) {
+            console.log('submit fail');
+          },
+          complete: function (res) {
+            console.log('submit complete');
+          }
+        })
+      }else if(options.id=='1'){
+        wx.request({
+          url: url + '/order!myorder1.action?appid=' + appid + '&openid=' + openid,
+          success: (res) => {
+            wx.hideLoading();
+            this.setData({
+              orderList: res.data,
+            });
+          },
+        })
+      } else if (options.id == '2') {
+        wx.request({
+          url: url + '/order!myorder2.action',
+          data: {
+            appid: appid,
+            openid: openid,
+            fhstatus: "待发货",
+          },
+          success: (res) => {
+            wx.hideLoading();
+            this.setData({
+              orderList: res.data,
+            });
+          },
+        })
+      } else if (options.id == '3') {
+        wx.request({
+          url: url + '/order!myorder2.action',
+          data: {
+            appid: appid,
+            openid: openid,
+            fhstatus: "已发货",
+          },
+          success: (res) => {
+            wx.hideLoading();
+            this.setData({
+              orderList: res.data,
+            });
+          },
+        })
+      } else if (options.id == '4') {
+        wx.request({
+          url: url + '/order!myorder2.action',
+          data: {
+            appid: appid,
+            openid: openid,
+            fhstatus: "已完成",
+          },
+          success: (res) => {
+            wx.hideLoading();
+            this.setData({
+              orderList: res.data,
+            });
+          },
+        })
+      } else if (options.id == '5') {
+        wx.request({
+          url: url + '/order!tkorder.action?appid=' + appid + '&openid=' + openid,
+          success: (res) => {
+            wx.hideLoading();
+            this.setData({
+              orderList: res.data,
+            });
+          },
+        })
+      }
     })
   },
-
+  watch: {
+    activedTab: function (val, oldVal) {
+      console.log("我变了", val, oldVal);
+      console.log(typeof(val),typeof(oldVal));
+      if(val!==oldVal){
+        if (val== '0') {
+          //获取订单信息
+          wx.request({
+            url: url + '/order!myorder.action?appid=' + appid + '&openid=' + this.data.openid,
+            success: (res) => {
+              this.setData({
+                orderList: res.data,
+              });
+            },
+            fail: function (res) {
+              console.log('submit fail');
+            },
+            complete: function (res) {
+              console.log('submit complete');
+            }
+          })
+        } else if (val == '1') {
+          wx.request({
+            url: url + '/order!myorder1.action?appid=' + appid + '&openid=' + this.data.openid,
+            success: (res) => {
+              wx.hideLoading();
+              this.setData({
+                orderList: res.data,
+              });
+            },
+          })
+        } else if (val == '2') {
+          wx.request({
+            url: url + '/order!myorder2.action',
+            data: {
+              appid: appid,
+              openid: this.data.openid,
+              fhstatus: "待发货",
+            },
+            success: (res) => {
+              wx.hideLoading();
+              this.setData({
+                orderList: res.data,
+              });
+            },
+          })
+        } else if (val == '3') {
+          wx.request({
+            url: url + '/order!myorder2.action',
+            data: {
+              appid: appid,
+              openid: this.data.openid,
+              fhstatus: "已发货",
+            },
+            success: (res) => {
+              wx.hideLoading();
+              this.setData({
+                orderList: res.data,
+              });
+            },
+          })
+        } else if (val == '4') {
+          wx.request({
+            url: url + '/order!myorder2.action',
+            data: {
+              appid: appid,
+              openid: this.data.openid,
+              fhstatus: "已完成",
+            },
+            success: (res) => {
+              wx.hideLoading();
+              this.setData({
+                orderList: res.data,
+              });
+            },
+          })
+        } else if (val == '5') {
+          wx.request({
+            url: url + '/order!tkorder.action?appid=' + appid + '&openid=' + this.data.openid,
+            success: (res) => {
+              wx.hideLoading();
+              this.setData({
+                orderList: res.data,
+              });
+            },
+          })
+        }
+      }
+    },
+    
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -65,8 +234,6 @@ Page({
   onShow: function () {
     wx.getSystemInfo({
       success: (res) => {
-        console.log(res)
-
         this.setData({
           srollHeight: res.windowHeight - 51,
         });
@@ -76,9 +243,9 @@ Page({
   },
   // 切换tab
   switchTab:function(option){
-    console.log(option)
-    this.setData({
-      activedTab: option.target.dataset.id
+    watch = new Watch(this);
+    watch.setData({
+      activedTab: option.target.dataset.id.toString()
     })
   },
   /**
@@ -110,7 +277,7 @@ Page({
   },
   // 加载更多
   loadMore:function(){
-   console.log("111")
+   console.log("到底了")
   },
   // 删除订单
   deleteOrder: function () {

@@ -27,6 +27,7 @@ Page({
     var bumen = e.detail.value.bumen;
     var name1 = e.detail.value.name1;
     var phone = e.detail.value.phone;
+    var company=e.detail.value.company;
     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     if (name == '') {
       this.selectComponent("#Toast").showToast("请填写姓名");
@@ -48,6 +49,10 @@ Page({
       this.selectComponent("#Toast").showToast("请填写主管姓名");
       return false;
     }
+    if (company==''){
+      this.selectComponent("#Toast").showToast("请填写公司名称");
+      return false;
+    }
     if (!(this.data.radio1)) {
       this.selectComponent("#Toast").showToast("请阅读协议");
       return false;
@@ -63,6 +68,7 @@ Page({
         name: name,
         name1: name1,
         phone: phone,
+        company: company,
         openid: this.data.openid,
       },
       header: {

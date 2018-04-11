@@ -54,11 +54,6 @@
           <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
           <view class="sp1-2">
             <text style="font-size: 17px;color:#9a8c65; text-align:left;" >￥{{item.price2}}</text>
-           <!--<text style="font-size: 17px;color:#ff0000" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
-            <block wx:if="{{item.baoshui==1}}">
-              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
-              <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
-            </block>-->
           </view>
           <view class="sp1-3" style="color:#5b5a5a;">规格：{{item.guigename}}</view>
           <view class="sp1-4" style="color:#5b5a5a;">x{{item.num}}</view>
@@ -79,11 +74,6 @@
             <view class="sp1-1" style="color:#4a4a4a;">{{item.title}}</view>
             <view class="sp1-2">
               <text style="font-size: 17px;color: #9a8c65; text-align:lift;" >￥{{item.price2}}</text>
-               <!--<text style="font-size: 17px;color:#fe0606" wx:if="{{item.baoshui==1&&item.bao==1}}">￥{{item.shprice}}</text>
-              <block wx:if="{{item.baoshui==1}}">
-                <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:if="{{item.bao==1}}">包税</text>
-                <text style="float: right;font-size: 24rpx;color:#989898;margin-right: 20rpx;margin-top:2%;" wx:else="{{item.bao==0}}">税金：￥{{item.shuiprice}}</text>
-              </block>-->
             </view>
             <view class="sp1-3" style="color:#4a4a4a;">规格：{{item.guigename}}</view>
             <view class="sp1-4" style="color:#4a4a4a;">x{{item.num}}</view>

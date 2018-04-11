@@ -41,6 +41,7 @@ Page({
     var bumen = e.detail.value.bumen;
     var name1 = e.detail.value.name1;
     var phone = e.detail.value.phone;
+    var company = e.detail.value.company;
     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
     var shen = e.detail.value.shen;
     var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
@@ -64,6 +65,10 @@ Page({
       this.selectComponent("#Toast").showToast("请填写主管姓名")
       return false;
     }
+    if (company == '') {
+      this.selectComponent("#Toast").showToast("请填写公司名称");
+      return false;
+    }
     if (shen == '') {
       this.selectComponent("#Toast").showToast("身份号不能为空")
       return false;
@@ -84,6 +89,7 @@ Page({
         name: name,
         name1: name1,
         phone: phone,
+        company: company,
         openid: this.data.openid,
         shen: shen,
       },

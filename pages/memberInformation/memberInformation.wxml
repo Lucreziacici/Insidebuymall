@@ -1,46 +1,54 @@
 <Toast id="Toast"></Toast>
-  <form bindsubmit="formBindsubmit" bindreset="formReset">
-    <view class='information-input-list'>
-      <view class="information-input-item">
-        <view class="information-input-name">
-          姓名
-        </view>
-        <view class="information-input-input">
-          <input type="text" value='{{team.name}}' name="name" placeholder="请填写姓名" />
-        </view>
+<form bindsubmit="formBindsubmit" bindreset="formReset">
+  <view class='information-input-list'>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        姓名
       </view>
-      <view class="information-input-item">
-        <view class="information-input-name">
-          联系人电话
-        </view>
-        <view class="information-input-input">
-          <input type="number" name="phone" maxlength='11' value='{{team.phone}}' placeholder="请输入联系人电话" />
-        </view>
-      </view>
-      <view class="information-input-item">
-        <view class="information-input-name">
-          部门
-        </view>
-        <view class="information-input-input">
-          <input type="text" name="bumen" value='{{team.depar}}' placeholder="请输入所在部门" />
-        </view>
-      </view>
-      <view class="information-input-item">
-        <view class="information-input-name">
-          主管姓名
-        </view>
-        <view class="information-input-input">
-          <input type="text" name="name1" value='{{team.dename}}' placeholder="请填主管姓名" />
-        </view>
-      </view>
-      <view class="information-input-item">
-        <view class="information-input-name">
-          身份证号
-        </view>
-        <view class="information-input-input">
-          <input type="text" maxlength='18' name="shen" value='{{team.shen}}' placeholder="请填写身份证号" />
-        </view>
+      <view class="information-input-input">
+        <input type="text" value='{{team.name}}' name="name" placeholder="请填写姓名" />
       </view>
     </view>
-    <button class="body-submit common-bottom" formType="submit">修改</button>
-  </form>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        联系人电话
+      </view>
+      <view class="information-input-input">
+        <input type="number" name="phone" maxlength='11' value='{{team.phone}}' placeholder="请输入联系人电话" />
+      </view>
+    </view>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        部门
+      </view>
+      <view class="information-input-input">
+        <input type="text" name="bumen" value='{{team.depar}}' placeholder="请输入所在部门" />
+      </view>
+    </view>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        主管姓名
+      </view>
+      <view class="information-input-input">
+        <input type="text" name="name1" value='{{team.dename}}' placeholder="请填主管姓名" />
+      </view>
+    </view>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        公司名称
+      </view>
+      <view class="information-input-input ">
+        <input type="text" name="company" placeholder="请填公司名称" />
+      </view>
+    </view>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        身份证号
+      </view>
+      <view class="information-input-input">
+        <input type="text" maxlength='18' name="shen" value='{{team.shen}}' placeholder="请填写身份证号" />
+      </view>
+    </view>
+  </view>
+  <button class="body-submit common-bottom" formType="submit">修改</button>
+</form>
