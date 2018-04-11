@@ -38,7 +38,7 @@
         公司名称
       </view>
       <view class="information-input-input ">
-        <input type="text" name="company" placeholder="请填公司名称" />
+        <input type="text" name="company" value='{{team.company}}' placeholder="请填公司名称" />
       </view>
     </view>
     <view class="information-input-item">
