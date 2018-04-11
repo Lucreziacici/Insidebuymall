@@ -84,10 +84,10 @@ Page({
       this.modalTap("确认退款吗？");
     }
     if (that.data.leixing == "发货") {
-      this.modalTap("是否确认发货？");
+      this.modalTap("是否确认收货？");
     }
     if (that.data.leixing == "发货3") {
-      this.modalTap("是否确认发货？");
+      this.modalTap("是否确认收货？");
     }
     if (that.data.leixing == '物流') {
       if (e.currentTarget.dataset.type=='1'){
