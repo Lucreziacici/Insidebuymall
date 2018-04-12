@@ -2,7 +2,7 @@
   <image class='view_top_img' src="{{resources+'/images/横条.png'}}"></image>
 </view>
 
-<navigator class='white choose-item-box' url="../addressList/addressList?oid={{orderinformation.oid}}&onmsg=true&openid={{openid}}">
+<navigator wx:if="{{orderinformation}}" class='white choose-item-box' url="../addressList/addressList?oid={{orderinformation.oid}}&onmsg=true&openid={{openid}}">
   <view class='choose-item'>
     <view class='choose-item-left'>
       <image src="{{resources+'/images/dizhi.png'}}"></image>
@@ -31,7 +31,7 @@
   </view>
 </navigator>
 <Toast id="Toast"></Toast>
-<view class="orderdetail">
+<view class="orderdetail" wx:if="{{orderinformation}}">
   <view class='order-item white'>
     <view class='order-item-body' wx:for="{{orderslist}}" wx:key="id" wx:for-index="i">
       <view class='order-item-message'>
@@ -91,7 +91,7 @@
 
 </view>
 
-<view class="body-bottom">
+<view class="body-bottom" wx:if="{{orderinformation}}">
   <view class="bottom-1">
     <text class="bottom-text1">实付：</text>
     <text class="bottom-text2">{{orderinformation.shifu}}元</text>
@@ -100,7 +100,7 @@
 </view>
 
 
-<view class="dizhiview-{{yhjuanview?'show':'hide'}}">
+<view class="dizhiview-{{yhjuanview?'show':'hide'}}" wx:if="{{orderinformation}}">
   <view class="body_yhjuan">
     <block wx:for="{{yhjuans}}" wx:key="id">
       <view class="body-view" bindtap="updateyhjuan" id="{{item.id}}">

@@ -53,22 +53,6 @@ Page({
       }, (res) => {
         console.log(res);
       })
-    // wx.request({
-    //   url: url + '/order!deleteorder.action?oid=' + that.data.oid,
-    //   method: 'get',
-    //   header: { 'Content-Type': 'application/json' },
-    //   success: function (res) {
-    //     console.log('res：' + res.data);
-    //     wx.hideLoading();
-    //     that.setData({
-
-    //       modalHidden: true,
-    //     })
-    //     wx.redirectTo({
-    //       url: '../myorder/myorder',
-    //     })
-    //   },
-    // })
   },
   queren: function (e) {
     console.log(e)
@@ -101,13 +85,9 @@ Page({
       } else {
         wx.navigateTo({
           url: '../logistics/logistics?id=' + oid + '&key=1',
-
         })
       }
-
-
     }
-
   },
   //弹出确认框  
   modalTap: function (tex) {
@@ -151,20 +131,6 @@ Page({
       }, (res) => {
         console.log(res);
       })
-    // wx.request({
-    //   url: url + '/order!querenfahuo0.action?oid=' + that.data.oid,
-    //   method: 'get',
-    //   header: { 'Content-Type': 'application/json' },
-    //   success: function (res) {
-    //     console.log('res：' + res.data);
-    //     wx.hideLoading();
-    //     that.setData({
-    //       order: res.data,
-
-    //       modalHidden: true,
-    //     })
-    //   },
-    // })
   },
   querenfahuo1: function (e) {
     var that = this;
@@ -178,19 +144,6 @@ Page({
       }, (res) => {
         console.log(res);
       })
-    // wx.request({
-    //   url: url + '/order!querenfahuo11.action?order3id=' + that.data.oid,
-    //   method: 'get',
-    //   header: { 'Content-Type': 'application/json' },
-    //   success: function (res) {
-    //     console.log('res：' + res.data);
-    //     wx.hideLoading();
-    //     that.setData({
-    //       order: res.data,
-    //       modalHidden: true,
-    //     })
-    //   },
-    // })
   },
   fukuan: function (e) {
     var that = this;
@@ -205,18 +158,6 @@ Page({
       }, (res) => {
         console.log(res);
       })
-    // wx.request({
-    //   url: url + '/order!fukuan1.action?oid=' + e.currentTarget.id,
-    //   method: 'POST',
-    //   header: { 'Content-Type': "application/x-www-form-urlencoded" },
-    //   success: function (res) {
-    //     console.log('res：' + res.data);
-    //     wx.hideLoading();
-    //     wx.redirectTo({
-    //       url: '../final/final?oid=' + res.data
-    //     })
-    //   },
-    // })
   },
   tuikuan: function (e) {
     var that = this;
@@ -231,20 +172,6 @@ Page({
       }, (res) => {
         console.log(res);
       })
-    // wx.request({
-    //   url: url + '/order!tuikuan1.action?oid=' + that.data.oid,
-    //   method: 'get',
-    //   header: { 'Content-Type': 'application/json' },
-    //   success: function (res) {
-    //     console.log('res：' + res.data);
-    //     wx.hideLoading();
-    //     that.setData({
-    //       order: res.data,
-    //       modalHidden: true,
-    //     });
-    //     that.selectComponent("#Toast").showToast("您已提交退款申请~耐心等待审核");
-    //   },
-    // })
   },
 
 
