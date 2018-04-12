@@ -4,6 +4,7 @@ var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
 var opid = ""
+var network = require("../../libs/network.js")
 Page({
   data: {
     resources: app.globalData.url,//资源路径
@@ -33,7 +34,7 @@ Page({
       title: '加载中....',
       mask: true
     })
-    app.getUserInfo( (userInfo, openid)=> {
+    app.getUserInfo((userInfo, openid) => {
       //更新数据
       this.setData({
         userInfo: userInfo,
@@ -48,16 +49,15 @@ Page({
     wx.hideLoading();
   },
   //获取地址列表
-  getAddressList:function(){
-    wx.request({
-      url: url + '/dizhi!findall.action?openid=' + this.data.openid + '&appid=' + appid,
-      method: 'get',
-      success: (res) => {
+  getAddressList: function () {
+    network.GET('/dizhi!findall.action?openid=' + this.data.openid + '&appid=' + appid,
+      (res) => {
         this.setData({
           addresslist: res.data,
         });
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //切换默认地址
   radioChange: function (e) {
@@ -66,16 +66,15 @@ Page({
       mask: true,
     })
     var id = e.detail.value;
-    wx.request({
-      url: url + '/dizhi!updatamoren.action?openid=' + this.data.openid + '&appid=' + appid + '&id=' + e.detail.value,
-      method: 'get',
-      success:  (res)=> {
-        if (res ="[]"){
+    network.GET('/dizhi!updatamoren.action?openid=' + this.data.openid + '&appid=' + appid + '&id=' + e.detail.value,
+      (res) => {
+        if (res = "[]") {
           this.getAddressList();
         }
         wx.hideLoading();
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //下单时选择地址 todo  暂时没看懂，看到下单这里再改，暂时只改函数名
   chooseAddress: function (e) {
@@ -83,18 +82,16 @@ Page({
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];//上局页面
     var id = e.currentTarget.id;
-    wx.request({
-      url: url + '/order!updatedizhi.action?oid=' + this.data.oid + '&did=' + id,
-      method: 'get',
-      success: function (res) {
-        console.log(res.data);
+    network.GET('/order!updatedizhi.action?oid=' + this.data.oid + '&did=' + id,
+      (res) => {
         prevPage.setData({
-          order: res.data.object,
-          order1s: res.data.objs,
+          orderinformation: res.data.object,
+          orderslist: res.data.objs,
         })
         wx.navigateBack({})
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //弹出确认框  
   modalShow: function (e) {
@@ -110,15 +107,14 @@ Page({
     this.setData({
       modalHidden: true,
     });
-    wx.request({
-      url: url + '/dizhi!delete.action?openid=' + this.data.openid + '&appid=' + appid + '&id=' + id,
-      method: 'get',
-      success:  (res)=> {
+    network.GET('/dizhi!delete.action?openid=' + this.data.openid + '&appid=' + appid + '&id=' + id,
+      (res) => {
         this.setData({
           addresslist: res.data,
         });
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //取消删除隐藏模态框
   modalHidden: function (e) {
@@ -127,15 +123,15 @@ Page({
     });
   },
   //获取微信地址授权，如果拒绝授权，就跳转
-  addAddress:function(e){
+  addAddress: function (e) {
     if (wx.chooseAddress) {
       wx.chooseAddress({
-        success:  (res)=> {
+        success: (res) => {
           wx.showLoading({
             title: '加载中....',
             mask: true,
           })
-          var addressdata={};
+          var addressdata = {};
           addressdata.address = res.detailInfo;
           addressdata.appid = appid;
           addressdata.city = res.cityName;
@@ -144,18 +140,17 @@ Page({
           addressdata.phone = res.telNumber;
           addressdata.province = res.provinceName;
           addressdata.qu = res.countyName;
-          wx.request({
-            url: url + '/dizhi!add.action',
-            data: addressdata,
-            success: (res) => {
+          network.POST('/dizhi!add.action', addressdata,
+            (res) => {
               this.setData({
                 addresslist: res.data
               })
               wx.hideLoading();
-            }
-          })
+            }, (res) => {
+              console.log(res);
+            })
         },
-        fail:  (err)=> {
+        fail: (err) => {
           wx.navigateTo({
             url: '/pages/addAddress/addAddress?openid=' + this.data.openid
           })
@@ -165,5 +160,4 @@ Page({
       console.log('当前微信版本不支持chooseAddress');
     }
   },
- 
 })

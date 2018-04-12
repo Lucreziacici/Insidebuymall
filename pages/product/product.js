@@ -3,6 +3,7 @@ var WxParse = require('../../wxParse/wxParse.js')
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var network = require("../../libs/network.js")
 Page({
   data: {
     openid: '',//openid
@@ -23,9 +24,8 @@ Page({
   onLoad: function (options) {
     //获取用户信息
     app.getUserInfo( (userInfo, openid)=> {
-      wx.request({
-        url: url + '/team!findteam1.action?openid=' + openid,
-        success:(res)=> {
+      network.GET('/team!findteam1.action?openid=' + openid,
+        (res) => {
           this.setData({
             team: res.data,
           });
@@ -33,27 +33,18 @@ Page({
             this.setData({
               isApprove: true
             });
-
           }
-        },
-        fail: (res) => {
-          console.log('submit fail');
-        },
-        complete: (res) => {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
       //更新数据
       this.setData({
         openid: openid
       });
     });
     //请求商品数据
-    wx.request({
-      url: url + '/product1!d1.action?product1.id=' + options.id + '&appid=' + appid,
-      success:  (res)=> {
-        console.log(res)
-        //小程序解析富文本
+    network.GET('/product1!d1.action?product1.id=' + options.id + '&appid=' + appid,
+      (res) => {
         var article = res.data.object.xiangqing;
         WxParse.wxParse('article', 'html', article, this, 5);
         this.setData({
@@ -72,14 +63,9 @@ Page({
             break;
           }
         }
-      },
-      fail: (res) => {
-        console.log('submit fail');
-      },
-      complete: (res) =>  {
-        console.log('submit complete');
-      }
-    });
+      }, (res) => {
+        console.log(res);
+      })
   },
   /**
    * 生命周期函数--监听页面显示
@@ -143,9 +129,8 @@ Page({
       });
       this.selectComponent("#Toast").showToast("已售空");
     }else{
-      wx.request({
-        url: url + '/cart!add1.action?appid=' + appid + '&openid=' + this.data.openid + '&cart.pid=' + this.data.product.p1id + '&num=' + this.data.quantity + '&guige.id=' + this.data.specificationId,
-        success: (res) => {
+      network.GET('/cart!add1.action?appid=' + appid + '&openid=' + this.data.openid + '&cart.pid=' + this.data.product.p1id + '&num=' + this.data.quantity + '&guige.id=' + this.data.specificationId,
+        (res) => {
           wx.showToast({
             title: '成功',
             icon: 'success',
@@ -154,19 +139,10 @@ Page({
           this.setData({
             widgets: (!this.data.widgets),
           })
-        },
-        fail: (res) => {
-          console.log('submit fail');
-        },
-        complete: (res) => {
-          console.log('submit complete');
-        }
-
-      })
+        }, (res) => {
+          console.log(res);
+        })
     }
-
-
-
   },
   //立即购买
   addorder: function () {
@@ -176,9 +152,8 @@ Page({
       });
       this.selectComponent("#Toast").showToast("已售空");
     } else {
-      wx.request({
-        url: url + '/order!add1.action?appid=' + appid + '&openid=' + this.data.openid + '&product1.id=' + this.data.product.p1id + '&num=' + this.data.quantity + '&guige.id=' + this.data.specificationId,
-        success: (res) => {
+      network.GET('/order!add1.action?appid=' + appid + '&openid=' + this.data.openid + '&product1.id=' + this.data.product.p1id + '&num=' + this.data.quantity + '&guige.id=' + this.data.specificationId,
+        (res) => {
           this.setData({
             widgets: (!this.data.widgets),
           })
@@ -192,15 +167,9 @@ Page({
               url: '../final/final?oid=' + res.data.res1
             })
           }
-        },
-        fail: (res) => {
-          console.log('submit fail');
-        },
-        complete: (res) => {
-          console.log('submit complete');
-        }
-
-      })
+        }, (res) => {
+          console.log(res);
+        })
     }
     
   },

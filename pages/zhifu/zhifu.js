@@ -4,7 +4,7 @@ var appid = app.globalData.appid
 var secret = app.globalData.secret
 var partner = app.globalData.partner
 var partnerkey = app.globalData.partnerkey
-
+var network = require("../../libs/network.js")
 Page({
   data: {
     timeStamp: '',
@@ -31,12 +31,8 @@ Page({
         that.selectComponent("#Toast").showToast("信息读取失败，请刷新后重试");
         return false;
       }
-      wx.request({
-        url: url + '/order!zhifu1.action?oid=' + options.oid + '&appid=' + appid + '&openid=' + that.data.openid + '&secret=' + secret + '&partner=' + partner + '&partnerkey=' + partnerkey,
-        method: 'get',
-        header: { 'Content-Type': 'application/json' },
-        success: function (res) {
-          console.log('预支付回掉：' + res.data);
+      network.GET(url + '/order!zhifu1.action?oid=' + options.oid + '&appid=' + appid + '&openid=' + that.data.openid + '&secret=' + secret + '&partner=' + partner + '&partnerkey=' + partnerkey,
+        (res) => {
           that.setData({
             timeStamp: res.data.res3,
             nonceStr: res.data.res4,
@@ -52,7 +48,6 @@ Page({
             'signType': 'MD5',
             'paySign': that.data.paySign,
             'success': function (res) {
-              console.log(res);
               wx.redirectTo({
                 url: '../myorder/myorder'
               })
@@ -60,63 +55,13 @@ Page({
             fail: function (res) {
               console.log(res);
             },
-            complete: function () {
-              console.log("123")
+            complete: function (res) {
+              console.log(res)
             }
-
           })
-
-        },
-        fail: function (res) {
-          console.log('submit fail');
-        },
-        complete: function (res) {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
     })
-    
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
   },
 })

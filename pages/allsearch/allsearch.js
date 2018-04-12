@@ -4,6 +4,7 @@ var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
 var list =null;
+var network = require("../../libs/network.js")
 Page({
   data: {
     url1: app.globalData.url,
@@ -28,35 +29,25 @@ Page({
         this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
         return false;
       }
-      that.setData({
+      this.setData({
         userInfo: userInfo,
         openid: openid
       })
-
-      wx.request({
-        url: url + '/team!findteam1.action?openid=' + openid,
-        method: 'get',
-        header: { 'Content-Type': 'application/json' },
-        success: function (res) {
+      network.GET('/team!findteam1.action?openid=' + openid,
+        (res) => {
           if (res.data.shstatus == '审核通过') {
-            that.setData({
+            this.setData({
               isApprove: true
             });
-
           }
           if (res.data.shstatus == null) {
             wx.redirectTo({
               url: '../login/login?openid=' + openid,
             })
           }
-        },
-        fail: function (res) {
-          console.log('submit fail');
-        },
-        complete: function (res) {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
     })
   },
   onLoad:function(options){
@@ -67,41 +58,29 @@ Page({
         focus:true,
       })
     }
-    wx.request({
-      url: url + '/product1!allsearch1.action',
-      header: {
-        "Content-Type": "application/json; charset=UTF-8"
-      },
-      data: {
-        appid: appid,
-        keyword: options.keyword
-      },
-      success: function(res){
-        console.log('res.data' + res.data.objs2.length );
+    var getdata={};
+    getdata.appid=appid;
+    getdata.keyword = options.keyword;
+    network.POST('/product1!allsearch1.action', getdata,
+      (res) => {
         list = res.data
-        that.setData({
-          product1s:res.data.objs2,
+        this.setData({
+          product1s: res.data.objs2,
           onemenus: res.data.objs,
           keyword: options.keyword,
         });
         if (res.data.objs2.length < 10) {
-          that.setData({
-            dibu:true
+          this.setData({
+            dibu: true
           });
         }
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    }) 
+      }, (res) => {
+        console.log(res);
+      })
   },
    onChangeShowState: function () {
-    var that = this;
-    that.setData({
-      fenlei: !that.data.fenlei
+    this.setData({
+      fenlei: !this.data.fenlei
     })
   },
    tagChoose: function (options) {
@@ -124,45 +103,32 @@ Page({
     var Lsit=[];
     var page = that.data.page+1;
     console.log('page:' + page);
-    wx.request({
-      url: url + '/product1!allsearch1.action',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      data: {
-        appid: appid,
-        page: page,
-        keyword: that.data.keyword
-      },
-      method: 'POST',
-      success: function (res) {
-        console.log('res.data' + res.data);
-        var lastLsit = that.data.product1s
+    var getdata={};
+    getdata.appid=appid;
+    getdata.page = page;
+    getdata.keyword = this.data.keyword;
+    network.POST('/product1!allsearch1.action',getdata,
+      (res) => {
+        var lastLsit = this.data.product1s
         var curList = [];
-        console.log('res.data.length' + res.data.length);
-        if (res.data.length > 0){
+        if (res.data.length > 0) {
           var List = [];
           curList = res.data;
           List = lastLsit.concat(curList)
           wx.hideLoading()
-        } 
-        if (res.data.length<10){
-          that.setData({
+        }
+        if (res.data.length < 10) {
+          this.setData({
             dibu: true
           });
-         }
-        that.setData({
+        }
+        this.setData({
           page: that.data.page + 1,
           product1s: List,
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    }) 
+      }, (res) => {
+        console.log(res);
+      })
     }
   },
   keywordSubmit: function (event) {

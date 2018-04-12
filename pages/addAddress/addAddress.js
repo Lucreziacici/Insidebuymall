@@ -2,6 +2,7 @@ var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
+var network = require("../../libs/network.js")
   //上一个页面
 Page({
   data: {
@@ -79,16 +80,15 @@ Page({
       mask: true,
     })
     var formData = e.detail.value;  
-    wx.request({
-      url: url + '/dizhi!add.action',
-      data: formData,
-      success:  (res)=> {
+    network.POST('/dizhi!add.action', formData,
+      (res) => {
         prevPage.setData({
           addresslist: res.data
         })
         wx.hideLoading();
         wx.navigateBack({})
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
 })

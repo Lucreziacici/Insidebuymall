@@ -2,6 +2,7 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var network = require("../../libs/network.js")
 Page({
   data: {
     tip: '',//提示框文字
@@ -20,20 +21,14 @@ Page({
     this.setData({
       openid: options.openid,
     })
-    wx.request({
-      url: url + '/team!findteam1.action?openid=' + options.openid,
-      success: (res) => {
+    network.GET('/team!findteam1.action?openid=' + options.openid,
+      (res) => {
         this.setData({
           team: res.data,
         });
-      },
-      fail: (res) => {
-        console.log('submit fail');
-      },
-      complete: (res) => {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //提交表单
   formBindsubmit: function (e) {
@@ -82,24 +77,16 @@ Page({
       mask: true,
     })
     var formData = e.detail.value;
-    wx.request({
-      url: url + '/team!uodateteam.action',
-      data: {
-        bumen: bumen,
-        name: name,
-        name1: name1,
-        phone: phone,
-        company: company,
-        openid: this.data.openid,
-        shen: shen,
-      },
-      success:  (res)=> {
+    formData.openid = this.data.openid;
+    network.POST('/team!uodateteam.action', formData,
+      (res) => {
         wx.navigateTo({
           url: '../index/index'
         })
         wx.hideLoading();
         wx.navigateBack({})
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
 })

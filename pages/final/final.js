@@ -1,6 +1,7 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var network = require("../../libs/network.js")
 Page({
 
   /**
@@ -29,23 +30,17 @@ Page({
         return false;
       }
     })
-    wx.request({
-      // 获取订单信息
-      url: url + '/order!findorer.action?oid=' + options.oid,
-      success:  (res)=> {
+    network.GET('/order!findorer.action?oid=' + options.oid,
+      (res) => {
+        console.log(res.data)
         this.setData({
           orderinformation: res.data.object,
           orderslist: res.data.objs,
           yhjuans: res.data.objs2,
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   // 更改优惠券
   changeyhjuanview: function (e) {
@@ -56,21 +51,16 @@ Page({
   // 更新优惠券
   updateyhjuan:function(e){
     var id = e.currentTarget.id;
-    wx.request({
-      url: url + '/order!updateyhjuan.action?oid=' + this.data.orderinformation.oid+'&yid='+id,
-      success:  (res)=> {
+    network.GET('/order!updateyhjuan.action?oid=' + this.data.orderinformation.oid + '&yid=' + id,
+      (res) => {
         this.setData({
           orderinformation: res.data,
           yhjuanview: !this.data.yhjuanview
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
+  
   },
   //更新备注
   updatebeizhu: function (event){
@@ -79,18 +69,13 @@ Page({
       title: '加载中....',
       mask: true,
     })
-    wx.request({
-      url: url + '/order!updatebeizhu.action?oid=' + this.data.orderinformation.oid + '&beizhu=' + tex,
-      success: function (res) {
+    network.GET('/order!updatebeizhu.action?oid=' + this.data.orderinformation.oid + '&beizhu=' + tex,
+      (res) => {
         wx.hideLoading();
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
+   
   },
    //提交备注
   beizhuSubmit: function (event) {
@@ -99,47 +84,37 @@ Page({
       title: '加载中....',
       mask: true,
     })
-    wx.request({
-      url: url + '/order!updatebeizhu.action?oid=' + this.data.orderinformation.oid + '&beizhu=' + tex,
-      success: function (res) {
+    network.GET('/order!updatebeizhu.action?oid=' + this.data.orderinformation.oid + '&beizhu=' + tex,
+      (res) => {
         wx.hideLoading();
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
+  
   },
   //支付
   zhifu: function (event) {
     if (this.data.orderinformation.province == null){
       this.selectComponent("#Toast").showToast("请选择收货地址");
     }else{
-      wx.request({
-        url: url + '/order!findorer.action?oid=' + this.data.orderinformation.oid,
-        success:  (res)=> {
+      network.GET('/order!findorer.action?oid=' + this.data.orderinformation.oid,
+        (res) => {
           this.setData({
             orderinformation: res.data.object,
             orderslist: res.data.objs,
             yhjuans: res.data.objs2,
           });
-          if (res.data.res1 =="不足"){
+          if (res.data.res1 == "不足") {
             this.selectComponent("#Toast").showToast("你所购买的商品已售完，请重新下单");
-          }else{
+          } else {
             wx.navigateTo({
               url: '../zhifu/zhifu?oid=' + this.data.orderinformation.oid
             })
           }
-        },
-        fail: function (res) {
-          console.log('submit fail');
-        },
-        complete: function (res) {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
+     
     }
   }, 
 })

@@ -3,6 +3,7 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var network = require("../../libs/network.js")
 Page({
   data: {
     tip: '',//提示框内容
@@ -61,26 +62,22 @@ Page({
       title: '加载中....',
       mask: true
     });
-    wx.request({
-      url: url + '/team!zhuce.action',
-      data: {
-        bumen: bumen,
-        name: name,
-        name1: name1,
-        phone: phone,
-        company: company,
-        openid: this.data.openid,
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      method: 'POST',
-      success: function (res) {
+
+    var zhuce={};
+    zhuce.bumen = bumen;
+    zhuce.name = name;
+    zhuce.name1 = name1;
+    zhuce.phone = phone;
+    zhuce.company = company;
+    zhuce.openid = this.data.openid;
+    network.POST('/team!zhuce.action',zhuce,
+       (res)=> {
         wx.switchTab({
           url: '../index/index'
         })
         wx.hideLoading();
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
 })

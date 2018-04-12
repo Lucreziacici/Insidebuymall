@@ -1,10 +1,10 @@
 //index.js
 //获取应用实例
 var app = getApp();
-console.log(app)
 var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
+var network = require("../../libs/network.js")
 Page({
   data: {
     url1: app.globalData.url,
@@ -21,9 +21,7 @@ Page({
     currentTab: 0,
     admin:{},
     isApprove:false
-
   },
-
   //事件处理函数
   bindViewTap: function () {
     wx.navigateTo({
@@ -32,60 +30,35 @@ Page({
   },
   //响应点击导航栏
   navbarTap: function (e) {
-    var that = this;
     var id = e.currentTarget.id;
-    that.setData({
+    this.setData({
       currentTab: e.currentTarget.dataset.idx,
       products: [],
     })
-    wx.request({
-      url: url + '/foodchain!huoqu1.action?appid=' + appid + '&onemenu.id=' + id,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log(res)
-        that.setData({
+    network.GET('/foodchain!huoqu1.action?appid=' + appid + '&onemenu.id=' + id,
+      (res) => {
+        this.setData({
           products: res.data.objs2
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    wx.setNavigationBarTitle({ title: title })
-    wx.request({
-      url: url + '/foodchain!tohomepageneigou.action?appid=' + appid,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log(res)
-
-        that.setData({
+    network.GET('/foodchain!tohomepageneigou.action?appid=' + appid,
+       (res)=> {
+        this.setData({
           banners: res.data.objs,
           products: res.data.objs2,
           tuijians: res.data.objs3,
           navbar: res.data.objs4,
           admin: res.data.object
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   gourl: function (e){
-    
     wx.navigateTo({
       url: e.currentTarget.dataset.url,
     })
@@ -101,43 +74,33 @@ Page({
   * 生命周期函数--监听页面显示
   */
   onShow: function () {
-    var that=this
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo, openid) {
+    app.getUserInfo( (userInfo, openid)=> {
       //更新数据
       if (!openid) {
-        that.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试")
+        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试")
         return false;
       }
-      that.setData({
+      this.setData({
         userInfo: userInfo,
         openid: openid
       })
-    
-      wx.request({
-        url: url + '/team!findteam1.action?openid=' + openid,
-        method: 'get',
-        header: { 'Content-Type': 'application/json' },
-        success: function (res) {
-          if (res.data.shstatus =='审核通过'){
-            that.setData({
-              isApprove:true
+      network.GET('/team!findteam1.action?openid=' + openid,
+        (res) => {
+          if (res.data.shstatus == '审核通过') {
+            this.setData({
+              isApprove: true
             });
 
           }
-          if (res.data.shstatus==null){
+          if (res.data.shstatus == null) {
             wx.redirectTo({
-              url: '../login/login?openid='+openid,
+              url: '../login/login?openid=' + openid,
             })
           }
-        },
-        fail: function (res) {
-          console.log('submit fail');
-        },
-        complete: function (res) {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        });
     })
   },
   onShareAppMessage: function (res) {

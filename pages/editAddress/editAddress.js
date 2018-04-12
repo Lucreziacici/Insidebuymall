@@ -3,6 +3,7 @@ var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
+var network = require("../../libs/network.js")
 //上一个页面
 Page({
   data: {
@@ -16,11 +17,9 @@ Page({
     openid: ''//openid
   },
   onLoad: function (options) {
-    var that = this
     //获取地址
-    wx.request({
-      url: url + '/dizhi!update.action?id=' + options.id,
-      success: (res) => {
+    network.GET('/dizhi!update.action?id=' + options.id,
+      (res) => {
         this.setData({
           address: res.data,
           province: res.data.province,
@@ -28,8 +27,9 @@ Page({
           qu: res.data.qu,
           region: [res.data.province, res.data.city, res.data.qu]
         })
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
     //更新数据
     this.setData({
       openid: options.openid,
@@ -80,16 +80,15 @@ Page({
       mask: true,
     })
     var formData = e.detail.value;
-    wx.request({
-      url: url + '/dizhi!updatedizhi.action',
-      data: formData,
-      success: (res) => {
+    network.POST('/dizhi!updatedizhi.action', formData,
+      (res) => {
         prevPage.setData({
           addresslist: res.data
         })
         wx.hideLoading();
         wx.navigateBack({})
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      });
   },
 })

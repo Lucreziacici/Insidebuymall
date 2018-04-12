@@ -1,4 +1,5 @@
 // pages/orderDetail/orderDetail.js
+var network = require("../../libs/network.js")
 Page({
   /**
    * 页面的初始数据

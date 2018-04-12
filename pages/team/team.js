@@ -2,6 +2,7 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var network = require("../../libs/network.js")
 Page({
   data: {
     resources: app.globalData.url,//资源路径
@@ -38,39 +39,24 @@ Page({
         openid: openid
       })
       //获取用户信息
-      wx.request({
-        url: url + '/team!findteam1.action?openid=' + openid,
-        method: 'get',
-        success: (res) => {
+      network.GET('/team!findteam1.action?openid=' + openid,
+        (res) => {
           this.setData({
             team: res.data,
           })
-        },
-        fail: (res) => {
-          console.log('submit fail');
-        },
-        complete: (res) => {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
     })
     //获取管理员信息
-    wx.request({
-      url: url + '/team!getadmin.action?appid=' + appid,
-      method: 'get',
-      success: (res) => {
+    network.GET('/team!getadmin.action?appid=' + appid,
+      (res) => {
         this.setData({
           admin: res.data
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   calling: function () {
     wx.makePhoneCall({

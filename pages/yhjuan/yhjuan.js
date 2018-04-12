@@ -3,7 +3,7 @@ var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
-
+var network = require("../../libs/network.js")
 Page({
 
   /**
@@ -42,27 +42,17 @@ Page({
   onLoad: function (options) {
     var that = this
     //调用应用实例的方法获取全局数据
-    wx.request({
-      url: url + '/team!wsyyhj.action?team.openid=' + options.openid + '&appid=' + appid,
-      method: 'get',
-      header: { 'Content-Type': 'application/json' },
-      success: function (res) {
-        console.log(res.data);
+    network.GET('/team!wsyyhj.action?team.openid=' + options.openid + '&appid=' + appid,
+      (res) => {
         that.setData({
           wsyyhj: res.data.wsy,
           ysyyhj: res.data.ysy,
           ygqyhj: res.data.ygq,
-          height: res.data.num*100,
+          height: res.data.num * 100,
         });
-      },
-      fail: function (res) {
-        console.log('submit fail');
-      },
-      complete: function (res) {
-        console.log('submit complete');
-      }
-
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
  
   

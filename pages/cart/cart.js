@@ -1,6 +1,7 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var network = require("../../libs/network.js")
 Page({
   data: {
     resources: app.globalData.url,//资源路径
@@ -19,22 +20,16 @@ Page({
   onLoad: function (options) {
     //获取用户信息
     app.getUserInfo((userInfo, openid) => {
-      wx.request({
-        url: url + '/team!findteam1.action?openid=' + openid,
-        success: (res) => {
+      network.GET('/team!findteam1.action?openid=' + openid,
+        (res) => {
           if (res.data.shstatus == '审核通过') {
             this.setData({
               isApprove: true
             });
           }
-        },
-        fail: (res) => {
-          console.log('submit fail');
-        },
-        complete: (res) => {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
       //更新数据
       this.setData({
         openid: openid
@@ -52,23 +47,16 @@ Page({
       this.setData({
         openid: openid
       })
-      wx.request({
-        url: url + '/cart!findall1.action?openid=' + this.data.openid + '&appid=' + appid,
-        method: 'get',
-        success: (res) => {
+      network.GET('/cart!findall1.action?openid=' + this.data.openid + '&appid=' + appid,
+        (res) => {
           this.setData({
             carts: res.data.objs,
             allprice: res.data.allprice.toFixed(2),
             checkAllStatus: true,
           });
-        },
-        fail: (res) => {
-          console.log('submit fail');
-        },
-        complete: (res) => {
-          console.log('submit complete');
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
     })
   },
   //选择checkbox
@@ -133,10 +121,8 @@ Page({
   addNum: function (options) {
     var id = options.currentTarget.id;
     var price = 0;
-    wx.request({
-      url: url + '/cart!add2.action?cart.id=' + id,
-      method: 'get',
-      success: (res) => {
+    network.GET('/cart!add2.action?cart.id=' + id,
+      (res) => {
         for (var i = 0; i < this.data.carts.length; i++) {
           if (id == this.data.carts[i].id) {
             this.data.carts[i].num = res.data.num;
@@ -150,23 +136,16 @@ Page({
           carts: this.data.carts,
           allprice: price.toFixed(2)
         });
-      },
-      fail: (res) => {
-        console.log('submit fail');
-      },
-      complete: (res) => {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //减少商品数量
   subNum: function (options) {
     var id = options.currentTarget.id;
     var price = 0;
-    wx.request({
-      url: url + '/cart!add3.action?cart.id=' + id,
-      method: 'get',
-      success: (res) => {
+    network.GET('/cart!add3.action?cart.id=' + id,
+      (res) => {
         for (var i = 0; i < this.data.carts.length; i++) {
           if (id == this.data.carts[i].id) {
             this.data.carts[i].num = res.data.num
@@ -185,14 +164,9 @@ Page({
           carts: this.data.carts,
           allprice: price.toFixed(2)
         });
-      },
-      fail: (res) => {
-        console.log('submit fail');
-      },
-      complete: (res) => {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //提交订单
   formBindsubmit: function (e) {
@@ -224,9 +198,8 @@ Page({
       return false;
     }
     if (checked) {
-      wx.request({
-        url: url + '/order!jiesuan1.action?openid=' + this.data.opneid + '&appid=' + this.data.appid + '&cartvalues=' + this.data.cartvalues,
-        success: (res) => {
+      network.GET('/order!jiesuan1.action?openid=' + this.data.opneid + '&appid=' + this.data.appid + '&cartvalues=' + this.data.cartvalues,
+        (res) => {
           if (res.data.res2 == '要税') {
             wx.navigateTo({
               url: '../sfzheng/sfzheng?oid=' + res.data.res1
@@ -236,8 +209,9 @@ Page({
               url: '../final/final?oid=' + res.data.res1
             })
           }
-        }
-      })
+        }, (res) => {
+          console.log(res);
+        })
     } else {
       wx.showModal({
         title: '提示',
@@ -276,10 +250,8 @@ Page({
       modalHidden: true,
     });
     var price = 0;
-    wx.request({
-      url: url + '/cart!delete.action?cart.id=' + this.data.cartid,
-      method: 'get',
-      success: (res) => {
+    network.GET('/cart!delete.action?cart.id=' + this.data.cartid,
+      (res) => {
         this.data.carts.splice(this.data.cartindex, 1);
         for (var i = 0; i < this.data.carts.length; i++) {
           if (this.data.carts[i].checked) {
@@ -290,14 +262,9 @@ Page({
           carts: this.data.carts,
           allprice: price.toFixed(2)
         });
-      },
-      fail: (res) => {
-        console.log('submit fail');
-      },
-      complete: (res) => {
-        console.log('submit complete');
-      }
-    })
+      }, (res) => {
+        console.log(res);
+      })
   },
   //取消删除
   cancelDelete: function (e) {
