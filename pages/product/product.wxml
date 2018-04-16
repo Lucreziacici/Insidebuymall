@@ -77,11 +77,11 @@
     </view>
   </view>
   <view class='buy-button'>
-    <view class='add-to-cart' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='0' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">加入购物车</view>
-    <view class='add-to-cart' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+    <view class='add-to-cart' wx:if="{{Buystate}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='0' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">加入购物车</view>
+    <view class='add-to-cart' wx:if="{{!Buystate}}" style="background:#aaa">已售罄</view>
 
-    <view class='buy-now' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='1' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">立即购买</view>
-    <view class='buy-now' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+    <view class='buy-now' wx:if="{{Buystate}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='1' bindtap="{{product.shangjia=='已下架'?'':'onChangeShowState'}}">立即购买</view>
+    <view class='buy-now' wx:if="{{!Buystate}}" style="background:#aaa">已售罄</view>
   </view>
 
 </view>
@@ -103,7 +103,7 @@
         <view class='message-box-title'>选择规格</view>
         <view class='message-box-specification'>
           <view class="guige-body1-rudio" wx:for="{{guiges}}" wx:key="id" wx:for-index="i">
-            <view class="specification-button specification-{{currentTab==item.id ? 'actived' : 'unactivated'}}" data-id="{{item.id}}" data-bianma="{{item.name}}" data-repertory="{{item.kucun}}" data-name="{{item.name}}" catchtap="{{item.kucun>0 ? 'rudioChoose' : ''}}">
+            <view class="specification-button specification-{{currentTab==item.id ? 'actived' : 'unactivated'}}" data-id="{{item.id}}" data-bianma="{{item.name}}" data-repertory="{{item.kucun}}" data-name="{{item.name}}" catchtap="{{item.kucun>0 ? 'rudioChoose' : 'soldout'}}">
               <text class="rudio-text1">{{item.name}}</text>
             </view>
           </view>
@@ -125,11 +125,11 @@
     </view>
     <view wx:else class="cover-footer-choose">
       <view class='buy-button'>
-        <view class='add-to-cart' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='0' bindtap="{{product.shangjia=='已下架'?'':'addcart'}}">加入购物车</view>
-        <view class='add-to-cart' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+        <view class='add-to-cart' wx:if="{{Buystate}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='0' bindtap="{{product.shangjia=='已下架'?'':'addcart'}}">加入购物车</view>
+        <view class='add-to-cart' wx:if="{{!Buystate}}" style="background:#aaa">已售罄</view>
 
-        <view class='buy-now' wx:if="{{repertory>0}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='1' bindtap="{{product.shangjia=='已下架'?'':'addorder'}}">立即购买</view>
-        <view class='buy-now' wx:if="{{repertory==0}}" style="background:#aaa">已售罄</view>
+        <view class='buy-now' wx:if="{{Buystate}}" style="{{product.shangjia=='已下架'?'opacity: 0.4':''}}" data-type='1' bindtap="{{product.shangjia=='已下架'?'':'addorder'}}">立即购买</view>
+        <view class='buy-now' wx:if="{{!Buystate}}" style="background:#aaa">已售罄</view>
       </view>
     </view>
   </view>

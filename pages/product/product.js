@@ -19,7 +19,8 @@ Page({
     team: {},//用户信息
     srollHeight:"1000px",//滚动高度
     isAddCart:"0",//是否为加入购物车
-    isApprove: false
+    isApprove: false,
+    Buystate:false,//是否能购买
   },
   onLoad: function (options) {
     //获取用户信息
@@ -59,9 +60,12 @@ Page({
               repertoryMax: res.data.objs2[i].kucun,
               specificationId: res.data.objs2[i].id,
               currentTab: res.data.objs2[i].id,
+              repertory: res.data.objs2[i].kucun,
+              Buystate:true
             });
             break;
           }
+          console.log(this.data)
         }
       }, (res) => {
         console.log(res);
@@ -104,6 +108,10 @@ Page({
       'currentTab': options.currentTarget.dataset.id,//选中id
       quantity: 1,
     });
+  },
+  //售空
+  soldout:function(){
+    this.selectComponent("#Toast").showToast("此规格已售罄，换一个吧~")
   },
   //增加数量
   addNum: function (options) {
