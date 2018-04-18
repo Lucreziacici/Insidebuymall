@@ -14,7 +14,7 @@
   <Toast id="Toast"></Toast>
   <!--商品信息  -->
   <view class="commodity-message white">
-    <text class=' commodity-title'>{{product.title}}</text>
+    <text class='commodity-title'>{{product.title}}</text>
     <text class='commodity-description'>{{product.miaoshu}}</text>
     <view wx:if="{{isApprove}}"  class='commodity-price'>￥{{product.price2}}</view>
     <view wx:if="{{!isApprove}}"  class='commodity-price'>￥***</view>

@@ -14,7 +14,7 @@ Page({
     onemenus: [],
     page: 1,
     dibu: false,
-    keyword: '',
+    keyword: "输入关键字",
     isPopping: false,//是否已经弹出  
     animPlus: {},//旋转动画  
     animCollect: {},//item位移,透明度  
@@ -82,6 +82,11 @@ Page({
     //设置当前样式
     this.setData({
       'currentTab': id
+    })
+  },
+  gosearch: function () {
+    wx.navigateTo({
+      url: '../search/search'
     })
   },
   onReachBottom: function () {

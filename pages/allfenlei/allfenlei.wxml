@@ -2,8 +2,10 @@
   <view class="body-head">
     <view class="body-head-1">
       <view class="body-head-1-1">
-          <input type="text" placeholder="输入关键字搜索" name="keyword" bindinput="keywordInput" confirm-type="search" bindconfirm="keywordSubmit" class="head-text"/> 
-          <image class="head-sousuo" src="{{url1+'/images/soso.png'}}" bindtap='suosuo'>
+          <!-- <input type="text" placeholder="输入关键字搜索" name="keyword" bindinput="keywordInput" confirm-type="search" bindconfirm="keywordSubmit" class="head-text"/> 
+          <image class="head-sousuo" src="{{url1+'/images/soso.png'}}" bindtap='suosuo'> -->
+           <view bindtap='gosearch' class="head-text"> {{keyword}}</view>
+        <image class="head-sousuo" src="{{url1+'/images/soso.png'}}" bindtap='gosearch'>
           </image>      
       </view>
     </view>

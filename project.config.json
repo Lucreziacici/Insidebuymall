@@ -157,6 +157,12 @@
 					"name": "商品详情",
 					"pathName": "pages/product/product",
 					"query": "id=406"
+				},
+				{
+					"id": -1,
+					"name": "搜索",
+					"pathName": "pages/search/search",
+					"query": ""
 				}
 			]
 		}

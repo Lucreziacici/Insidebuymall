@@ -14,7 +14,7 @@ Page({
     onemenus:[],
     page:1,
     dibu: false,
-    keyword:null,
+    keyword:"输入关键字",
     isApprove: false,//是否审核通过
   },
   /**
@@ -147,6 +147,11 @@ Page({
   suosuo: function (event) {
     wx.redirectTo({
       url: '../allsearch/allsearch?keyword=' + this.data.keyword,
+    })
+  },
+  gosearch:function(){
+    wx.navigateTo({
+      url: '../search/search'
     })
   },
   closeModal: function (res) {

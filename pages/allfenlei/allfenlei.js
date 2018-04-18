@@ -15,7 +15,7 @@ Page({
     page: 1,
     dibu: false,
     onemenuid: null,
-    keyword: null,
+    keyword: "输入关键字",
     isShowModal: false,//弹层弹出
   },
   onLoad: function (options) {
@@ -132,6 +132,11 @@ Page({
   suosuo: function (event) {
     wx.redirectTo({
       url: '../allsearch/allsearch?keyword=' + this.data.keyword,
+    })
+  },
+  gosearch: function () {
+    wx.navigateTo({
+      url: '../search/search'
     })
   },
   closeModal: function (res) {

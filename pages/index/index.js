@@ -66,7 +66,7 @@ Page({
   // 前往搜索页，带个参数
   gosearch:function(e){
     wx.navigateTo({
-      url: "/pages/allsearch/allsearch?type=1",
+      url: "/pages/search/search",
     })
   },
 

@@ -5,7 +5,6 @@
  */
 function GET(url, success, fail) {
 
-  console.log("------start---_get----");
   wx.request({
     url: "https://fx.comeyang.com/"+url,
     header: {
@@ -19,7 +18,6 @@ function GET(url, success, fail) {
     }
   });
 
-  console.log("----end-----_get----");
 }
 
 /**
@@ -42,7 +40,6 @@ function POST(url, data, success, fail) {
       fail(res);
     }
   });
-  console.log("----end-----_get----");
 }
 
 /**
@@ -51,7 +48,6 @@ function POST(url, data, success, fail) {
 * fail 失败的回调
 */
 function _post_json(url, data, success, fail) {
-  console.log("----_post--start-------");
   wx.request({
     url: "https://fx.comeyang.com/" + url,
     header: {
@@ -67,7 +63,6 @@ function _post_json(url, data, success, fail) {
     }
   });
 
-  console.log("----end----_post-----");
 }
 module.exports = {
   GET: GET,

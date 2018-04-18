@@ -24,7 +24,8 @@
     "pages/orderList/orderList",
     "pages/orderDetail/orderDetail",
     "pages/service/service",
-    "pages/classification/classification"
+    "pages/classification/classification",
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",
