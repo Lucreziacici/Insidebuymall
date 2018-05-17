@@ -1,0 +1,10 @@
+<view class='commodity_item'>
+      <navigator hover-class="none" url="../product/product?id={{commodityid}}">
+        <image class='commodity_img' src="{{img}}"></image>
+         <!-- <image class='tag' src="../../images/newproduct.png"></image>  -->
+        <view class='commodity_message white'>
+          <text>{{title}}</text>
+          <text class='common-color'>￥{{price}}</text>
+        </view>
+      </navigator>
+</view>

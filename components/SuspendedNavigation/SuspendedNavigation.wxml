@@ -3,7 +3,7 @@
 <view>
   <view wx:if="{{isShowModal}}" class='modalbg' bindtap="plus">
   </view>
-  <image src="/images/plus.png" wx:if="{{!isShowModal}}" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
+  <image src="/images/navigation.png" wx:if="{{!isShowModal}}" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image>
   <image src="/images/close.png" wx:else class="img-plus-style img-plus-style-active" animation="{{animPlus}}" bindtap="plus"></image>
   <view class="img-style" animation="{{animTranspond}}" bindtap="collect">
     <image src="/images/collect.png"></image>

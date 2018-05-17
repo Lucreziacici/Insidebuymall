@@ -12,10 +12,12 @@ page {
   background: white;
 }
 
-.member-message image {
+.member-message-image {
   width: 100rpx;
   height: 100rpx;
   border-radius: 100rpx;
+  overflow:hidden;
+  display:block;
 }
 
 .member-nickname {

@@ -22,7 +22,7 @@ page{
   height: 30rpx;
 }
 .search_box{
-  padding: 30rpx 50rpx  100rpx;
+  padding: 30rpx 50rpx 100rpx;
   margin: 20rpx 0 0 0;
 }
 .search_title{

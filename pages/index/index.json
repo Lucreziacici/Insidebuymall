@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "Toast": "/components/Toast/Toast"
+    "Toast": "/components/Toast/Toast",
+    "Commodity": "/components/Commodity/Commodity"
   },
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black",

@@ -1,0 +1,48 @@
+<!--pages/classify/classify.wxml-->
+<view class='classify'>
+  <view class='classifyList'>
+
+      <view bindtap="navbarTap" wx:for="{{classifyList}}"  wx:key="unique" id="{{index}}" class="classifyItem {{currentTab==index ? 'active' : ''}}"  >
+        <text>{{item}}</text>
+      </view>
+
+
+  </view>
+  <view class='classifyBox'>
+    <!-- <view class='classifyBoxTitle'>
+      <text>面部护理</text>
+    </view> -->
+    <view class='classifyBoxList'>
+      <view class='classifyBoxItem'>
+        <navigator hover-class='none'>
+          <image src='../../images/beauty-icon.png'></image>
+          <text>洁面</text>
+        </navigator>
+      </view>
+      <view class='classifyBoxItem'>
+        <navigator hover-class='none'>
+          <image src='../../images/beauty-icon.png'></image>
+          <text>洁面</text>
+        </navigator>
+      </view>
+      <view class='classifyBoxItem'>
+        <navigator hover-class='none'>
+          <image src='../../images/beauty-icon.png'></image>
+          <text>洁面</text>
+        </navigator>
+      </view>
+      <view class='classifyBoxItem'>
+        <navigator hover-class='none'>
+          <image src='../../images/beauty-icon.png'></image>
+          <text>洁面</text>
+        </navigator>
+      </view>
+      <view class='classifyBoxItem'>
+        <navigator hover-class='none'>
+          <image src='../../images/beauty-icon.png'></image>
+          <text>洁面</text>
+        </navigator>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+/* pages/brand/brand.wxss */
+.brandbg{
+  width: 750rpx;
+  height: 290rpx;
+}
+.brandbg image{
+  width: 100%;
+  height: 100%;
+}

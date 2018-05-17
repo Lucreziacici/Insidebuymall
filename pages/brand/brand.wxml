@@ -1,0 +1,8 @@
+<!--pages/brand/brand.wxml-->
+<view class='brandbg'>
+  <image src='../../images/brandbg.jpg'></image>
+</view>
+<view>
+<view><image></image></view>
+<view><text>Estee Lauder 雅诗兰黛</text><text>在售商品277个</text></view>
+</view>

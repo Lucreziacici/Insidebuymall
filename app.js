@@ -40,6 +40,7 @@ App({
                 formData.appsecret = that.globalData.secret,
                 network.POST('/team!getuserinfo1.action', formData,
                   (res) => {
+                    console.log(res)
                     that.globalData.openid = res.data.openid
                     typeof cb == "function" && cb(that.globalData.userInfo, res.data.openid)
                   }, (res) => {
@@ -47,7 +48,7 @@ App({
                   })
             },
             complete: function (res) {
-              console.log('submit complete111221');
+              console.log('submit complete'); 
             }
           })
 

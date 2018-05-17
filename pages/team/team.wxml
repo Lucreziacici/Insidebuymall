@@ -1,6 +1,8 @@
 <view class="member-message">
-  <image  src="{{userInfo.avatarUrl}}"></image>
-  <text class="member-nickname">{{userInfo.nickName}}</text>
+  <!-- <image  src="{{userInfo.avatarUrl}}"></image> -->
+  <open-data class="member-message-image" type="userAvatarUrl"></open-data>
+  <open-data  class="member-nickname" type="userNickName"></open-data>
+  <!-- <text class="member-nickname">{{userInfo.nickName}}</text> -->
   <text class="member-status">{{team.shstatus}}</text>
 </view>
 <view class="member-list">

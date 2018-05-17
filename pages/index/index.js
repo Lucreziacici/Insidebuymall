@@ -45,8 +45,10 @@ Page({
       })
   },
   onLoad: function () {
+    
     network.GET('/foodchain!tohomepageneigou.action?appid=' + appid,
        (res)=> {
+         console.log(res.data)
         this.setData({
           banners: res.data.objs,
           products: res.data.objs2,
@@ -74,6 +76,7 @@ Page({
   * 生命周期函数--监听页面显示
   */
   onShow: function () {
+    network.IsuserInfo();
     //调用应用实例的方法获取全局数据
     app.getUserInfo( (userInfo, openid)=> {
       //更新数据

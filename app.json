@@ -25,7 +25,11 @@
     "pages/orderDetail/orderDetail",
     "pages/service/service",
     "pages/classification/classification",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/commodityList/commodityLists",
+    "pages/classify/classify",
+    "pages/accredit/accredit",
+    "pages/brand/brand"
   ],
   "window": {
     "backgroundTextStyle": "light",

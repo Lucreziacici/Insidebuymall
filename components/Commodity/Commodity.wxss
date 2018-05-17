@@ -1,0 +1,51 @@
+@import "../../app.wxss";
+
+
+.commodity_item:nth-last-child(1) {
+  align-self: flex-start;
+}
+
+.commodity_item {
+  margin: 20rpx 9rpx 0 9rpx;
+  width: 358rpx;
+  box-shadow: 3px 3px 5px rgba(136, 136, 136, 0.15);
+}
+
+.commodity_img {
+  width: 358rpx;
+  height: 370rpx;
+  border-bottom: 1px solid #ededed;
+}
+
+.tag {
+  width: 108rpx;
+  height: 117rpx;
+  position: absolute;
+  margin: 0 0 0 -108rpx;
+}
+
+.commodity_message {
+  display: flex;
+  flex-direction: column;
+  margin: -10rpx 0 0 0;
+  padding: 50rpx 32rpx 40rpx 32rpx;
+  font-size: 10pt;
+}
+
+.commodity_message text:nth-child(1) {
+  color: #090909;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  width: 300rpx;
+  height: 70rpx;
+  font-size: 10pt;
+  line-height: 35rpx;
+  vertical-align: middle;
+}
+
+.commodity_message text:nth-child(2) {
+  margin: 9rpx 0 0 0;
+}

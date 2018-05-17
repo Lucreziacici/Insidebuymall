@@ -3,7 +3,12 @@
 page {
   background-color: white;
 }
-
+.commodity_list {
+  /* margin: 100rpx 0 0 0; */
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
 .search-box{
   height: 100rpx;
   display: flex;

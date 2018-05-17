@@ -1,5 +1,5 @@
 <view class="body">
-  <view class="body-head">
+  <view class="body-head white">
     <view class="body-head-1">
       <view class="body-head-1-1">
           <!-- <input type="text" placeholder="输入关键字搜索" name="keyword" bindinput="keywordInput" confirm-type="search" bindconfirm="keywordSubmit" class="head-text"/> 
@@ -26,22 +26,12 @@
       <text class="fenlei-text">更多</text>
      </view>
   </view>
- <block wx:for="{{product1s}}" wx:key="key"> 
- 
-        <view  class="tuijian-bodynei">
-         <navigator url="../product/product?id={{item.p1id}}">
-            <image class="tuijian-img1" src="{{item.img}}"></image>
-            <view  class="tuijian-text">
-              <view class="tuijian-text0">
-                  <text class="tuijian-text11">{{item.title}}</text>
-                  <text wx:if="{{isApprove}}"  class="tuijian-text3">￥{{item.price2}}</text>
-            <text wx:if="{{!isApprove}}"  class="tuijian-text3">￥***</text>
-              </view>
-            </view>
-            </navigator> 
-        </view>
-         
-  </block>
+   <view class='commodity_list'>
+    <block wx:for="{{product1s}}" wx:key="key">
+
+      <Commodity title='{{item.title}}' commodityid="{{item.p1id}}" img="{{item.img}}" price="{{item.price2}}"></Commodity>
+    </block>
+  </view>
    <view class="dibu_0">
     
   </view>
