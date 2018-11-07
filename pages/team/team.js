@@ -1,6 +1,7 @@
 //获取应用实例
 var app = getApp()
 var url = app.globalData.url
+var resourceurl = app.globalData.resourceurl
 var appid = app.globalData.appid
 var network = require("../../libs/network.js")
 Page({
@@ -17,6 +18,18 @@ Page({
         link:"../addressList/addressList"
       },
       {
+        name: "身份证信息管理",
+        link: "../idcardList/idcardList"
+      },
+      {
+        name: "我的足迹",
+        link: "../footprint/footprint"
+      },
+      {
+        name: "我的收藏",
+        link: "../collect/collect"
+      },
+      {
         name: "优惠劵管理",
         link: "../yhjuan/yhjuan"
       },
@@ -24,39 +37,78 @@ Page({
         name: "我的资料",
         link: "../memberInformation/memberInformation"
       },
-    ]
+    ],
+    orderlist: [
+      {
+        title: "待付款",
+        icon: resourceurl+"obligation-icon.png",
+        status:'00',
+        id:1,
+        url:"/pages/orderList/orderList?status=00&id=1"
+
+      }, {
+        title: "待发货",
+        icon: resourceurl +"receiving-icon.png",
+        status: '10',
+        id: 2,
+        url: "/pages/orderList/orderList?status=10&id=2"
+      },
+      {
+        title: "已发货",
+        icon: resourceurl +"evaluated-icon.png",
+        status: '20',
+        id: 3,
+        url: "/pages/orderList/orderList?status=20&id=3"
+      },
+      {
+        title: "已完成",
+        icon: resourceurl +"order-icon.png",
+        status: '30',
+        id: 4,
+        url: "/pages/orderList/orderList?status=30&id=4"
+      },
+      {
+        title: "退款",
+        icon: resourceurl +"refund-icon.png",
+        status: '90',
+        id: 5,
+        url: "/pages/refundOrder/refundOrder"
+      }
+    ],
+    resourceurl: resourceurl
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo((userInfo, openid) => {
+    network.IsuserInfo();
+    app.getUserInfo((userInfo, open_id) => {
       //更新数据
       this.setData({
-        userInfo: userInfo,
-        openid: openid
-      })
-      //获取用户信息
-      network.GET('/team!findteam1.action?openid=' + openid,
-        (res) => {
-          this.setData({
-            team: res.data,
-          })
-        }, (res) => {
-          console.log(res);
-        })
+        userid: open_id,
+      });
+      if (!this.data.userid) {
+        this.selectComponent("#Toast").showToast("信息读取失败，请刷新后重试");
+      }
     })
-    //获取管理员信息
-    network.GET('/team!getadmin.action?appid=' + appid,
-      (res) => {
+
+  },
+  onShow:function(){
+    network.GET("Order/OrderCountByStatusGroup", (res) => {
+      if (res.data.res_status_code == '0') {
+        this.data.orderlist[0].num = res.data.res_content.order_count_new;
+        this.data.orderlist[1].num = res.data.res_content.order_count_pay;
+        this.data.orderlist[2].num = res.data.res_content.order_count_delivery;
+        this.data.orderlist[3].num = res.data.res_content.order_count_complete;
+        this.data.orderlist[4].num = res.data.res_content.order_count_refund;
         this.setData({
-          admin: res.data
+          orderlist:this.data.orderlist
         });
-      }, (res) => {
-        console.log(res);
-      })
+      }
+    }, (res) => {
+      console.log(res)
+      }, this.data.userid)
   },
   calling: function () {
     wx.makePhoneCall({

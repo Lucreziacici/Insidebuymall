@@ -2,7 +2,9 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid;
+var resourceurl = app.globalData.resourceurl
 import Watch from '../../libs/watch';
+var network = require("../../libs/network.js")
 let watch;
 Page({
 
@@ -10,228 +12,137 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},//用户信息
-    openid: null,//openid
-    resource: app.globalData.url,//资源路径
-    orderList:[],//订单列表
-    activedTab:0,//tab激活状态
-    tabList:['全部订单','待付款','待发货','已发货','已完成','退款'],//tab值
-
-
-
+    resource: app.globalData.url, //资源路径
+    orderList: [], //订单列表
+    activedTab: 0, //tab激活状态
+    // tabList:['全部订单','待付款','待发货','已发货','已完成','退款'],//tab值
+    tabList: [{
+      title: '全部订单',
+      status: ""
+    }, {
+      title: '待付款',
+      status: "00"
+    }, {
+      title: '待发货',
+      status: "10"
+    }, {
+      title: '已发货',
+      status: "20"
+    }, {
+      title: '已完成',
+      status: "30"
+    }], //tab值
+    modalHidden: true, //模态框是否显示
+    tips: "", //模态框内容
+    operate: "", //操作类型，delete:删除；refund：退款；confirm：确认收货 cancel：取消订单
+    page_index: "1", //第几页
+    page_size: "6", //一页多少条记录
+    nomore: false,
+    noresult: false,
+    activedStatus: "",
+    resourceurl: resourceurl
   },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log(options)
-    this.setData({
-      activedTab:options.id
-    })
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo( (userInfo, openid)=> {
-      if (!openid) {
-        this.selectComponent("#Toast").showToast("获取信息失败，请刷新后重试");
-        return false;
-      }
+  onLoad: function(options) {
+    if (options.id) {
+      this.setData({
+        activedTab: options.id,
+        activedStatus: options.status
+      })
+    }
+    app.getUserInfo((userInfo, open_id) => {
       //更新数据
       this.setData({
-        userInfo: userInfo,
-        openid: openid
-      })
-      let baseurl="";
-      wx.showLoading({
-        title: '加载中....',
-        mask: true,
-      })
-      if (options.id=='0'){
-        //获取订单信息
-        wx.request({
-          url: url + '/order!myorder.action?appid=' + appid + '&openid=' + openid,
-          success: (res) => {
-            wx.hideLoading();
-            this.setData({
-              orderList: res.data,
-            });
-          },
-          fail: function (res) {
-            console.log('submit fail');
-          },
-          complete: function (res) {
-            console.log('submit complete');
-          }
-        })
-      }else if(options.id=='1'){
-        wx.request({
-          url: url + '/order!myorder1.action?appid=' + appid + '&openid=' + openid,
-          success: (res) => {
-            wx.hideLoading();
-            this.setData({
-              orderList: res.data,
-            });
-          },
-        })
-      } else if (options.id == '2') {
-        wx.request({
-          url: url + '/order!myorder2.action',
-          data: {
-            appid: appid,
-            openid: openid,
-            fhstatus: "待发货",
-          },
-          success: (res) => {
-            wx.hideLoading();
-            this.setData({
-              orderList: res.data,
-            });
-          },
-        })
-      } else if (options.id == '3') {
-        wx.request({
-          url: url + '/order!myorder2.action',
-          data: {
-            appid: appid,
-            openid: openid,
-            fhstatus: "已发货",
-          },
-          success: (res) => {
-            wx.hideLoading();
-            this.setData({
-              orderList: res.data,
-            });
-          },
-        })
-      } else if (options.id == '4') {
-        wx.request({
-          url: url + '/order!myorder2.action',
-          data: {
-            appid: appid,
-            openid: openid,
-            fhstatus: "已完成",
-          },
-          success: (res) => {
-            wx.hideLoading();
-            this.setData({
-              orderList: res.data,
-            });
-          },
-        })
-      } else if (options.id == '5') {
-        wx.request({
-          url: url + '/order!tkorder.action?appid=' + appid + '&openid=' + openid,
-          success: (res) => {
-            wx.hideLoading();
-            this.setData({
-              orderList: res.data,
-            });
-          },
-        })
+        userid: open_id,
+      });
+      if (!this.data.userid) {
+        this.selectComponent("#Toast").showToast("信息读取失败，请刷新后重试");
+      }
+      if (options.id == 5) {
+        this.getRefundList()
+      } else {
+        this.getOrderList(this.data.activedStatus)
       }
     })
+
+
+
+  },
+  // 获取订单列表
+  getOrderList: function(e) {
+    wx.showLoading({
+      title: '加载中…',
+    })
+    var data = {}
+    data.status = e;
+    data.page_index = this.data.page_index;
+    data.page_size = this.data.page_size;
+    network.GETJSON("Order/OrderList", data, (res) => {
+      if (res.data.res_status_code == '0') {
+
+        this.setData({
+          noresult: false,
+          nomore: false
+        })
+        var orderList = this.data.orderList;
+        for (var i = 0; i < res.data.res_content.data_list.length; i++) {
+          orderList.push(res.data.res_content.data_list[i])
+        }
+        this.setData({
+          orderList: orderList
+        })
+        wx.hideLoading();
+        if (res.data.res_content.page_index >= res.data.res_content.total_pages) {
+          this.setData({
+            nomore: true,
+            noresult: false,
+          })
+        }
+        if (res.data.res_content.data_list.length == '0' && res.data.res_content.total_pages == '0') {
+          this.setData({
+            noresult: true,
+            nomore: false
+          })
+        }
+      } else {
+        this.selectComponent("#Toast").showToast(res.data.res_message);
+      }
+    }, (res) => {
+      console.log(res)
+    }, this.data.userid)
   },
   watch: {
-    activedTab: function (val, oldVal) {
+    activedTab: function(val, oldVal) {
       console.log("我变了", val, oldVal);
-      console.log(typeof(val),typeof(oldVal));
-      if(val!==oldVal){
-        if (val== '0') {
-          //获取订单信息
-          wx.request({
-            url: url + '/order!myorder.action?appid=' + appid + '&openid=' + this.data.openid,
-            success: (res) => {
-              this.setData({
-                orderList: res.data,
-              });
-            },
-            fail: function (res) {
-              console.log('submit fail');
-            },
-            complete: function (res) {
-              console.log('submit complete');
-            }
-          })
-        } else if (val == '1') {
-          wx.request({
-            url: url + '/order!myorder1.action?appid=' + appid + '&openid=' + this.data.openid,
-            success: (res) => {
-              wx.hideLoading();
-              this.setData({
-                orderList: res.data,
-              });
-            },
-          })
-        } else if (val == '2') {
-          wx.request({
-            url: url + '/order!myorder2.action',
-            data: {
-              appid: appid,
-              openid: this.data.openid,
-              fhstatus: "待发货",
-            },
-            success: (res) => {
-              wx.hideLoading();
-              this.setData({
-                orderList: res.data,
-              });
-            },
-          })
-        } else if (val == '3') {
-          wx.request({
-            url: url + '/order!myorder2.action',
-            data: {
-              appid: appid,
-              openid: this.data.openid,
-              fhstatus: "已发货",
-            },
-            success: (res) => {
-              wx.hideLoading();
-              this.setData({
-                orderList: res.data,
-              });
-            },
-          })
-        } else if (val == '4') {
-          wx.request({
-            url: url + '/order!myorder2.action',
-            data: {
-              appid: appid,
-              openid: this.data.openid,
-              fhstatus: "已完成",
-            },
-            success: (res) => {
-              wx.hideLoading();
-              this.setData({
-                orderList: res.data,
-              });
-            },
-          })
-        } else if (val == '5') {
-          wx.request({
-            url: url + '/order!tkorder.action?appid=' + appid + '&openid=' + this.data.openid,
-            success: (res) => {
-              wx.hideLoading();
-              this.setData({
-                orderList: res.data,
-              });
-            },
-          })
+      if (val !== oldVal) {
+        this.setData({
+          page_index: "1",
+          orderList: [],
+        })
+        if (val == '5') {
+          this.getRefundList()
+        } else {
+          this.getOrderList(this.data.activedStatus);
         }
       }
     },
-    
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -239,70 +150,203 @@ Page({
         });
       }
     });
-    
+
   },
   // 切换tab
-  switchTab:function(option){
+  switchTab: function(option) {
     watch = new Watch(this);
     watch.setData({
-      activedTab: option.target.dataset.id.toString()
+      activedTab: option.target.dataset.id.toString(),
+      activedStatus: option.currentTarget.dataset.status
     })
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
   // 加载更多
-  loadMore:function(){
-   console.log("到底了")
+  loadMore: function() {
+    this.data.page_index = parseInt(this.data.page_index) + 1
+    this.setData({
+      page_index: this.data.page_index
+    });
+    if (this.data.activedTab == 5) {
+      if (!this.data.nomore){
+        this.getRefundList()
+      }
+      
+    } else {
+      if (!this.data.nomore) {
+        this.getOrderList(this.data.activedStatus)
+      }
+      
+    }
+
   },
   // 删除订单
-  deleteOrder: function () {
-    console.log("删除订单")
-  },
-  // 支付订单
-  payOrder: function () {
-    console.log("支付订单")
+  deleteOrder: function(e) {
+    console.log(e)
+    this.setData({
+      modalHidden: false,
+      tips: "真的要删除此订单么？",
+      operate: "delete",
+      activedorderno: e.detail.id
+    })
   },
   //查看物流 
-  checkLogistics: function () {
+  checkLogistics: function(e) {
     console.log("查看物流")
   },
   // 退款
-  refundOrder: function () {
-    console.log("退款")
+  refundOrder: function(e) {
+    this.setData({
+      modalHidden: false,
+      tips: "是否确认退款",
+      operate: "refund",
+      activedorderno: e.detail.id
+    });
   },
   //确认收货
-  confirmOrder: function () {
-    console.log("确认收货")
+  confirmOrder: function(e) {
+    this.setData({
+      modalHidden: false,
+      tips: "是否确认收货",
+      operate: "confirm",
+      activedorderno: e.detail.id
+    });
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+  //取消订单
+  cancelOrder: function(e) {
+    this.setData({
+      modalHidden: false,
+      tips: "是否取消订单",
+      operate: "cancel",
+      activedorderno: e.detail.id
+    });
+  },
+  //取消退款
+  cancelrefund: function(e) {
+    this.setData({
+      modalHidden: false,
+      tips: "是否取消退款申请",
+      operate: "cancelrefund",
+      activedorderno: e.detail.id
+    });
+
+  },
+  //前往退款
+  refund: function(e) {
+    wx.navigateTo({
+      url: '../refund/refund?order_detail_no=' + e.detail.order_detail_no + '&order_no=' + e.detail.order_no + '&activedStatus=' + this.data.activedStatus
+    })
+  },
+
+  //点击确认
+  confirm_one: function() {
+    //如果操作是删除
+    if (this.data.operate == 'delete') {
+      network.POST("Order/DeleteOrder", {
+        order_no: this.data.activedorderno
+      }, (res) => {
+        if (res.data.res_status_code == '0') {
+          this.setData({
+            modalHidden: true,
+            tips: "",
+            orderList: [],
+            page_index: 1,
+          })
+          this.getOrderList(this.data.activedStatus);
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message);
+        }
+      }, (res) => {
+        console.log(res)
+      })
+    } else if (this.data.operate == 'confirm') {
+      network.POST("Order/ConfirmOrder", {
+        order_no: this.data.activedorderno
+      }, (res) => {
+        if (res.data.res_status_code == '0') {
+          this.setData({
+            modalHidden: true,
+            tips: "",
+            orderList: [],
+            page_index: 1,
+          })
+          this.getOrderList(this.data.activedStatus);
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message);
+        }
+      }, (res) => {
+        console.log(res)
+      })
+    } else if (this.data.operate == 'refund') {
+      network.POST("Refund/CreateRefundOrder", {
+        order_no: this.data.activedorderno
+      }, (res) => {
+        if (res.data.res_status_code == '0') {
+          console.log(res.data)
+          this.setData({
+            modalHidden: true,
+            tips: "",
+            orderList: [],
+            page_index: 1,
+          })
+          this.getOrderList(this.data.activedStatus);
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message);
+        }
+      }, (res) => {
+        console.log(res)
+      })
+    } else if (this.data.operate == 'cancel') {
+      network.POST("Order/CancelOrder", {
+        order_no: this.data.activedorderno
+      }, (res) => {
+        console.log(res)
+        if (res.data.res_status_code == '0') {
+          console.log(res.data)
+          this.setData({
+            modalHidden: true,
+            tips: "",
+            orderList: [],
+            page_index: 1,
+          })
+          this.getOrderList(this.data.activedStatus);
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message);
+        }
+      }, (res) => {
+        console.log(res)
+      })
+    } else if (this.data.operate == 'cancelrefund') {
+      network.POST("Refund/CancelRefund", {
+        refund_no: this.data.activedorderno
+      }, (res) => {
+        console.log(res)
+        if (res.data.res_status_code == '0') {
+          console.log(res.data)
+          this.setData({
+            modalHidden: true,
+            tips: "",
+            orderList: [],
+            page_index: 1,
+          })
+          this.getOrderList(this.data.activedStatus);
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message);
+        }
+      }, (res) => {
+        console.log(res)
+      })
+
+    }
+
+  },
+  //取消
+  cancel_one: function() {
+    this.setData({
+      modalHidden: true,
+      tips: ""
+    })
+  },
+ 
+
 })

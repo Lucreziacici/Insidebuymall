@@ -1,7 +1,7 @@
 <!--搜索框  -->
 <view class='search-box'>
   <view class='search-item' bindtap="gosearch">
-    <image src='https://fx.comeyang.com/images/soso.png'></image>
+    <image src='../../images/soso.png'></image>
     <text>输入关键字</text>
   </view>
 </view>

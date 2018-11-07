@@ -39,8 +39,6 @@
 .information-input-item {
   display: flex;
   align-items: center;
-  height: 100rpx;
-  border-bottom: 1rpx solid #e9e9e9;
   font-size: 11pt;
   color: #696969;
 }
@@ -49,8 +47,19 @@
   width: 180rpx;
 }
 
+.information-input-input {
+  width: 500rpx;
+  border-bottom:1rpx solid #e9e9e9;
+height:100rpx;
+display:flex;
+align-items:center;
+
+}
+
 .information-input-input input {
-  color: #a9a9a9;
+  color: #333;
+  width:500rpx;
+
 }
 
 /* 分类弹框  */
@@ -68,11 +77,15 @@
 .classify-box {
   background-color: white;
   position: fixed;
-  width: 500rpx;
+  width: 650rpx;
   height: 100%;
   right: 0;
   top: 0;
   z-index: 20000;
+  transition: All 0.4s linear;
+  -webkit-transition: All 0.4s linear;
+  transform: rotate(0deg) scale(1) translate(100%, 0%);
+  -webkit-transform: rotate(0deg) scale(1) translate(100%, 0%);
 }
 
 .classify-header {
@@ -85,17 +98,61 @@
 }
 
 .classify-list {
-  padding: 30rpx;
   display: flex;
   flex-wrap: wrap;
+  height:960rpx;
+overflow-y:auto;
+
+}
+
+.classify-list-title {
+  padding: 20rpx 0 20rpx 20rpx;
 }
 
 .classify-item {
-  background-color: #f1f1f1;
+  width: 210rpx;
+}
+
+.classify-text {
+  padding: 20rpx 0rpx;
+  border-radius: 10rpx;
+  margin: 0 0 20rpx 20rpx;
+  text-align: center;
+  background-color: #efefef;
   font-size: 10pt;
-  padding: 10rpx 20rpx;
-  border-radius: 20rpx;
-  margin: 10rpx;
+}
+
+.classifyactive {
+  background-color: #df061a;
+  color: white;
+}
+
+.classify-bottom {
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #eee;
+  padding: 0;
+  margin: 0;
+}
+
+.classify-bottom view {
+  font-size: 10pt;
+  width: 325rpx;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.classify-bottom view:nth-child(2) {
+  background-color: #df061a;
+  height: 100%;
+  color: white;
 }
 
 /*订单项  */
@@ -140,19 +197,19 @@
 }
 
 .order-product-image image {
-  width: 200rpx;
-  height: 220rpx;
+  width: 160rpx;
+  height: 180rpx;
 }
 
 .order-product-message {
-  width: 400rpx;
+  width: 420rpx;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
 .order-product-message view:nth-child(1) {
-  color: #051b28;
+  color: #1d1d1d;
   font-size: 10pt;
   line-height: 36rpx;
   display: -webkit-box;
@@ -163,8 +220,8 @@
 }
 
 .order-product-message view:nth-child(2) {
-  color: #666;
-  font-size: 10pt;
+  color: #858585;
+  font-size: 9pt;
 }
 
 .order-product-message view:nth-child(3) {
@@ -201,4 +258,79 @@
   border-radius: 10rpx;
   padding: 10rpx 30rpx;
   margin: 0 0 0 10rpx;
+}
+
+.model_box{
+  z-index: 100;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   top: 0; 
+  left: 0;
+  right: 0;
+  margin: 200rpx 0 0 0;
+}
+.model {
+  width: 600rpx;
+  border-radius: 20rpx;
+  padding: 0 34rpx;
+
+
+}
+
+.model_header {
+  margin: 44rpx 0;
+  text-align: center;
+  font-size: 12pt;
+  color: #202020;
+  font-weight: 600;
+}
+
+.tips {
+  font-size: 10pt;
+  color: #323232;
+}
+
+.input input {
+  background-color: #f7f7f7;
+  color: #222;
+  font-size: 10pt;
+  height: 74rpx;
+  width: 580rpx;
+  margin: 24rpx 0 0 0;
+  padding: 0 0 0 20rpx;
+}
+
+.button {
+  background-color: #e23f41;
+  height: 74rpx;
+  color: white;
+  width: 600rpx;
+  margin: 24rpx 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10pt;
+  border-radius: 10rpx;
+}
+
+.button button{
+  font-size: 10pt;
+  color:white;
+  background: transparent;
+  border:none;
+  outline: 0;
+  width: 600rpx;
+}
+.button button::after{
+
+  border:none;
+  outline: 0;
+}
+
+.model_footer {
+  margin: 40rpx 0 32rpx 0;
+  color: #c37f55;
+  font-size: 8pt;
 }

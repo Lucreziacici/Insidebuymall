@@ -2,6 +2,7 @@
 var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
+var resourceurl = app.globalData.resourceurl
 var title = app.globalData.title
 var opid = ""
 var network = require("../../libs/network.js")
@@ -16,6 +17,7 @@ Page({
     onmsg: false,//判断是否为下订单时选择地址，数据从上个组件传来
     modalHidden: true,//控制模态框显示/隐藏
     addressId: 0,//地址id
+    resourceurl: resourceurl
   },
 
 
@@ -23,6 +25,17 @@ Page({
      * 生命周期函数--监听页面加载
      */
   onLoad: function (options) {
+    app.getUserInfo((userInfo, open_id) => {
+      //更新数据
+      this.setData({
+        userid: open_id,
+      });
+      if (!this.data.userid) {
+        this.selectComponent("#Toast").showToast("信息读取失败，请刷新后重试");
+      }
+      this.getAddressList();
+      
+    })
     var that = this
     if (options.oid) {
       this.setData({
@@ -30,34 +43,44 @@ Page({
         onmsg: options.onmsg
       });
     }
+    
     wx.showLoading({
       title: '加载中....',
       mask: true
     })
-    app.getUserInfo((userInfo, openid) => {
-      //更新数据
-      this.setData({
-        userInfo: userInfo,
-        openid: openid
-      });
-      if (!openid) {
-        this.selectComponent("#Toast").showToast("获取身份失败，请刷新后重试")
-        return false;
-      }
-      this.getAddressList();
-    });
-    wx.hideLoading();
+    // app.getUserInfo((userInfo, openid) => {
+    //   //更新数据
+    //   console.log(openid)
+    //   console.log(userInfo)
+    //   this.setData({
+    //     userInfo: userInfo,
+    //     openid: openid
+    //   });
+    //   if (!openid) {
+    //     this.selectComponent("#Toast").showToast("获取身份失败，请刷新后重试")
+    //     return false;
+    //   }
+    //   this.getAddressList();
+    // });
+
   },
   //获取地址列表
   getAddressList: function () {
-    network.GET('/dizhi!findall.action?openid=' + this.data.openid + '&appid=' + appid,
+    network.GET('CustomerAddress/AddressList',
       (res) => {
-        this.setData({
-          addresslist: res.data,
-        });
+        console.log(res.data)
+        wx.hideLoading();
+        if (res.data.res_status_code=='0'){
+          this.setData({
+            addresslist: res.data.res_content
+          });
+        }else{
+          this.selectComponent("#Toast").showToast(res.data.res_message)
+        }
+       
       }, (res) => {
         console.log(res);
-      })
+      }, this.data.userid)
   },
   //切换默认地址
   radioChange: function (e) {
@@ -65,33 +88,47 @@ Page({
       title: '加载中....',
       mask: true,
     })
-    var id = e.detail.value;
-    network.GET('/dizhi!updatamoren.action?openid=' + this.data.openid + '&appid=' + appid + '&id=' + e.detail.value,
+    console.log(e)
+    var id = e.currentTarget.dataset.id;
+    network.POST('CustomerAddress/SetDefaultAddress',{id:id},
       (res) => {
-        if (res = "[]") {
+        if (res.data.res_status_code=='0'){
           this.getAddressList();
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message)
         }
         wx.hideLoading();
       }, (res) => {
         console.log(res);
-      })
+      }, this.data.userid)
   },
-  //下单时选择地址 todo  暂时没看懂，看到下单这里再改，暂时只改函数名
+  //下单时选择地址 todo  暂时没看懂，看到下单这里再改，暂时只改函数名TODO
   chooseAddress: function (e) {
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];//上局页面
     var id = e.currentTarget.id;
-    network.GET('/order!updatedizhi.action?oid=' + this.data.oid + '&did=' + id,
+    var data={};
+    data.order_no = this.data.oid
+    data.address_id=id
+    network.POST('Order/UpdateOrderAddress',data,
       (res) => {
-        prevPage.setData({
-          orderinformation: res.data.object,
-          orderslist: res.data.objs,
-        })
-        wx.navigateBack({})
+        console.log(res)
+       
+        if (res.data.res_status_code == '0') {
+          prevPage.getOrderDetail();
+          wx.navigateBack({})
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message)
+        }
+        // prevPage.setData({
+        //   orderinformation: res.data.object,
+        //   orderslist: res.data.objs,
+        // })
+        // wx.navigateBack({})
       }, (res) => {
         console.log(res);
-      })
+      }, this.data.userid)
   },
   //弹出确认框  
   modalShow: function (e) {
@@ -107,14 +144,16 @@ Page({
     this.setData({
       modalHidden: true,
     });
-    network.GET('/dizhi!delete.action?openid=' + this.data.openid + '&appid=' + appid + '&id=' + id,
+    network.POST('CustomerAddress/DeleteAddress', {id:id},
       (res) => {
-        this.setData({
-          addresslist: res.data,
-        });
+        if (res.data.res_status_code == '0') {
+          this.getAddressList();
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message)
+        }
       }, (res) => {
         console.log(res);
-      })
+      }, this.data.userid)
   },
   //取消删除隐藏模态框
   modalHidden: function (e) {
@@ -133,26 +172,26 @@ Page({
           })
           var addressdata = {};
           addressdata.address = res.detailInfo;
-          addressdata.appid = appid;
           addressdata.city = res.cityName;
-          addressdata.name = res.userName;
-          addressdata.openid = this.data.openid;
-          addressdata.phone = res.telNumber;
+          addressdata.receiver_name = res.userName;
+          addressdata.receiver_phone = res.telNumber;
           addressdata.province = res.provinceName;
-          addressdata.qu = res.countyName;
-          network.POST('/dizhi!add.action', addressdata,
+          addressdata.district = res.countyName;
+          network.POST('CustomerAddress/AddNewAddress', addressdata,
             (res) => {
-              this.setData({
-                addresslist: res.data
-              })
+              if (res.data.res_status_code == '0') {
+                this.getAddressList();
+              } else {
+                this.selectComponent("#Toast").showToast(res.data.res_message)
+              }
               wx.hideLoading();
             }, (res) => {
               console.log(res);
-            })
+            }, this.data.userid)
         },
         fail: (err) => {
           wx.navigateTo({
-            url: '/pages/addAddress/addAddress?openid=' + this.data.openid
+            url: '/pages/addAddress/addAddress'
           })
         }
       })

@@ -3,36 +3,36 @@
     <view class="address-message" id="{{item.id}}" bindtap="{{onmsg?'chooseAddress':''}}">
       <view class="address-user-message">
         <view class="address-name">
-          <text>{{item.name}}</text>
+          <text>{{item.receiver_name}}</text>
         </view>
         <view class=" address-phone">
-          <text>{{item.phone}}</text>
+          <text>{{item.receiver_phone}}</text>
         </view>
       </view>
       <view class="address-address">
-        <text>{{item.province}}{{item.city}}{{item.qu}}{{item.address}}</text>
+        <text>{{item.province}}{{item.city}}{{item.district}}{{item.address}}</text>
       </view>
     </view>
     <view class="address-edit">
       <view>
-        <view class="address-checkbox" data-id="{{item.id}}">
-          <label class='checkbox'>
-            <checkbox value="{{item.id}}" id='{{item.id}}' hidden="false" />
-            <image src="{{resources}}/images/{{item.moren=='true'?'11':'00'}}.png"></image>
-            <text class="{{item.moren=='true'?'common-color':''}}">设为默认</text>
-          </label>
+        <view class="address-checkbox" data-id="{{item.id}}" bindtap="radioChange">
+          <!-- <label class='checkbox'> -->
+            <!-- <checkbox value="{{item.id}}" data-id='{{item.id}}' hidden="false" /> -->
+            <image src="{{resourceurl}}{{item.is_default=='1'?'11':'00'}}.png" data-id='{{item.id}}'></image>
+            <text class="{{item.is_default=='1'?'common-color':''}}">设为默认</text>
+          <!-- </label> -->
         </view>
       </view>
       <view class="address-edit-option">
         <view class="address-edit-redact">
-          <navigator url="../editAddress/editAddress?id={{item.id}}&openid={{openid}}">
-            <image src="{{resources+'/images/dibianji.png'}}">
+          <navigator url="../editAddress/editAddress?id={{item.id}}">
+            <image src="{{resourceurl}}dibianji.png">
             </image>
             <text>编辑</text>
           </navigator>
         </view>
         <view class=" address-edit-delete" bindtap="modalShow" id="{{item.id}}">
-          <image src="{{resources+'/images/dishanchu.png'}}">
+          <image src="{{resourceurl}}dishanchu.png">
           </image>
           <text>删除</text>
         </view>

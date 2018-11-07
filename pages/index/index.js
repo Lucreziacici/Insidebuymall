@@ -45,7 +45,7 @@ Page({
       })
   },
   onLoad: function () {
-    
+    console.log(app.globalData)
     network.GET('/foodchain!tohomepageneigou.action?appid=' + appid,
        (res)=> {
          console.log(res.data)

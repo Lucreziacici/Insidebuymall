@@ -1,4 +1,6 @@
 // SuspendedNavigation.js
+var app = getApp()
+var resourceurl = app.globalData.resourceurl
 Component({
   options:{
     multipleSlots: true // 在组件定义时的选项中启用多slot支持
@@ -14,7 +16,8 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isShowModal:false
+    isShowModal:false,
+    resourceurl: resourceurl
 
   },
 
@@ -48,7 +51,7 @@ Component({
     },
     transpond: function () {
       wx.switchTab({
-        url: '../index/index'
+        url: '../main/main'
       })
     },
     collect: function () {
@@ -58,7 +61,12 @@ Component({
     },
     goclassification:function(){
       wx.switchTab({
-        url: '../classification/classification'
+        url: '../classify/classify'
+      })
+    },
+    goproductList:function(){
+      wx.switchTab({
+        url: '../allproduct/allproduct'
       })
     },
 
@@ -81,21 +89,27 @@ Component({
         duration: 500,
         timingFunction: 'ease-out'
       })
+      var animproduct= wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease-out'
+      })
       var animGoclassification = wx.createAnimation({
         duration: 500,
         timingFunction: 'ease-out'
       })
       animationPlus.rotateZ(360).step();
-      animationcollect.translate(-50, -70).rotateZ(360).opacity(1).step();
-      animationTranspond.translate(-90, 28).rotateZ(360).opacity(1).step();
-      animGoclassification.translate(-90, -28).rotateZ(360).opacity(1).step();
-      animationInput.translate(-50, 70).rotateZ(360).opacity(1).step();
+      animationcollect.translate(-40, -90).rotateZ(360).opacity(1).step();
+      animGoclassification.translate(-75, -50).rotateZ(360).opacity(1).step();
+      animationTranspond.translate(-90, 0).rotateZ(360).opacity(1).step(); 
+      animproduct.translate(-75, 50).rotateZ(360).opacity(1).step(); 
+      animationInput.translate(-40, 90).rotateZ(360).opacity(1).step();
       this.setData({
         animPlus: animationPlus.export(),
         animCollect: animationcollect.export(),
         animTranspond: animationTranspond.export(),
         animInput: animationInput.export(),
-        animGoclassification: animGoclassification.export()
+        animGoclassification: animGoclassification.export(),
+        animproduct: animproduct.export(),
       })
     },
     //收回动画  
@@ -117,6 +131,10 @@ Component({
         duration: 500,
         timingFunction: 'ease-out'
       })
+      var animproduct = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease-out'
+      })
       var animationInput = wx.createAnimation({
         duration: 500,
         timingFunction: 'ease-out'
@@ -126,12 +144,14 @@ Component({
       animationTranspond.translate(0, 0).rotateZ(0).opacity(0).step();
       animationInput.translate(0, 0).rotateZ(0).opacity(0).step();
       animGoclassification.translate(0, 0).rotateZ(0).opacity(0).step();
+      animproduct.translate(0, 0).rotateZ(0).opacity(0).step();
       this.setData({
         animPlus: animationPlus.export(),
         animCollect: animationcollect.export(),
         animTranspond: animationTranspond.export(),
         animInput: animationInput.export(),
         animGoclassification: animGoclassification.export(),
+        animproduct: animproduct.export(),
       })
     },
   }

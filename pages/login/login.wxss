@@ -22,4 +22,57 @@
 .view_xie image{
   margin: 0 20rpx 0 0 ;
 }
+.layer{
+  background: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 
+}
+.agreement_box{
+  position: absolute;
+  background: white;
+  width: 600rpx;
+  height: 1000rpx;
+  padding: 0 0 32rpx 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  top: 100rpx;
+  bottom: 0;
+  right: 75rpx;
+  left: 75rpx;
+  z-index: 100;
+  border-radius: 10rpx;
+}
+.agreement_word{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.agreement_box .agreement_title{
+  font-size: 12pt;
+  padding: 30rpx 0 0 0;
+  text-align: center;
+}
+.agreement_box .agreement_message{
+  padding: 0 32rpx;
+  font-size: 10pt;
+  max-height: 800rpx;
+  overflow-y: auto;
+  margin: 30rpx 0 0 0;
+
+}
+.agreement_box .agreement_button{
+  background: #9c855c;
+  color: white;
+  border: 0;
+  outline: 0;
+  font-size: 10pt;
+  margin: 20rpx 0 0 0;
+  width: 200rpx;
+
+}

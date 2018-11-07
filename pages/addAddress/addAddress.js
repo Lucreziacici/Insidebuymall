@@ -9,7 +9,7 @@ Page({
     region: ['请选择地址', '', ''],//picker用
     province: '',//省
     city: '',//市
-    qu: '',//区 TODO 这个名字以后一定要改！！！
+    district: '',//区 
     appid: appid,//appid
     openid:null,//openid
     tip:'',//贴士
@@ -18,13 +18,16 @@ Page({
     detailInfo:'',//详细地址
   },
   onLoad: function (options) {
-    //调用应用实例的方法获取全局数据（获取openid）
-    app.getUserInfo( (userInfo, openid) =>{
+
+    app.getUserInfo((userInfo, open_id) => {
       //更新数据
       this.setData({
-        userInfo: userInfo,
-        openid: openid
+        userid: open_id,
       });
+
+      if (!this.data.userid) {
+        this.selectComponent("#Toast").showToast("信息读取失败，请刷新后重试");
+      }
     })
   },
   //picker选择方法
@@ -33,62 +36,52 @@ Page({
       region: e.detail.value,
       province: e.detail.value[0],
       city: e.detail.value[1],
-      qu: e.detail.value[2],
-
+      district: e.detail.value[2],
     })
   },
   //提交地址
   formBindsubmit: function (e) {
-    var that = this;
-    var name = e.detail.value.name;
-    var phone = e.detail.value.phone;
-    var province = e.detail.value.province;
-    var city = e.detail.value.city;
-    var qu = e.detail.value.qu;
-    var address = e.detail.value.address;
     var pages = getCurrentPages();
     var currPage = pages[pages.length - 1];   //当前页面
     var prevPage = pages[pages.length - 2];
     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
-    if (name == '') {
+    if (e.detail.value.receiver_name == '') {
       this.selectComponent("#Toast").showToast("请填写姓名")
       return false;
     }
-    if (phone == '') {
+    if (e.detail.value.receiver_phone == '') {
       this.selectComponent("#Toast").showToast("请输入手机号码")
       return false;
     }
-    if (!myreg.test(phone)) {
+    if (!myreg.test(e.detail.value.receiver_phone)) {
       this.selectComponent("#Toast").showToast("手机号码有误")
       return false;
     }
-    if (this.data.province == '' || this.data.city == '' || this.data.qu == '') {
+    if (e.detail.value.province == '' || e.detail.value.city == '' || e.detail.value.district == '') {
       this.selectComponent("#Toast").showToast("请选择省市区")
       return false;
     }
-    if (address == '') {
+    if (e.detail.value.address == '') {
       this.selectComponent("#Toast").showToast("请填写详细地址")
       return false;
     }
     var formData = e.detail.value;
-    if (!formData.openid) {
-      this.selectComponent("#Toast").showToast("提交信息失败，请刷新后重试")
-      return false;
-    }
     wx.showLoading({
       title: '加载中....',
       mask: true,
     })
     var formData = e.detail.value;  
-    network.POST('/dizhi!add.action', formData,
+    network.POST('CustomerAddress/AddNewAddress', formData,
       (res) => {
-        prevPage.setData({
-          addresslist: res.data
-        })
-        wx.hideLoading();
-        wx.navigateBack({})
+        console.log(res)
+        prevPage.getAddressList();
+        if (res.data.res_status_code=='0'){
+          wx.hideLoading();
+          wx.navigateBack({})
+        }
+
       }, (res) => {
         console.log(res);
-      })
+      }, this.data.userid)
   },
 })

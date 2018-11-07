@@ -2,11 +2,11 @@
   <view class="address-edit-box white">
     <view class="address-edit">
       <text class="address-title">收件人:</text>
-      <input type="text" class="address-input" name="name" focus value='{{userName}}' placeholder="姓名" />
+      <input type="text" class="address-input" name="receiver_name" focus value='{{userName}}' placeholder="姓名" />
     </view>
     <view class="address-edit">
       <text class="address-title">手机号:</text>
-      <input type="number" maxlength="11" name="phone" class="address-input" value='{{telNumber}}' placeholder="手机号" />
+      <input type="number" maxlength="11" name="receiver_phone" class="address-input" value='{{telNumber}}' placeholder="手机号" />
     </view>
     <view class="address-edit">
       <text class="address-title">选择地址:</text>
@@ -17,9 +17,9 @@
           </view>
           <input type="text" hidden="false" name="province" value="{{province}}" />
           <input type="text" hidden="false" name="city" value="{{city}}" />
-          <input type="text" hidden="false" name="qu" value="{{qu}}" />
-          <input type="text" hidden="false" name="appid" value="{{appid}}" />
-          <input type="text" hidden="false" name="openid" value="{{openid}}" />
+          <input type="text" hidden="false" name="district" value="{{district}}" />
+          <!-- <input type="text" hidden="false" name="appid" value="{{appid}}" />
+          <input type="text" hidden="false" name="openid" value="{{openid}}" /> -->
         </picker>
       </view>
     </view>

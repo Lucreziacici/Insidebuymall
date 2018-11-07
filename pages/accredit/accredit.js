@@ -1,11 +1,15 @@
 // pages/accredit/accredit.js
+var app = getApp()
+var resourceurl = app.globalData.resourceurl
+var network = require("../../libs/network.js")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    resourceurl: resourceurl
   },
 
   /**
@@ -26,77 +30,54 @@ Page({
     })
   },
   bindGetUserInfo: function (e) {
-    if (e.detail.errMsg =='getUserInfo:ok'){
-      var timestamp=Date.parse(new Date());
-      var expiration=timestamp+1000*60*60*24*5;//记住时间五天后过期
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      var timestamp = Date.parse(new Date());
+      var expiration = timestamp + 1000 * 60 * 60 * 24 * 5;//记住时间五天后过期
       wx.setStorage({
         key: 'userinfo_time',
         data: expiration,
       })
-      wx.setStorage({
-        key: 'userinfo',
-        data: e.detail.userInfo,
-        success: function (res) {
-          wx.navigateBack();
-        },
-        fail: function (res) {
-          console.log(res);
+      var data = {};
+      data.nick_name = e.detail.userInfo.nickName;
+      data.avatarUrl = e.detail.userInfo.avatarUrl
+      data.gender = e.detail.userInfo.gender
+      data.province = e.detail.userInfo.province
+      data.city = e.detail.userInfo.city
+      network.POST("Customer/SaveCustomerWxConfig", data, (res) => {
+        console.log(res)
+        if (res.data.res_status_code == '0') {
+          app.globalData.userInfo = res.data.res_content
+          wx.setStorage({
+            key: 'userinfo',
+            data: res.data.res_content,
+            success: function (res) {
+              // var page = getCurrentPages()
+              // var route = "/" + page[page.length - 2].route
+              // wx.reLaunch({
+              //   url: route
+              // })
+              wx.switchTab({
+                url: '../main/main',
+              })
+            },
+            fail: function (res) {
+              console.log(res);
+            }
+          })
+        } else {
+          this.selectComponent("#Toast").showToast(res.data.res_message);
         }
+      }, (res) => {
+        console.log(res)
       })
-    }else{
+
+    } else {
       wx.showToast({
-        icon:'none',
+        icon: 'none',
         title: '请允许授权',
       })
     }
-   
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
+
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })
