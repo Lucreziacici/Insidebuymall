@@ -6,7 +6,15 @@
         姓名
       </view>
       <view class="information-input-input ">
-        <input type="text" focus name="name" placeholder="请填写姓名" bindconfirm="comfirmsearch" />
+        <input type="text" focus name="name" placeholder="请填写姓名" bindconfirm="comfirmsearch" bindinput="updatename" />
+      </view>
+    </view>
+    <view class="information-input-item">
+      <view class="information-input-name">
+        身份证
+      </view>
+      <view class="information-input-input ">
+        <input type="idcard" name="idcard" maxlength='18' placeholder="请输入身份证" bindinput="updateidcard" />
       </view>
     </view>
     <view class="information-input-item">
@@ -14,7 +22,7 @@
         联系人电话
       </view>
       <view class="information-input-input ">
-        <input type="number" name="phone" maxlength='11' placeholder="请输入联系人电话" />
+        <input type="number" name="phone" maxlength='11' placeholder="请输入联系人电话" bindinput="updatenum" />
       </view>
     </view>
     <view class="information-input-item">
@@ -22,7 +30,7 @@
         部门
       </view>
       <view class="information-input-input ">
-        <input type="text" name="bumen" placeholder="请输入所在部门" />
+        <input type="text" name="bumen" placeholder="请输入所在部门" bindinput="updatebumen" />
       </view>
     </view>
     <view class="information-input-item">
@@ -30,23 +38,36 @@
         主管姓名
       </view>
       <view class="information-input-input ">
-        <input type="text" name="name1" placeholder="请填主管姓名" />
+        <input type="text" name="name1" placeholder="请填主管姓名" bindinput="updatename1" />
       </view>
     </view>
-        <view class="information-input-item">
+    <view class="information-input-item">
       <view class="information-input-name">
         公司名称
       </view>
       <view class="information-input-input ">
-        <input type="text" name="company" placeholder="请填公司名称" />
+        <input type="text" name="company" placeholder="请填公司名称" bindinput="updatecompany" />
       </view>
     </view>
     <view class='view_xie'>
-      <image style="height: 40rpx;width: 40rpx;position: relative;top:10rpx;" src="{{url1}}/images/{{radio1?'2':'1'}}.png" bindtap='radioChange'></image>
+      <image style="height: 40rpx;width: 40rpx;position: relative;top:10rpx;" src="{{resourceurl}}{{radio1?'2':'1'}}.png" bindtap='radioChange'></image>
       <text>我已同意</text>
       <text>《缙嘉注册协议》</text>
     </view>
   </view>
-  <button class="body-submit" formType="submit">注册</button>
+  <button class="body-submit" wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">注册</button>
 </form>
+<view class='layer' bindtap='closeagreement' wx:if="{{isShowagreement}}"></view>
+<view class="agreement_box" wx:if="{{isShowagreement}}">
+  <view class='agreement_word'>
+    <view class='agreement_title'>缙嘉注册协议</view>
+    <view class='agreement_message'>微信与执收单位、财政（财政非税系统、非税网上缴费系统、电子票据管理系统）、代收银行相互配合，实现在执收单位、财政的公众号、小程序、APP、PC网站、自助机完成非税收缴电子化微信非税缴费能力，同时通过微信可收取票据信息，用户可依据服务通知推送的支付凭证和票据领取说明选择线下领取票据或者直接领取电子票据。微信将协助财政共同推动公众平台内所有政府公众号、小程序、城市服务在支付环节接入微信非税支付能力。 微信作为知名的第三方支付渠道，实现缴款通知书的查询、收单确认、结算打款、日终对账等业务处理。微信非税支付支持按照各级财政的要求，每一笔业务的资金进入财政预先在微信登记的银行科目账户中的指定定账户，并在打款结束后，由相应的银行负责资金的内部清分。
+      微信与执收单位、财政（财政非税系统、非税网上缴费系统、电子票据管理系统）、代收银行相互配合，实现在执收单位、财政的公众号、小程序、APP、PC网站、自助机完成非税收缴电子化微信非税缴费能力，同时通过微信可收取票据信息，用户可依据服务通知推送的支付凭证和票据领取说明选择线下领取票据或者直接领取电子票据。微信将协助财政共同推动公众平台内所有政府公众号、小程序、城市服务在支付环节接入微信非税支付能力。 微信作为知名的第三方支付渠道，实现缴款通知书的查询、收单确认、结算打款、日终对账等业务处理。微信非税支付支持按照各级财政的要求，每一笔业务的资金进入财政预先在微信登记的银行科目账户中的指定定账户，并在打款结束后，由相应的银行负责资金的内部清分。微信与执收单位、财政（财政非税系统、非税网上缴费系统、电子票据管理系统）、代收银行相互配合，实现在执收单位、财政的公众号、小程序、APP、PC网站、自助机完成非税收缴电子化微信非税缴费能力，同时通过微信可收取票据信息，用户可依据服务通知推送的支付凭证和票据领取说明选择线下领取票据或者直接领取电子票据。微信将协助财政共同推动公众平台内所有政府公众号、小程序、城市服务在支付环节接入微信非税支付能力。
+      微信作为知名的第三方支付渠道，实现缴款通知书的查询、收单确认、结算打款、日终对账等业务处理。微信非税支付支持按照各级财政的要求，每一笔业务的资金进入财政预先在微信登记的银行科目账户中的指定定账户，并在打款结束后，由相应的银行负责资金的内部清分。
+
+    </view>
+  </view>
+  <button class='agreement_button' bindtap='closeagreement'>我知道了</button>
+
+</view>
 <Toast id="Toast"></Toast>

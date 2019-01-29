@@ -1,0 +1,40 @@
+<view class="head-nav">
+  <view class="nav-1">
+    <view class="nav-2">
+      <view class="nav-{{currentTab==0?'hover':'sty'}}" data-current="0" data-status='00' bindtap="swichNav">未使用</view>
+    </view>
+    <view class="nav-2">
+      <view class="nav-{{currentTab==1?'hover':'sty'}}" data-current="1" data-status='10' bindtap="swichNav">已过期</view>
+    </view>
+    <view class="nav-2">
+      <view class="nav-{{currentTab==2?'hover':'sty'}}" data-current="2" data-status='20' bindtap="swichNav">已使用</view>
+    </view>
+  </view>
+</view>
+<view>
+  <view class='coupon_list flex_column_start_center'>
+    <view wx:if="{{status=='00'}}" wx:for="{{couponList}}" wx:key="key" class='coupon_item white flex_around_center'>
+      <view class='coupon_money valid flex_column_center_center'>
+        <view>{{item.price}}</view>
+        <view>满{{item.term}}减{{item.price}}</view>
+      </view>
+      <view class='coupon_message'>
+        <view class='coupon_title'>{{item.name}}</view>
+        <view>{{item.name}}</view>
+        <view>使用期限{{item.starttime}}至{{item.endtime}}</view>
+      </view>
+    </view>
+    <view wx:if="{{status=='10'||status=='20'}}" wx:for="{{couponList}}" class='coupon_item white flex_around_center'>
+      <view class='coupon_money invalid flex_column_center_center'>
+        <view>{{item.price}}</view>
+        <view>满{{item.term}}减{{item.price}}</view>
+      </view>
+      <view class='coupon_message'>
+        <view class='coupon_title'>{{item.name}}</view>
+        <view>{{item.name}}</view>
+        <view>使用期限{{item.starttime}}至{{item.endtime}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<Toast id="Toast"></Toast>

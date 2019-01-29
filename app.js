@@ -1,69 +1,175 @@
 //app.js
 var network = require("/libs/network.js")
 App({
-  onLaunch: function () {
+  onLaunch: function() {
     //调用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    wx.setStorageSync('logs', logs);
+    this.update();
+    // this.GetAccessToken();
+    // this.getUserInfo();
   },
-  getUserInfo: function (cb) {
-    var that = this
-    var objuser;
-    if (this.globalData.userInfo && this.globalData.openid) {
-      typeof cb == "function" && cb(this.globalData.userInfo, this.globalData.openid)
+  //获取系统配置 暂时没有用到 以后可能模板消息会遇到
+  GetAccessToken:function(){
+    network.GET('WxConfig/GetAccessToken', 
+    (res) => {
+    console.log(res)
+    }, (res) => {
+      console.log(res);
+    })
+  },
+  update: function() {
+    // 获取小程序更新机制兼容
+    if (wx.canIUse('getUpdateManager')) {
+      const updateManager = wx.getUpdateManager()
+      updateManager.onCheckForUpdate((res) => {
+        console.log(res)
+        // 请求完新版本信息的回调
+        if (res.hasUpdate) {
+          updateManager.onUpdateReady((res) => {
+            console.log(res)
+            wx.showModal({
+              title: '更新提示',
+              content: '新版本已经准备好，是否重启应用？',
+              success: (res) => {
+                if (res.confirm) {
+                  // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                  updateManager.applyUpdate()
+                }
+              }
+            })
+          })
+          updateManager.onUpdateFailed((res) => {
+            // 新的版本下载失败
+            console.log(res)
+            wx.showModal({
+              title: '已经有新版本了哟~',
+              content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~',
+            })
+          })
+        }
+      })
+    } else {
+      // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
+
+  },
+  getUserInfo: function(cb) {
+    if (this.globalData.userInfo && this.globalData.open_id) {
+      typeof cb == "function" && cb(this.globalData.userInfo, this.globalData.open_id)
     } else {
       //调用登录接口
       wx.login({
-        success: function (e) {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              let formData = {};
-              formData.code = e.code;
-              formData.imgUrl = res.userInfo.avatarUrl;
-              formData.nickname = res.userInfo.nickName;
-              formData.appid = that.globalData.appid;
-              formData.appsecret = that.globalData.secret;
-              network.POST('/team!getuserinfo.action', formData,
-                (res) => {
-                  that.globalData.openid = res.data.openid
-                  typeof cb == "function" && cb(that.globalData.userInfo, res.data.openid)
-                }, (res) => {
-                  console.log(res);
-                })
-            },
-            fail: function (res) {//用户拒绝获取头像和昵称就执行这个方法获取openid
-              var formData = {};
-              formData.code = e.code;
-              formData.appid = that.globalData.appid,
-                formData.appsecret = that.globalData.secret,
-                network.POST('/team!getuserinfo1.action', formData,
-                  (res) => {
-                    console.log(res)
-                    that.globalData.openid = res.data.openid
-                    typeof cb == "function" && cb(that.globalData.userInfo, res.data.openid)
-                  }, (res) => {
-                    console.log(res);
+        success: (e) => {
+          console.log(e)
+          if (e.errMsg =='login:ok'){
+            wx.request({
+              //正式
+              url: "https://mall.shjinjia.com.cn/api/Customer/GetOpenID?js_code=" + e.code + "",
+              // url: "https://mall.comeyang.com/api/Customer/GetOpenID?js_code=" + e.code + "",
+              //测试
+              // url: "https://mallt.shjinjia.com.cn/api/Customer/GetOpenID?js_code=" + e.code + "",
+              //文慧
+              // url: "http://10.10.200.4/MiniProgramMall.Api/api/Customer/GetOpenID?js_code=" + e.code + "",
+              header: {
+                'Content-Type': 'application/json',
+                'shop_id': '2'
+              },
+              success: (res) => {
+                console.log(res)
+                if (res.data.res_status_code == '0') {
+                  this.globalData.open_id = res.data.res_content.open_id;
+                  this.globalData.userInfo = res.data.res_content;
+                  typeof cb == "function" && cb(this.globalData.userInfo, res.data.res_content.open_id)
+                  if (res.data.res_content.open_id =='oYGDz0J1vL-r2v0xMDIumstkikyc'){
+                    if (!res.data.res_content.phone) {
+                      wx.request({
+                        url: "https://mall.shjinjia.com.cn/api/WxConfig/WxClientLoger?log_info=返回状态值:" + res.data.res_status_code + ", 返回手机号信息:" + res.data.res_content.phone + ", 返回昵称信息:" + res.data.res_content.nick_name + " , 判断条件:10",
+                        header: {
+                          'Content-Type': 'application/json',
+                          'shop_id': '2'
+                        },
+                      })
+                    } else if (!res.data.res_content.nick_name) {
+                      wx.request({
+                        url: "https://mall.shjinjia.com.cn/api/WxConfig/WxClientLoger?log_info=返回状态值:" + res.data.res_status_code + ", 返回手机号信息:" + res.data.res_content.phone + ", 返回昵称信息:" + res.data.res_content.nick_name + " , 判断条件:20",
+                        header: {
+                          'Content-Type': 'application/json',
+                          'shop_id': '2'
+                        },
+                      })
+                    }
+                  }else{
+                    if (!res.data.res_content.phone) {
+                      wx.request({
+                        url: "https://mall.shjinjia.com.cn/api/WxConfig/WxClientLoger?log_info=返回状态值:" + res.data.res_status_code + ", 返回手机号信息:" + res.data.res_content.phone + ", 返回昵称信息:" + res.data.res_content.nick_name + " , 判断条件:0",
+                        header: {
+                          'Content-Type': 'application/json',
+                          'shop_id': '2'
+                        },
+                      })
+                      setTimeout(function () {
+                        wx.navigateTo({
+                          url: '../login/login?openid=' + res.data.res_content.open_id
+                        })
+                      }, 200)
+                    } else if (!res.data.res_content.nick_name) {
+                      wx.request({
+                        url: "https://mall.shjinjia.com.cn/api/WxConfig/WxClientLoger?log_info=返回状态值:" + res.data.res_status_code + ", 返回手机号信息:" + res.data.res_content.phone + ", 返回昵称信息:" + res.data.res_content.nick_name + " , 判断条件:1",
+                        header: {
+                          'Content-Type': 'application/json',
+                          'shop_id': '2'
+                        },
+                      })
+                      wx.navigateTo({
+                        url: '../accredit/accredit'
+                      })
+                    }
+                  }
+                  wx.request({
+                    url: "https://mall.shjinjia.com.cn/api/WxConfig/WxClientLoger?log_info=返回状态值:" + res.data.res_status_code + ", 返回手机号信息:" + res.data.res_content.phone + ", 返回昵称信息:" + res.data.res_content.nick_name + " , 判断条件:2",
+                    header: {
+                      'Content-Type': 'application/json',
+                      'shop_id': '2'
+                    },
                   })
-            },
-            complete: function (res) {
-              console.log('submit complete'); 
-            }
-          })
+                  wx.setStorage({
+                    key: 'open_id',
+                    data: res.data.res_content.open_id,
+                  });
+                  wx.setStorage({
+                    key: 'userinfo',
+                    data: res.data.res_content,
+                  });
+                } else {
+                  wx.showToast({
+                    icon: "none",
+                    title: res.data.res_message,
+                  })
+                }
 
+              },
+              fail: function (res) {
+                console.log(res)
+              }
+            });
+          }
+         
         }
       })
     }
   },
   globalData: {
     url: 'https://fx.comeyang.com',
-    appid: 'wx56cdb2dddcd85394',//appid需自己提供，此处的appid我随机编写  
-    secret: '37951450999e53b003be17fb540179e0',//secret需自己提供，此处的secret我随机编写 
-    partner: '1488718912',//商户号
-    partnerkey: 'LnFqv5I4LFGSDq3QjsNgUuI8x7jvs2Fo',//支付密钥
-    title: 'ZIGGIE内购商城',
-    userInfo: null,
-    openid: null,
+    resourceurl: 'http://cdn.mallimg.shjinjia.com.cn/Uploads/SysImages/068/',
+    // resourceurl: 'http://mallimg.comeyang.com/Uploads/SysImages/068/',
+    userInfo: {},
+    open_id: null,
+
   }
 })

@@ -57,6 +57,7 @@ Page({
     })
   },
   onLoad: function () {
+<<<<<<< HEAD
     console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
@@ -69,6 +70,13 @@ Page({
         console.log(res)
 
         that.setData({
+=======
+    console.log(app.globalData)
+    network.GET('/foodchain!tohomepageneigou.action?appid=' + appid,
+       (res)=> {
+         console.log(res.data)
+        this.setData({
+>>>>>>> newversion
           banners: res.data.objs,
           products: res.data.objs2,
           tuijians: res.data.objs3,

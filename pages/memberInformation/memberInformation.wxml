@@ -6,49 +6,95 @@
         姓名
       </view>
       <view class="information-input-input">
-        <input type="text" value='{{team.name}}' name="name" placeholder="请填写姓名" />
+        <input type="text" value='{{real_name}}' name="name" placeholder="请填写姓名" bindinput="updatename"/>
       </view>
     </view>
-    <view class="information-input-item">
+     <view class="information-input-item">
       <view class="information-input-name">
         联系人电话
       </view>
       <view class="information-input-input">
-        <input type="number" name="phone" maxlength='11' value='{{team.phone}}' placeholder="请输入联系人电话" />
+        <input type="number" name="phone" maxlength='11' value='{{phone}}' placeholder="请输入联系人电话"  bindinput="updatenum"/>
       </view>
     </view>
-    <view class="information-input-item">
+   <view wx:if="{{!cust_shop_type}}" class="information-input-item">
       <view class="information-input-name">
         部门
       </view>
       <view class="information-input-input">
-        <input type="text" name="bumen" value='{{team.depar}}' placeholder="请输入所在部门" />
+        <input type="text" name="department" value='{{department}}' placeholder="请输入所在部门" bindinput="updatebumen" />
       </view>
     </view>
-    <view class="information-input-item">
+    <view wx:if="{{!cust_shop_type}}" class="information-input-item">
       <view class="information-input-name">
         主管姓名
       </view>
       <view class="information-input-input">
-        <input type="text" name="name1" value='{{team.dename}}' placeholder="请填主管姓名" />
+        <input type="text" name="manager" value='{{manager}}' placeholder="请填主管姓名" bindinput="updatename1"/>
       </view>
     </view>
-    <view class="information-input-item">
+    <view wx:if="{{!cust_shop_type}}" class="information-input-item">
       <view class="information-input-name">
         公司名称
       </view>
       <view class="information-input-input ">
-        <input type="text" name="company" value='{{team.company}}' placeholder="请填公司名称" />
+        <input type="text" name="company" value='{{company}}' placeholder="请填公司名称" bindinput="updatecompany"/>
       </view>
     </view>
-    <view class="information-input-item">
+    <view wx:if="{{!cust_shop_type}}" class="information-input-item">
       <view class="information-input-name">
         身份证号
       </view>
       <view class="information-input-input">
-        <input type="text" maxlength='18' name="shen" value='{{team.shen}}' placeholder="请填写身份证号" />
+        <input type="idcard" maxlength='18' name="idcard" value='{{idcard}}' placeholder="请填写身份证号" bindinput="updateidcard"/>
       </view>
     </view>
+      <!--   <view wx:if="{{cust_shop_type}}" class="information-input-item">
+      <view class="information-input-name">
+        店铺名称
+      </view>
+      <view class="information-input-input ">
+        <input type="text" name="shopname"  value='{{team.cust_shop_name}}' placeholder="请输入店铺名称" />
+      </view>
+    </view>
+    <view wx:if="{{cust_shop_type=='Taobao'}}" class="information-input-item">
+      <view class="information-input-name">
+        掌柜ID
+      </view>
+      <view class="information-input-input ">
+        <input type="text" name="managerid"  value='{{team.cust_shopkeeper_id}}' placeholder="请输入掌柜ID" />
+      </view>
+    </view>
+    <view wx:if="{{cust_shop_type=='WX'}}" class="information-input-item">
+      <view class="information-input-name">
+        公众号名称
+      </view>
+      <view class="information-input-input ">
+        <input type="text" name="officialname"   value='{{team.cust_public_name}}' placeholder="请输入公众号名称" />
+      </view>
+    </view>
+    <view wx:if="{{cust_shop_type=='Offline'}}" class="information-input-item">
+      <view class="information-input-name">
+        店铺地址
+      </view>
+      <view class="information-input-input ">
+        <input type="text" name="shopaddress" value='{{team.cust_shop_address}}' placeholder="请输入店铺地址" />
+      </view>
+    </view>
+    <view wx:if="{{cust_shop_type}}" class="information-input-item">
+      <view class="information-input-name">
+        职位
+      </view>
+      <view class="information-input-input ">
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+          <view wx:if="{{index}}" class="picker">{{array[index]}}
+          </view>
+          <view wx:else>{{team.cust_position}}</view>
+        </picker>
+      </view>
+    </view> -->
+
+
   </view>
-  <button class="body-submit common-bottom" formType="submit">修改</button>
+  <button class="body-submit common-bottom" wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" >保存</button>
 </form>

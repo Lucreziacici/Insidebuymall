@@ -56,6 +56,10 @@ page{
   justify-content: space-between;
   align-items: center;
 }
+.address-checkbox{
+  display: flex;
+  align-items: center;
+}
 .common-bottom{
   position: fixed;
   bottom: 0;

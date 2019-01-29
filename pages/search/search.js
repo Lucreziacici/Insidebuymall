@@ -4,6 +4,7 @@ var app = getApp()
 var url = app.globalData.url
 var appid = app.globalData.appid
 var title = app.globalData.title
+var resourceurl = app.globalData.resourceurl
 var list = null;
 var network = require("../../libs/network.js")
 Page({
@@ -14,7 +15,9 @@ Page({
   data: {
     resource: app.globalData.url,
     keyword:"",
-    history:[]
+    history:[],
+    hot:[],
+    resourceurl: resourceurl
   },
   /**
  * 生命周期函数--监听页面加载
@@ -27,12 +30,26 @@ Page({
           history: res.data
         })
       } 
-    })
+    });
+    this.SearchWordList();
   },
   keywordInput: function (event) {
     this.setData({
         keyword: event.detail.value
     })
+  },
+  SearchWordList:function(e){
+    network.GET("HotSearch/SearchWordList", (res) => {
+      console.log(res)
+      if (res.data.res_status_code == '0') {
+        this.setData({
+          hot: res.data.res_content
+        })
+      }
+    }, (res) => {
+      console.log(res)
+    })
+   
   },
   keywordSubmit:function(e){
     let historylist=this.data.history;
@@ -56,12 +73,12 @@ Page({
       data: historylist.unique()
     })
     wx.redirectTo({
-      url: '../allsearch/allsearch?keyword=' + this.data.keyword,
+      url: '../productList/productList?keyword=' + this.data.keyword,
     })
   },
   searchHistory:function(e){
     wx.redirectTo({
-      url: '../allsearch/allsearch?keyword=' + e.currentTarget.dataset.key,
+      url: '../productList/productList?keyword=' + e.currentTarget.dataset.key,
     })
   }
 })

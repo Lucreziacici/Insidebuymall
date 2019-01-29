@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "商品列表",
-  "usingComponents": {
-    "SuspendedNavigation": "/components/SuspendedNavigation/SuspendedNavigation",
-    "Toast": "/components/Toast/Toast",
-    "Commodity": "/components/Commodity/Commodity"
-  }
-}

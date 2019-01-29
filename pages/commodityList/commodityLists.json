@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "SuspendedNavigation": "/components/SuspendedNavigation/SuspendedNavigation",
-    "Commodity": "/components/Commodity/Commodity"
-  }
-}

@@ -1,0 +1,36 @@
+.flex_between_center{
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+}
+.couponitem{
+  background: #fe4858;
+  min-width: 210rpx;
+  margin:0 5rpx;
+  text-align: center;
+  font-size: 9pt;
+  padding: 10rpx 0;
+  margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: #fff2cc
+}
+.couponitem view{
+  margin: 5rpx 0 0 0;
+}
+.price{
+  font-size:15pt;
+}
+.receive{
+  background:#fedba5;
+  
+  padding: 10rpx 20rpx;
+  border-radius: 100px;
+  color: #fe4858;
+  font-weight: bold;
+
+}
+

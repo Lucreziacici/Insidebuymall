@@ -1,0 +1,42 @@
+<view>
+  <view class='coupon_box white'>
+    <text class='title'>可用优惠券</text>
+    <view class='coupon_list flex_column_start_center'>
+      <view wx:for="{{available_list}}" wx:key="key" class='coupon_item white flex_around_center' data-id='{{item.id}}' bindtap='choose'>
+        <view class='coupon_money valid flex_column_center_center'>
+          <view>{{item.price}}</view>
+          <view>满{{item.term}}减{{item.price}}</view>
+        </view>
+        <view class='coupon_message flex_column_center_start'>
+          <view class='coupon_title'>{{item.name}}</view>
+          <view>balabalabala</view>
+          <view>使用期限{{item.starttime}}至{{item.endtime}}</view>
+          <image wx:if="{{item.id==choose_coupon}}" class='choose_coupon' src="{{resourceurl}}11.png" data-id='{{item.id}}'></image>
+        </view>
+        <view>
+
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{un_available_list.length>0}}" class='coupon_box white'>
+    <text class='title'>不可用优惠券</text>
+    <view class='coupon_list flex_column_start_center'>
+      <view wx:for="{{un_available_list}}" wx:key="key" class='coupon_item white flex_around_center'>
+        <view class='coupon_money invalid flex_column_center_center'>
+          <view>{{item.price}}</view>
+          <view>满{{item.term}}减{{item.price}}</view>
+        </view>
+        <view class='coupon_message flex_column_center_start'>
+          <view class='coupon_title'>{{item.name}}</view>
+          <view>balabalabala</view>
+          <view>使用期限{{item.starttime}}至{{item.endtime}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="common-bottom" data-id='0' bindtap="choose">
+    <text>不使用优惠券</text>
+</view>
+<Toast id="Toast"></Toast>
