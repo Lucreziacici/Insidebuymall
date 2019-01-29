@@ -7,6 +7,30 @@
 .common-color {
   color: #9c855c;
 }
+/* 布局 */
+.flex_column_start_center{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex_column_center_start{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:flex-start;
+}
+.flex_around_center{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.flex_column_center_center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 /*公共按钮 */
 
@@ -334,3 +358,4 @@ overflow-y:auto;
   color: #c37f55;
   font-size: 8pt;
 }
+

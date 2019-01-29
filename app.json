@@ -27,7 +27,8 @@
     "pages/allproduct/allproduct",
     "pages/activity/activity",
     "pages/idcardList/idcardList",
-    "pages/yhjuan/yhjuan",
+    "pages/couponList/couponList",
+    "pages/chooseCoupon/chooseCoupon",
     "pages/index/index",
     "pages/logs/logs"
   ],

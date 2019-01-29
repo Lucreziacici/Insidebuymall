@@ -1,0 +1,15 @@
+<!-- 优惠券 -->
+
+  <view class='flex_between_center'>
+    <view wx:for="{{show_list}}" wx:key="key" class='couponitem'>
+      <view class='price'>￥{{item.price}}</view>
+      <view>满{{item.term}}可用</view>
+      <view wx:if="{{item.limit_flag=='Y'&&item.left_num<=0}}" class='receive'>已经抢光啦</view>
+      <view wx:else class='receive' bindtap='GetNewCoupon' data-id='{{item.coupon_id}}'>立即领取</view>
+    </view>
+   
+    
+  </view>
+
+
+<Toast id="Toast"></Toast>

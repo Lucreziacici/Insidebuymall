@@ -24,7 +24,10 @@ Page({
     scrollTop: 100,
     topNum: "",
     imgheights: [],
-    resourceurl: resourceurl
+    pop_list:[],//自动优惠券
+    show_list: [],//手动领取优惠券
+    total_coupon:{},
+    resourceurl: resourceurl,
   },
   formSubmit: function (e) {
     console.log(e.detail.formId)
@@ -32,6 +35,7 @@ Page({
   },
   onLoad: function() {
     network.IsuserInfo();
+    
   },
   /**
    * 生命周期函数--监听页面显示
@@ -52,7 +56,8 @@ Page({
           isApprove: true
         })
       }
-    })
+    });
+    
     network.GET("HomePage/RequestHomePage", (res) => {
       if (res.data.res_content.page.category_show_type == 'A') {
         for (var i = 0; i < res.data.res_content.recommend.length; i++) {
@@ -82,7 +87,22 @@ Page({
     }, (res) => {
       console.log(res)
     })
+    this.getCouponList();
   },
+  getCouponList:function(){
+    network.GET("Coupon/ShowCouponList", (res) => { 
+      console.log(res.data.res_content)
+      this.setData({
+        pop_list:res.data.res_content.pop_list,
+        show_list: res.data.res_content.show_list,
+        total_coupon: res.data.res_content.total_coupon
+      })
+
+    }, (res) => {
+      console.log(res)
+    })
+  },
+  
   imageLoad: function (e) {
     //获取图片真实宽度
     var imgwidth = e.detail.width,
@@ -109,13 +129,6 @@ Page({
       url: "/pages/search/search",
     })
   },
-  // getUserInfo: function (e) {
-  //   app.globalData.userInfo = e.detail.userInfo
-  //   this.setData({
-  //     userInfo: e.detail.userInfo,
-  //     hasUserInfo: true
-  //   })
-  // },
   onShareAppMessage: function(res) {
 
     if (res.from === 'button') {

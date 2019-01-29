@@ -318,6 +318,8 @@ contact-button {
   position: relative;
   display: flex;
   justify-content: flex-start;
+  background: white;
+  z-index: 1000;
 }
 
 .cover-header image {

@@ -100,17 +100,17 @@
 <view class='payitem white'>
   <view class='payheader'>
     <text>共{{order.goods_count}}件</text>
-    <text>合计:￥{{order.pay_price}}</text>
+    <text style='font-weight:bold'>合计:￥{{order.pay_price}}</text>
   </view>
   <view class='paybody'>
     <view wx:if="{{paymethod=='wx'}}">
       <form bindsubmit="zhifu" report-submit="true">
-        <button formType="submit">微信支付</button>
+        <button formType="submit">微信支付<text style='font-weight:bold'>（￥{{order.pay_price}}）</text></button>
       </form>
     </view>
     <view wx:if="{{paymethod=='ali'}}">
       <form bindsubmit="alipay" report-submit="true">
-        <button formType="submit">支付宝支付</button>
+        <button formType="submit">支付宝支付<text style='font-weight:bold'>（￥{{order.pay_price}}）</text></button>
       </form>
     </view>
   </view>
@@ -142,6 +142,10 @@
       <view>商品总价</view>
       <view> ￥{{order.goods_price}}</view>
     </view>
+    <navigator wx-if="{{order.price!==0}}" url='../chooseCoupon/chooseCoupon?order_no={{order_no}}&&coupon_id={{order.coupon_id}}' class='order-message-item'>
+      <text>选择优惠券</text>
+      <text>满{{order.term}}减{{order.price}}</text>
+    </navigator>
     <view wx-if="{{order.discount}}" class='order-message-item'>
       <text>优惠</text>
       <text>￥{{order.discount}}</text>

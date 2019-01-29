@@ -1,0 +1,122 @@
+.layer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.couponbox {
+  position: absolute;
+  margin: 0 auto;
+  width: 580rpx;
+  height: 700rpx;
+  border-radius: 20rpx;
+  background: linear-gradient(#fd4d5b, #fe4858);
+}
+
+.coupon_top {
+
+  height: 415rpx;
+}
+
+.coupon_top .headimg {
+  border: 4rpx solid #ff3b4e;
+  border-radius: 100%;
+  width: 100rpx;
+  height: 100rpx;
+  margin-top: -40rpx;
+}
+
+.couponImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.coupon_title {
+  font-size: 10pt;
+  color: white;
+  margin: 26rpx 0 0 0;
+}
+.couponList{
+  margin: 36rpx 0 0 0;
+  height: 300rpx;
+  overflow: auto;
+
+}
+
+.coupon_title text {
+  color: #fff2cc;
+  font-size: 20pt;
+  margin: 0 10rpx;
+}
+.icon{
+  width: 104rpx;
+  margin: 20rpx 0 ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 2rpx dashed #e53e42;
+}
+.icon image{
+  width: 50rpx;
+  height: 50rpx;
+}
+.couponItem {
+  width: 476rpx;
+  height: 128rpx;
+  display: flex;
+  justify-content: space-around;
+  background: #fffaf0;
+  margin: 0 0 15rpx 0;
+  border-radius: 10rpx;
+}
+
+.couponItem_amoutBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 376rpx;
+}
+
+.couponItem_amount {
+  font-size: 24pt;
+  color: #e53e42;
+  margin: 0 10rpx;
+  font-weight: bold;
+}
+
+.couponItem_condition view:nth-child(1){
+  color: #ff2746;
+  font-weight: bold;
+}
+.couponItem_condition view:nth-child(2){
+  color: #ec2e46;
+  font-size: 10pt;
+}
+
+.coupon_bottom{
+  height: 90rpx;
+  background: #fe4858;
+  margin:100rpx 0 0 0;
+  display: flex;
+  justify-content: center;
+  
+}
+.coupon_bottom button{
+  width: 492rpx;
+  height: 82rpx;
+  background: #fedba5;
+  color: #d6473d;
+  border-radius: 100rpx;
+  font-size: 10pt;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

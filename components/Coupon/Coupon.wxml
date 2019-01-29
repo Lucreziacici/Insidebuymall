@@ -1,0 +1,28 @@
+<view wx:if="{{show}}" class='layer'>
+<view class='couponbox'>
+  <view class='coupon_top'> 
+     <view class='couponImage'>
+        <image src='{{total_coupon.shop_logo}}' class='headimg'></image>
+        <view class='coupon_title'>恭喜您获得<text>￥{{total_coupon.total_price}}</text>元优惠券</view>
+        <view class='couponList'>
+          <view class='couponItem' wx:for="{{pop_list}}" wx:key="key">
+             <view class='icon'><image src='../../images/couponicon.png'></image></view>
+             <view class='couponItem_amoutBox'> 
+               <view class='couponItem_amount'>{{item.price}}/</view>
+               <view class='couponItem_condition'>
+                  <view>元</view>
+                  <view>[满{{item.term}}可用]</view>
+               </view>
+               
+             </view>
+          </view>
+
+        </view>
+     
+     </view>
+  </view>
+ 
+  <view class='coupon_bottom'>
+    <button bindtap='close'>进店看看</button>
+  </view>
+</view></view>

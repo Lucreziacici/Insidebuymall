@@ -121,11 +121,6 @@ Page({
         } else {
           this.selectComponent("#Toast").showToast(res.data.res_message)
         }
-        // prevPage.setData({
-        //   orderinformation: res.data.object,
-        //   orderslist: res.data.objs,
-        // })
-        // wx.navigateBack({})
       }, (res) => {
         console.log(res);
       }, this.data.userid)

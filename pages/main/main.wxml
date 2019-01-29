@@ -9,7 +9,7 @@
 <scroll-view class='scroll_box' scroll-y scroll-with-animation='true' scroll-top='{{ topNum }}'>
   <view class="container">
     <!--轮播  -->
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-color="#e1e1e1" indicator-active-color="#fff" interval="{{interval}}" duration="{{duration}}" class='swiper' style="height:{{imgheights[0]}}rpx;">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-color="#e1e1e1" indicator-active-color="#fff" interval="{{interval}}" duration="{{duration}}" class='swiper' style="height:{{imgheights[0]}}rpx;">
       <block wx:for="{{imgUrls}}" wx:key="{{item.id}}">
         <swiper-item>
           <navigator url="{{item.link_url}}">
@@ -18,15 +18,18 @@
         </swiper-item>
       </block>
     </swiper>
-     <!--导航菜单  -->
+    <!--导航菜单  -->
     <view class='navigation' wx:if="{{navigation_list.length>0}}">
-    <block wx:for="{{navigation_list}}" wx:key="{{item.id}}">
-      <navigator class='navigation-item' url="{{item.link_url}}">
-        <image src="{{item.img_url}}" mode='widthFix'></image>
-        <text class='common-color'>{{item.modal_name}}</text>
-      </navigator>
-    </block>
-  </view>
+      <block wx:for="{{navigation_list}}" wx:key="{{item.id}}">
+        <navigator class='navigation-item' url="{{item.link_url}}">
+          <image src="{{item.img_url}}" mode='widthFix'></image>
+          <text class='common-color'>{{item.modal_name}}</text>
+        </navigator>
+      </block>
+    </view>
+    <scroll-view scroll-x="true">
+      <ReceiveCoupon wx:if="{{show_list.length>0}}" show_list="{{show_list}}"></ReceiveCoupon>
+    </scroll-view>
     <!-- 公告 -->
     <view wx:if="{{page.shop_notice_url}}" class='notice'>
       <form report-submit="true" bindsubmit="formSubmit">
@@ -77,3 +80,5 @@
   <image src='{{resourceurl}}TOP.png'></image>
 </view>
 <Toast id="Toast"></Toast>
+
+<Coupon wx:if="{{pop_list.length>0}}" pop_list="{{pop_list}}" total_coupon="{{total_coupon}}"></Coupon>

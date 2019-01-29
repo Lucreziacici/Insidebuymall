@@ -7,6 +7,8 @@
   "usingComponents": {
     "SuspendedNavigation": "/components/SuspendedNavigation/SuspendedNavigation",
     "Toast": "/components/Toast/Toast",
-    "Commodity": "/components/Commodity/Commodity"
+    "Commodity": "/components/Commodity/Commodity",
+    "ReceiveCoupon":"/components/ReceiveCoupon/ReceiveCoupon",
+    "Coupon": "/components/Coupon/Coupon"
   }
 }

@@ -62,7 +62,6 @@ App({
   getUserInfo: function(cb) {
     if (this.globalData.userInfo && this.globalData.open_id) {
       typeof cb == "function" && cb(this.globalData.userInfo, this.globalData.open_id)
-      console.log(cb)
     } else {
       //调用登录接口
       wx.login({
@@ -72,6 +71,7 @@ App({
             wx.request({
               //正式
               url: "https://mall.shjinjia.com.cn/api/Customer/GetOpenID?js_code=" + e.code + "",
+              // url: "https://mall.comeyang.com/api/Customer/GetOpenID?js_code=" + e.code + "",
               //测试
               // url: "https://mallt.shjinjia.com.cn/api/Customer/GetOpenID?js_code=" + e.code + "",
               //文慧
@@ -167,6 +167,7 @@ App({
   globalData: {
     url: 'https://fx.comeyang.com',
     resourceurl: 'http://cdn.mallimg.shjinjia.com.cn/Uploads/SysImages/068/',
+    // resourceurl: 'http://mallimg.comeyang.com/Uploads/SysImages/068/',
     userInfo: {},
     open_id: null,
 

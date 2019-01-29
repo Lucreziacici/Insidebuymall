@@ -46,17 +46,33 @@ Page({
             })
           }
         } else {
-          network.GET("Category/CategoryList?id=" + res.data.res_content[0].id, (res) => {
-            if (res.data.res_status_code == '0') {
-              this.setData({
-                classifyitem: res.data.res_content
-              })
-            } else {
-              this.selectComponent("#Toast").showToast(res.data.res_message)
-            }
-          }, (res) => {
-            console.log(res)
-          })
+          if (res.data.res_content[0].name == '品牌导航') {
+            network.GET("Brand/BrandList", (res) => {
+              if (res.data.res_status_code == '0') {
+                this.setData({
+                  classifyitem: res.data.res_content,
+                  classify: false
+                })
+                wx.hideLoading()
+              } else {
+                this.selectComponent("#Toast").showToast(res.data.res_message)
+              }
+            }, (res) => {
+              console.log(res)
+            })
+          } else {
+            network.GET("Category/CategoryList?id=" + res.data.res_content[0].id, (res) => {
+              if (res.data.res_status_code == '0') {
+                this.setData({
+                  classifyitem: res.data.res_content
+                })
+              } else {
+                this.selectComponent("#Toast").showToast(res.data.res_message)
+              }
+            }, (res) => {
+              console.log(res)
+            })
+          }
         }
 
       }
